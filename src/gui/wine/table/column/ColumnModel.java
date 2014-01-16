@@ -13,6 +13,12 @@ public class ColumnModel {
 		columns = new ArrayList<Column<?>>();
 		columns.add(new IndexColumn());
 		columns.add(new NameColumn());
+<<<<<<< HEAD
+=======
+		columns.add(new CityColumn());
+		columns.add(new RegionColumn());
+		columns.add(new CountryColumn());
+>>>>>>> b84e755e8de1e96b9412d8f727ce157d35520eac
 	}
 
 	public String getName(int col) {

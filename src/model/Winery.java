@@ -1,5 +1,9 @@
 package model;
 import java.io.Serializable;
+<<<<<<< HEAD
+=======
+import java.util.List;
+>>>>>>> b84e755e8de1e96b9412d8f727ce157d35520eac
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
