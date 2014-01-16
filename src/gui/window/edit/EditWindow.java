@@ -27,8 +27,8 @@ public class EditWindow extends BaseWindow {
 		this.wine = wine;
 
 		cities = new ArrayList<City>();
-		cities.add(new City("City", 1234, null));
-		cities.add(new City("City2", 1234, null));
+		cities.add(new City("City", "1234", null));
+		cities.add(new City("City2", "1234", null));
 
 		setTitle(isCreate() ? "Create" : "Update");
 

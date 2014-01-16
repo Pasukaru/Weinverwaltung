@@ -24,7 +24,7 @@ public class DbButton extends ActionButton {
 	private static final long serialVersionUID = -4715489416822515615L;
 
 	public DbButton() {
-		super("Reset DB");
+		super("Fill DB");
 	}
 
 	@Override
@@ -48,9 +48,9 @@ public class DbButton extends ActionButton {
 		Region region2 = new Region("Toskana", country2);
 		Region region3 = new Region("Normandie", country3);
 
-		City city1 = new City("München", 88888, region1);
-		City city2 = new City("Pisa", 12152, region2);
-		City city3 = new City("Lille", 65594, region3);
+		City city1 = new City("München", "88888", region1);
+		City city2 = new City("Pisa", "12152", region2);
+		City city3 = new City("Lille", "65594", region3);
 
 		Set<Vine> vines1 = new HashSet<Vine>();
 		Vine vine1 = new Vine("Merlot");
@@ -97,26 +97,6 @@ public class DbButton extends ActionButton {
 			winery3);
 
 		tx.begin();
-		JpaUtil.getEM().persist(country1);
-		JpaUtil.getEM().persist(country2);
-		JpaUtil.getEM().persist(country3);
-		JpaUtil.getEM().persist(region1);
-		JpaUtil.getEM().persist(region2);
-		JpaUtil.getEM().persist(region3);
-		JpaUtil.getEM().persist(city1);
-		JpaUtil.getEM().persist(city2);
-		JpaUtil.getEM().persist(city3);
-		JpaUtil.getEM().persist(vine1);
-		JpaUtil.getEM().persist(vine2);
-		JpaUtil.getEM().persist(vine3);
-		JpaUtil.getEM().persist(vine4);
-		JpaUtil.getEM().persist(winery1);
-		JpaUtil.getEM().persist(winery2);
-		JpaUtil.getEM().persist(winery3);
-		JpaUtil.getEM().persist(sort1);
-		JpaUtil.getEM().persist(sort2);
-		JpaUtil.getEM().persist(type1);
-		JpaUtil.getEM().persist(type2);
 		JpaUtil.getEM().persist(wine1);
 		JpaUtil.getEM().persist(wine2);
 		JpaUtil.getEM().persist(wine3);

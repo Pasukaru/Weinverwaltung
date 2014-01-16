@@ -23,13 +23,13 @@ public class City extends Model implements Serializable {
 	@Column(name = "id")
 	private Integer id;
 	private String name;
-	private Integer zipCode;
+	private String zipCode;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "region_id")
 	private Region region;
 
-	public City(String name, Integer zipCode, Region region) {
+	public City(String name, String zipCode, Region region) {
 		super();
 		this.name = name;
 		this.zipCode = zipCode;
@@ -48,11 +48,11 @@ public class City extends Model implements Serializable {
 		this.name = name;
 	}
 
-	public Integer getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(Integer zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 

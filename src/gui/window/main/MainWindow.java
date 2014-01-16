@@ -39,7 +39,7 @@ public class MainWindow extends BaseWindow {
 		Wine w = new Wine(
 			"Irgendwas",
 			new HashSet<Vine>(),
-			new City("City", 123456, new Region(
+			new City("City", "123456", new Region(
 				"Region",
 				new Country("Country"))), new Sort("Sort"), new model.Type(
 				"Type"), new Winery("Winery"));
