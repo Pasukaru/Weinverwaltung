@@ -1,6 +1,7 @@
 package gui.window.edit;
 
 import gui.CityRenderer;
+import gui.TypeRenderer;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -11,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import model.City;
+import model.Type;
 import model.Wine;
 
 public class DataPanel extends JPanel {
@@ -21,27 +23,25 @@ public class DataPanel extends JPanel {
 	private Wine wine;
 
 	private JComboBox<City> city;
+	private JComboBox<Type> type;
 	private JTextField name;
 
-	private int gridx = 0;
 	private int gridy = 0;
 
 	public DataPanel(final EditWindow editWindow) {
 		this.setLayout(new GridBagLayout());
-
-		wine = editWindow.getWine();
-		name = new JTextField();
-		addName();
 		this.editWindow = editWindow;
+
 		wine = editWindow.getWine();
 
 		addName();
 		addCity();
+		addType();
 	}
 
-	private GridBagConstraints next(int gridy) {
+	private GridBagConstraints next(int gridx, int gridy) {
 		GridBagConstraints grid = new GridBagConstraints();
-		grid.gridx = gridx++;
+		grid.gridx = gridx;
 		grid.gridy = gridy;
 		grid.weightx = 1.0;
 		grid.weighty = 1.0;
@@ -57,10 +57,11 @@ public class DataPanel extends JPanel {
 		} else {
 			name.setText("");
 		}
-		this.add(new JLabel("Name"), next(++gridy));
-		this.add(name, next(gridy));
+		add(new JLabel("Name"), next(0, ++gridy));
+		add(name, next(1, gridy));
 	}
 
+	@SuppressWarnings("unchecked")
 	private void addCity() {
 		City[] cities = editWindow.getCities().toArray(new City[0]);
 
@@ -68,8 +69,20 @@ public class DataPanel extends JPanel {
 		city.setRenderer(new CityRenderer());
 		city.setSelectedItem(wine.getCity());
 
-		this.add(new JLabel("City"), next(++gridy));
-		this.add(city, next(gridy));
+		add(new JLabel("City"), next(0, ++gridy));
+		add(city, next(1, gridy));
+	}
+
+	@SuppressWarnings("unchecked")
+	private void addType() {
+		Type[] types = editWindow.getTypes().toArray(new Type[0]);
+
+		type = new JComboBox<Type>(types);
+		type.setRenderer(new TypeRenderer());
+		type.setSelectedItem(wine.getType());
+
+		add(new JLabel("Type"), next(0, ++gridy));
+		add(type, next(1, gridy));
 	}
 
 	public String getName() {
