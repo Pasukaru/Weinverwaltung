@@ -5,9 +5,9 @@ import java.awt.Component;
 import javax.swing.JList;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
-import model.City;
+import model.Type;
 
-public class CityRenderer extends BasicComboBoxRenderer {
+public class TypeRenderer extends BasicComboBoxRenderer {
 
 	private static final long serialVersionUID = 6745412362568365583L;
 
@@ -23,8 +23,8 @@ public class CityRenderer extends BasicComboBoxRenderer {
 			cellHasFocus);
 
 		if (value != null) {
-			City city = (City) value;
-			setText(city.getName());
+			Type type = (Type) value;
+			setText(type.getName());
 		}
 
 		return this;

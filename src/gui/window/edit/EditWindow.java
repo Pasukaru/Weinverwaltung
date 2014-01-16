@@ -18,6 +18,7 @@ public class EditWindow extends BaseWindow {
 	private final Wine wine;
 
 	private final List<City> cities;
+	private final List<model.Type> types;
 
 	private final DataPanel dataPanel;
 	private final ButtonsPanel buttonsPanel;
@@ -27,8 +28,12 @@ public class EditWindow extends BaseWindow {
 		this.wine = wine;
 
 		cities = new ArrayList<City>();
-		cities.add(new City("City", 1234, null));
+		cities.add(new City("City1", 1234, null));
 		cities.add(new City("City2", 1234, null));
+
+		types = new ArrayList<model.Type>();
+		types.add(new model.Type("Type1"));
+		types.add(new model.Type("Type2"));
 
 		setTitle(isCreate() ? "Create" : "Update");
 
@@ -53,6 +58,10 @@ public class EditWindow extends BaseWindow {
 
 	public List<City> getCities() {
 		return cities;
+	}
+
+	public List<model.Type> getTypes() {
+		return types;
 	}
 
 	public void setVisible(boolean b) {
