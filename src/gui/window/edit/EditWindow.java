@@ -10,6 +10,7 @@ import java.util.List;
 
 import model.City;
 import model.Wine;
+import util.Repository;
 
 public class EditWindow extends BaseWindow {
 
@@ -27,9 +28,7 @@ public class EditWindow extends BaseWindow {
 		super();
 		this.wine = wine;
 
-		cities = new ArrayList<City>();
-		cities.add(new City("City", "1234", null));
-		cities.add(new City("City2", "1234", null));
+		cities = Repository.getInstance().getAllCities();
 
 		types = new ArrayList<model.Type>();
 		types.add(new model.Type("Type1"));

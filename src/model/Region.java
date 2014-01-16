@@ -1,4 +1,5 @@
 package model;
+
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
@@ -11,22 +12,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="Region")
+@Table(name = "Region")
 public class Region extends Model implements Serializable {
 
 	private static final long serialVersionUID = 8631375902987124009L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private Integer id;
 	private String name;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "country_id")
 	private Country country;
+
+	public Region() {
+		super();
+	}
 
 	public Region(String name, Country country) {
 		super();

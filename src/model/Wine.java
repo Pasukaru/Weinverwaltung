@@ -49,6 +49,10 @@ public class Wine extends Model implements Serializable {
 	@JoinColumn(name = "winery_id")
 	private Winery winery;
 
+	public Wine() {
+		super();
+	}
+
 	public Wine(String name, Set<Vine> vine, City city, Sort sort, Type type,
 		Winery winery) {
 		super();

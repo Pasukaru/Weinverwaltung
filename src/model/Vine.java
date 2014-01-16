@@ -1,4 +1,5 @@
 package model;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,17 +11,20 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="Vine")
+@Table(name = "Vine")
 public class Vine extends Model implements Serializable {
 
 	private static final long serialVersionUID = -3967082767052216274L;
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String name;
+
+	public Vine() {
+		super();
+	}
 
 	public Vine(String name) {
 		super();
@@ -45,6 +49,5 @@ public class Vine extends Model implements Serializable {
 	public Set<Wine> getWine() {
 		return wine;
 	}
-
 
 }

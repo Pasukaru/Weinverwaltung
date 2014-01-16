@@ -19,6 +19,10 @@ public class Winery extends Model implements Serializable {
 	private Integer id;
 	private String name;
 
+	public Winery() {
+		super();
+	}
+
 	public Winery(String name) {
 		super();
 		this.name = name;

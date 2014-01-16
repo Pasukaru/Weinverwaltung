@@ -36,8 +36,6 @@ public class DbButton extends ActionButton {
 
 	private void setDbData() {
 
-		JpaUtil.init("WEINVERWALTUNG");
-
 		EntityTransaction tx = JpaUtil.getTx();
 
 		Country country1 = new Country("Deutschland");

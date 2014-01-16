@@ -29,6 +29,10 @@ public class City extends Model implements Serializable {
 	@JoinColumn(name = "region_id")
 	private Region region;
 
+	public City() {
+		super();
+	}
+
 	public City(String name, String zipCode, Region region) {
 		super();
 		this.name = name;
