@@ -1,4 +1,5 @@
 package model;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,42 +15,42 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name= "Wine")
+@Table(name = "Wine")
 public class Wine extends Model implements Serializable {
 
 	private static final long serialVersionUID = -8755001068472289262L;
 
 	@Id
-	@GeneratedValue( strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String name;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(name = "WineVine", joinColumns = { @JoinColumn(name = "wine_id") }, inverseJoinColumns = { @JoinColumn(name = "vine_id") })
+	@JoinTable(
+		name = "WineVine",
+		joinColumns = { @JoinColumn(name = "wine_id") },
+		inverseJoinColumns = { @JoinColumn(name = "vine_id") })
 	private Set<Vine> vine = new HashSet<Vine>();
 
-	@ManyToOne(cascade= CascadeType.ALL)
-	@JoinColumn(name= "city_id")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "city_id")
 	private City city;
 
-	@ManyToOne(cascade= CascadeType.ALL)
-	@JoinColumn(name="sort_id")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "sort_id")
 	private Sort sort;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="type_id")
+	@JoinColumn(name = "type_id")
 	private Type type;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="winery_id")
+	@JoinColumn(name = "winery_id")
 	private Winery winery;
 
-
-
 	public Wine(String name, Set<Vine> vine, City city, Sort sort, Type type,
-			Winery winery) {
+		Winery winery) {
 		super();
 		this.name = name;
 		this.vine = vine;

@@ -11,10 +11,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-<<<<<<< HEAD
-import model.Vine;
-import model.Wine;
-=======
 import model.City;
 import model.Country;
 import model.Region;
@@ -22,7 +18,6 @@ import model.Sort;
 import model.Vine;
 import model.Wine;
 import model.Winery;
->>>>>>> b84e755e8de1e96b9412d8f727ce157d35520eac
 
 public class MainWindow extends BaseWindow {
 
@@ -44,18 +39,10 @@ public class MainWindow extends BaseWindow {
 		Wine w = new Wine(
 			"Irgendwas",
 			new HashSet<Vine>(),
-<<<<<<< HEAD
-			null,
-			null,
-			null,
-			null);
-=======
-			new City("City", "123456", new Region("Region", new Country(
-				"Country"))),
-			new Sort("Sort"),
-			new model.Type("Type"),
-			new Winery("Winery"));
->>>>>>> b84e755e8de1e96b9412d8f727ce157d35520eac
+			new City("City", 123456, new Region(
+				"Region",
+				new Country("Country"))), new Sort("Sort"), new model.Type(
+				"Type"), new Winery("Winery"));
 		wines.add(w);
 
 		Container container = this.getContentPane();
