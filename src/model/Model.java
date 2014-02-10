@@ -7,6 +7,8 @@ import java.util.Calendar;
 
 public abstract class Model {
 
+	public abstract Integer getId();
+	
 	@Override
 	public String toString() {
 		Class<?> clazz = this.getClass();

@@ -1,10 +1,10 @@
 package gui.window.main;
 
 import events.EventManager;
+import gui.table.wine.WineTable;
+import gui.table.wine.WineTableModel;
 import gui.window.BaseWindow;
 import gui.window.main.tabs.wines.WineTab;
-import gui.wine.table.Table;
-import gui.wine.table.TableModel;
 
 import java.awt.Component;
 import java.awt.event.WindowEvent;
@@ -47,11 +47,11 @@ public class MainWindow extends BaseWindow {
 		tabPane.addTab("+", new JPanel());
 	}
 
-	public TableModel getTableModel() {
+	public WineTableModel getTableModel() {
 		return null;
 	}
 
-	public Table getTable() {
+	public WineTable getTable() {
 		return null;
 	}
 

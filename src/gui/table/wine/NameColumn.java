@@ -1,4 +1,4 @@
-package gui.wine.table.column;
+package gui.table.wine;
 
 import model.Wine;
 

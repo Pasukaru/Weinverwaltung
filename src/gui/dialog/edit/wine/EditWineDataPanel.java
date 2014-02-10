@@ -1,17 +1,16 @@
-package gui.window.edit.wine;
+package gui.dialog.edit.wine;
 
 import gui.CityRenderer;
 import gui.SortRenderer;
 import gui.TypeRenderer;
 import gui.VineRenderer;
 import gui.WineryRenderer;
+import gui.dialog.edit.EditDataPanel;
 
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import model.City;
@@ -22,12 +21,11 @@ import model.Wine;
 import model.Winery;
 
 @SuppressWarnings("unchecked")
-public class DataPanel extends JPanel {
+public class EditWineDataPanel extends EditDataPanel<Wine> {
 
 	private static final long serialVersionUID = 646403762781205389L;
 
-	private final EditWindow editWindow;
-	private Wine wine;
+	private final EditWineDialog editWindow;
 
 	private JTextField name;
 	private JComboBox<City> city;
@@ -36,13 +34,10 @@ public class DataPanel extends JPanel {
 	private JComboBox<Vine> vine;
 	private JComboBox<Winery> winery;
 
-	private int gridy = 0;
-
-	public DataPanel(final EditWindow editWindow) {
+	public EditWineDataPanel(final EditWineDialog editWindow) {
+		super(editWindow.getModel());
 		this.setLayout(new GridBagLayout());
 		this.editWindow = editWindow;
-
-		wine = editWindow.getWine();
 
 		addName();
 		addCity();
@@ -51,22 +46,11 @@ public class DataPanel extends JPanel {
 		addVine();
 		addWinery();
 	}
-
-	private GridBagConstraints next(int gridx, int gridy) {
-		GridBagConstraints grid = new GridBagConstraints();
-		grid.gridx = gridx;
-		grid.gridy = gridy;
-		grid.weightx = 1.0;
-		grid.weighty = 1.0;
-		grid.fill = GridBagConstraints.HORIZONTAL;
-		grid.anchor = GridBagConstraints.CENTER;
-		return grid;
-	}
-
+	
 	private void addName() {
 		name = new JTextField();
-		if (wine != null) {
-			name.setText(wine.getName());
+		if (model != null) {
+			name.setText(model.getName());
 		} else {
 			name.setText("");
 		}
@@ -79,11 +63,10 @@ public class DataPanel extends JPanel {
 
 		city = new JComboBox<City>(cities);
 		city.setRenderer(new CityRenderer());
-		city.setSelectedItem(wine.getCity());
+		city.setSelectedItem(model.getCity());
 
 		add(new JLabel("City"), next(0, ++gridy));
 		add(city, next(1, gridy));
-		add(new AddCityButton(editWindow), next(2, gridy));
 	}
 
 	private void addSort() {
@@ -91,11 +74,10 @@ public class DataPanel extends JPanel {
 
 		sort = new JComboBox<Sort>(sorts);
 		sort.setRenderer(new SortRenderer());
-		sort.setSelectedItem(wine.getSort());
+		sort.setSelectedItem(model.getSort());
 
 		add(new JLabel("Sort"), next(0, ++gridy));
 		add(sort, next(1, gridy));
-		add(new AddCityButton(editWindow), next(2, gridy));
 	}
 
 	private void addVine() {
@@ -103,11 +85,10 @@ public class DataPanel extends JPanel {
 
 		vine = new JComboBox<Vine>(vines);
 		vine.setRenderer(new VineRenderer());
-		vine.setSelectedItem(wine.getVine());
+		vine.setSelectedItem(model.getVine());
 
 		add(new JLabel("Vine"), next(0, ++gridy));
 		add(vine, next(1, gridy));
-		add(new AddCityButton(editWindow), next(2, gridy));
 	}
 
 	private void addWinery() {
@@ -115,11 +96,10 @@ public class DataPanel extends JPanel {
 
 		winery = new JComboBox<Winery>(wineries);
 		winery.setRenderer(new WineryRenderer());
-		winery.setSelectedItem(wine.getWinery());
+		winery.setSelectedItem(model.getWinery());
 
 		add(new JLabel("Winery"), next(0, ++gridy));
 		add(winery, next(1, gridy));
-		add(new AddCityButton(editWindow), next(2, gridy));
 	}
 
 	private void addType() {
@@ -127,11 +107,10 @@ public class DataPanel extends JPanel {
 
 		type = new JComboBox<Type>(types);
 		type.setRenderer(new TypeRenderer());
-		type.setSelectedItem(wine.getType());
+		type.setSelectedItem(model.getType());
 
 		add(new JLabel("Type"), next(0, ++gridy));
 		add(type, next(1, gridy));
-		add(new AddCityButton(editWindow), next(2, gridy));
 	}
 
 	public String getName() {

@@ -1,12 +1,12 @@
-package gui.wine.table;
+package gui.table.wine;
 
 import javax.swing.JTable;
 
-public class Table extends JTable {
+public class WineTable extends JTable {
 
 	private static final long serialVersionUID = 1L;
 
-	public Table(TableModel m) {
+	public WineTable(WineTableModel m) {
 		super(m);
 
 		this.setRowHeight(25);

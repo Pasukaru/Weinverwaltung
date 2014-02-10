@@ -1,7 +1,7 @@
 package gui.window.main.tabs.wines;
 
 import gui.ActionButton;
-import gui.window.edit.wine.EditWindow;
+import gui.dialog.edit.wine.EditWineDialog;
 
 import java.awt.event.ActionEvent;
 
@@ -35,7 +35,7 @@ public class EditButton extends ActionButton implements ListSelectionListener {
 		if (w == null) {
 			JOptionPane.showMessageDialog(null, "No wine selected");
 		} else {
-			new EditWindow(w).setVisible(true);
+			new EditWineDialog(w).show();
 		}
 	}
 }

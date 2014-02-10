@@ -8,7 +8,7 @@ public class ButtonsPanel extends JPanel {
 
 	public ButtonsPanel(WineTab tab) {
 		super();
-		this.add(new AddButton(tab));
+		this.add(new AddButton());
 		this.add(new EditButton(tab));
 	}
 }

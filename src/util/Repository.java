@@ -12,6 +12,7 @@ import model.Vine;
 import model.Wine;
 import model.Winery;
 
+import org.hibernate.FlushMode;
 import org.hibernate.Session;
 
 @SuppressWarnings("unchecked")
@@ -22,6 +23,7 @@ public class Repository {
 
 	private Repository(Session session) {
 		this.session = session;
+		session.setFlushMode(FlushMode.ALWAYS);
 	}
 
 	public static Repository getInstance() {
@@ -33,6 +35,7 @@ public class Repository {
 
 	public void updateModel(Model model) {
 		session.persist(model);
+		session.update(model);
 		session.flush();
 	}
 

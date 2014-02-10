@@ -1,11 +1,11 @@
-package gui.window.edit.wine;
+package gui.dialog.edit.wine;
 
-import gui.window.BaseWindow;
+import gui.dialog.edit.EditButtonPanel;
+import gui.dialog.edit.EditDialog;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.util.List;
+
 import model.City;
 import model.Sort;
 import model.Vine;
@@ -13,51 +13,50 @@ import model.Wine;
 import model.Winery;
 import util.Repository;
 
-public class EditWindow extends BaseWindow {
+public class EditWineDialog extends EditDialog<Wine> {
 
 	private static final long serialVersionUID = -9141574978152096541L;
-
-	private final Wine wine;
 
 	private final List<City> cities;
 	private final List<model.Type> types;
 	private final List<Sort> sorts;
-
 	private final List<Vine> vines;
 	private final List<Winery> wineries;
 
-	private final DataPanel dataPanel;
-	private final ButtonsPanel buttonsPanel;
+	private final EditWineDataPanel dataPanel;
+	private final EditButtonPanel<Wine> buttonsPanel;
 
-	public EditWindow(Wine wine) {
-		super();
-		this.wine = wine;
+	public EditWineDialog(final Wine wine) {
+		super(wine);
 
+		setTitle(isCreate() ? "Create Wine" : "Edit Wine");
+		
 		cities = Repository.getInstance().getAllCities();
 		types = Repository.getInstance().getAllTypes();
 		sorts = Repository.getInstance().getAllSorts();
 		vines = Repository.getInstance().getAllVines();
 		wineries = Repository.getInstance().getAllWineries();
 
-		setTitle(isCreate() ? "Create" : "Update");
-
-		Container container = getContentPane();
-		container.setLayout(new BorderLayout());
-
-		add(dataPanel = new DataPanel(this), BorderLayout.CENTER);
-		add(buttonsPanel = new ButtonsPanel(this), BorderLayout.SOUTH);
-
-		pack();
-		setSize(new Dimension(500, 500));
-		setLocationRelativeTo(null);
+		setLayout(new BorderLayout());
+		add(dataPanel = new EditWineDataPanel(this), BorderLayout.CENTER);
+		add(buttonsPanel = new EditButtonPanel<Wine>(this), BorderLayout.SOUTH);
+	}
+	
+	@Override
+	public void save(){
+		model.setName(dataPanel.getName());
+		model.setCity(dataPanel.getCity());
+		model.setType(dataPanel.getType());
+		//TODO update these properties in the model
+		//model.setSort(dataP);
+		//model.setVine(dataPanel.getvin);
+		//model.getWinery(dataPanel.getw);
+		Repository.getInstance().updateModel(model);
+		close();
 	}
 
 	public boolean isCreate() {
-		return wine.getId() == null;
-	}
-
-	public Wine getWine() {
-		return wine;
+		return model.getId() == null;
 	}
 
 	public List<City> getCities() {
@@ -84,11 +83,11 @@ public class EditWindow extends BaseWindow {
 		super.setVisible(b);
 	}
 
-	public DataPanel getDataPanel() {
+	public EditWineDataPanel getDataPanel() {
 		return dataPanel;
 	}
 
-	public ButtonsPanel getButtonsPanel() {
+	public EditButtonPanel<Wine> getButtonsPanel() {
 		return buttonsPanel;
 	}
 }

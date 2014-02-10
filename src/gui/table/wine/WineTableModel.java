@@ -1,6 +1,4 @@
-package gui.wine.table;
-
-import gui.wine.table.column.ColumnModel;
+package gui.table.wine;
 
 import java.util.List;
 
@@ -8,14 +6,14 @@ import javax.swing.table.AbstractTableModel;
 
 import model.Wine;
 
-public class TableModel extends AbstractTableModel {
+public class WineTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 
 	private ColumnModel columnModel;
 	private List<Wine> data;
 
-	public TableModel(List<Wine> data) {
+	public WineTableModel(List<Wine> data) {
 		super();
 		this.columnModel = new ColumnModel();
 		this.data = data;
