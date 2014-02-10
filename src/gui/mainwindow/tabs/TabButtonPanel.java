@@ -1,4 +1,4 @@
-package gui.window.main.tabs;
+package gui.mainwindow.tabs;
 
 import model.Model;
 

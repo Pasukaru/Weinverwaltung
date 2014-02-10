@@ -1,9 +1,9 @@
-package gui.window.main.tabs.wines;
+package gui.mainwindow.tabs.wine;
 
 import events.EventManager;
+import gui.mainwindow.tabs.ModelTab;
 import gui.table.wine.WineTable;
 import gui.table.wine.WineTableModel;
-import gui.window.main.tabs.ModelTab;
 
 import java.awt.BorderLayout;
 

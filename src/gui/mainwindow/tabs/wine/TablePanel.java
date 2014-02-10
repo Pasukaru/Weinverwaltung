@@ -1,4 +1,4 @@
-package gui.window.main.tabs.wines;
+package gui.mainwindow.tabs.wine;
 
 import gui.table.wine.WineTable;
 import gui.table.wine.WineTableModel;
