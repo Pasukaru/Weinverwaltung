@@ -5,7 +5,6 @@ import gui.window.BaseWindow;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.List;
 
 import model.City;
@@ -29,10 +28,7 @@ public class EditWindow extends BaseWindow {
 		this.wine = wine;
 
 		cities = Repository.getInstance().getAllCities();
-
-		types = new ArrayList<model.Type>();
-		types.add(new model.Type("Type1"));
-		types.add(new model.Type("Type2"));
+		types = Repository.getInstance().getAllTypes();
 
 		setTitle(isCreate() ? "Create" : "Update");
 

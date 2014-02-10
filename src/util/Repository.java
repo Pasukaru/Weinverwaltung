@@ -6,12 +6,14 @@ import model.City;
 import model.Country;
 import model.Region;
 import model.Sort;
+import model.Type;
 import model.Vine;
 import model.Wine;
 import model.Winery;
 
 import org.hibernate.Session;
 
+@SuppressWarnings("unchecked")
 public class Repository {
 
 	private Session session = null;
@@ -28,10 +30,18 @@ public class Repository {
 		return instance;
 	}
 
-	@SuppressWarnings("unchecked")
+	public void updateWine(Wine wine) {
+		session.persist(wine);
+	}
+
+	public void updateCity(City city) {
+		session.persist(city);
+	}
+
 	public List<City> getAllCities() {
 		return session.createCriteria(City.class).list();
 	}
+
 
 	public List<Country> getAllCountries(){
 		return session.createCriteria(Country.class).list();
@@ -55,5 +65,9 @@ public class Repository {
 
 	public List<Winery> getAllWineries(){
 		return session.createCriteria(Winery.class).list();
+	}
+
+	public List<Type> getAllTypes() {
+		return session.createCriteria(Type.class).list();
 	}
 }
