@@ -41,7 +41,7 @@ public abstract class Model {
 					sb.append("-");
 					sb.append(cal.get(Calendar.DAY_OF_MONTH));
 				} else {
-					sb.append(value);
+					// sb.append(value);
 				}
 			} catch (IllegalArgumentException e) {
 				sb.append("null");
