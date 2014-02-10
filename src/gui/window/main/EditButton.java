@@ -35,7 +35,7 @@ public class EditButton extends ActionButton implements ListSelectionListener {
 		if (w == null) {
 			JOptionPane.showMessageDialog(null, "No wine selected");
 		} else {
-			new gui.window.edit.EditWindow(w).setVisible(true);
+			new gui.window.edit.EditWindow(w, mainWindow).setVisible(true);
 		}
 	}
 }

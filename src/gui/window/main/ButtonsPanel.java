@@ -15,7 +15,7 @@ public class ButtonsPanel extends JPanel {
 		this.mainWindow = p;
 
 		setLayout(new FlowLayout());
-		this.add(new DbButton());
+		this.add(new DbButton(mainWindow));
 		this.add(new EditButton(mainWindow));
 	}
 }

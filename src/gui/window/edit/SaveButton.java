@@ -33,5 +33,6 @@ public class SaveButton extends ActionButton {
 		wine.setType(data.getType());
 		Repository.getInstance().updateWine(wine);
 		editWindow.dispose();
+		editWindow.getMainWindow().getTableModel().fireTableDataChanged();
 	}
 }

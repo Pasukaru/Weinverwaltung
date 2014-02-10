@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.EntityTransaction;
-import javax.swing.JOptionPane;
 
 import model.City;
 import model.Country;
@@ -23,15 +22,16 @@ public class DbButton extends ActionButton {
 
 	private static final long serialVersionUID = -4715489416822515615L;
 
-	public DbButton() {
+	private final MainWindow mainWindow;
+
+	public DbButton(MainWindow mainWindow) {
 		super("Fill DB");
+		this.mainWindow = mainWindow;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
 		setDbData();
-		JOptionPane.showMessageDialog(null, "Db filled");
 	}
 
 	private void setDbData() {
@@ -100,5 +100,6 @@ public class DbButton extends ActionButton {
 		JpaUtil.getEM().persist(wine3);
 		tx.commit();
 
+		mainWindow.loadData();
 	}
 }

@@ -8,16 +8,10 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
-import model.City;
-import model.Country;
-import model.Region;
-import model.Sort;
-import model.Vine;
 import model.Wine;
-import model.Winery;
+import util.Repository;
 
 public class MainWindow extends BaseWindow {
 
@@ -32,18 +26,12 @@ public class MainWindow extends BaseWindow {
 		super("Weinverwaltung");
 
 		wines = new ArrayList<Wine>();
+
 		tableModel = new TableModel(wines);
 		table = new Table(tableModel);
 		tableWrapper = new TablePanel(table);
 
-		Wine w = new Wine(
-			"Irgendwas",
-			new HashSet<Vine>(),
-			new City("City", "123456", new Region(
-				"Region",
-				new Country("Country"))), new Sort("Sort"), new model.Type(
-				"Type"), new Winery("Winery"));
-		wines.add(w);
+		loadData();
 
 		Container container = this.getContentPane();
 		container.setLayout(new BorderLayout());
@@ -61,6 +49,13 @@ public class MainWindow extends BaseWindow {
 
 	public Table getTable() {
 		return table;
+	}
+
+	public void loadData() {
+		List<Wine> wines = Repository.getInstance().getAllWines();
+		this.wines.clear();
+		this.wines.addAll(wines);
+		this.getTableModel().fireTableDataChanged();
 	}
 
 	@Override

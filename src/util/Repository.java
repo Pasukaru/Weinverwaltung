@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.City;
 import model.Country;
+import model.Model;
 import model.Region;
 import model.Sort;
 import model.Type;
@@ -30,40 +31,44 @@ public class Repository {
 		return instance;
 	}
 
+	public void updateModel(Model model) {
+		session.persist(model);
+		session.flush();
+	}
+
 	public void updateWine(Wine wine) {
-		session.persist(wine);
+		updateModel(wine);
 	}
 
 	public void updateCity(City city) {
-		session.persist(city);
+		updateModel(city);
 	}
 
 	public List<City> getAllCities() {
 		return session.createCriteria(City.class).list();
 	}
 
-
-	public List<Country> getAllCountries(){
+	public List<Country> getAllCountries() {
 		return session.createCriteria(Country.class).list();
 	}
 
-	public List<Region> getAllRegions(){
+	public List<Region> getAllRegions() {
 		return session.createCriteria(Region.class).list();
 	}
 
-	public List<Vine> getAllVines(){
+	public List<Vine> getAllVines() {
 		return session.createCriteria(Vine.class).list();
 	}
 
-	public List<Wine> getAllWines(){
+	public List<Wine> getAllWines() {
 		return session.createCriteria(Wine.class).list();
 	}
 
-	public List<Sort> getAllSorts(){
+	public List<Sort> getAllSorts() {
 		return session.createCriteria(Sort.class).list();
 	}
 
-	public List<Winery> getAllWineries(){
+	public List<Winery> getAllWineries() {
 		return session.createCriteria(Winery.class).list();
 	}
 

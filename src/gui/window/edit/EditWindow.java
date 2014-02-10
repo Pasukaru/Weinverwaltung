@@ -1,6 +1,7 @@
 package gui.window.edit;
 
 import gui.window.BaseWindow;
+import gui.window.main.MainWindow;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -23,9 +24,12 @@ public class EditWindow extends BaseWindow {
 	private final DataPanel dataPanel;
 	private final ButtonsPanel buttonsPanel;
 
-	public EditWindow(Wine wine) {
+	private final MainWindow mainWindow;
+
+	public EditWindow(Wine wine, MainWindow mainWindow) {
 		super();
 		this.wine = wine;
+		this.mainWindow = mainWindow;
 
 		cities = Repository.getInstance().getAllCities();
 		types = Repository.getInstance().getAllTypes();
@@ -49,6 +53,10 @@ public class EditWindow extends BaseWindow {
 
 	public Wine getWine() {
 		return wine;
+	}
+
+	public MainWindow getMainWindow() {
+		return mainWindow;
 	}
 
 	public List<City> getCities() {
