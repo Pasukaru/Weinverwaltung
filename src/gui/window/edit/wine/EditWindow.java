@@ -6,10 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.util.List;
-
 import model.City;
-import model.Country;
-import model.Region;
 import model.Sort;
 import model.Vine;
 import model.Wine;
@@ -25,8 +22,7 @@ public class EditWindow extends BaseWindow {
 	private final List<City> cities;
 	private final List<model.Type> types;
 	private final List<Sort> sorts;
-	private final List<Region> regions;
-	private final List<Country> countries;
+
 	private final List<Vine> vines;
 	private final List<Winery> wineries;
 
@@ -40,8 +36,6 @@ public class EditWindow extends BaseWindow {
 		cities = Repository.getInstance().getAllCities();
 		types = Repository.getInstance().getAllTypes();
 		sorts = Repository.getInstance().getAllSorts();
-		regions = Repository.getInstance().getAllRegions();
-		countries = Repository.getInstance().getAllCountries();
 		vines = Repository.getInstance().getAllVines();
 		wineries = Repository.getInstance().getAllWineries();
 
@@ -76,14 +70,6 @@ public class EditWindow extends BaseWindow {
 
 	public List<Sort> getSorts() {
 		return sorts;
-	}
-
-	public List<Region> getRegions() {
-		return regions;
-	}
-
-	public List<Country> getCountries() {
-		return countries;
 	}
 
 	public List<Vine> getVines() {
