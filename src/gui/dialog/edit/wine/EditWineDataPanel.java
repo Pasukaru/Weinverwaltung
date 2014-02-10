@@ -1,11 +1,11 @@
 package gui.dialog.edit.wine;
 
-import gui.CityRenderer;
-import gui.SortRenderer;
-import gui.TypeRenderer;
-import gui.VineRenderer;
-import gui.WineryRenderer;
 import gui.dialog.edit.EditDataPanel;
+import gui.renderers.combobox.CityRenderer;
+import gui.renderers.combobox.SortRenderer;
+import gui.renderers.combobox.TypeRenderer;
+import gui.renderers.combobox.VineRenderer;
+import gui.renderers.combobox.WineryRenderer;
 
 import java.awt.GridBagLayout;
 

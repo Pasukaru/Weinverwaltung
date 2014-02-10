@@ -1,8 +1,8 @@
 package gui.window.edit.city;
 
 
-import gui.CountryRenderer;
-import gui.RegionRenderer;
+import gui.renderers.combobox.CountryRenderer;
+import gui.renderers.combobox.RegionRenderer;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

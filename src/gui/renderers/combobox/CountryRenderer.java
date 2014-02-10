@@ -1,4 +1,4 @@
-package gui;
+package gui.renderers.combobox;
 
 import model.Country;
 
