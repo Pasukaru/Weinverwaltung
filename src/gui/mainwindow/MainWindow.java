@@ -1,9 +1,8 @@
-package gui.window.main;
+package gui.mainwindow;
 
 import events.EventManager;
 import gui.table.wine.WineTable;
 import gui.table.wine.WineTableModel;
-import gui.window.BaseWindow;
 import gui.window.main.tabs.wines.WineTab;
 
 import java.awt.Component;

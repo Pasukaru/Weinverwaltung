@@ -1,4 +1,4 @@
-package gui.window;
+package gui.mainwindow;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;

@@ -1,7 +1,6 @@
-import gui.window.main.MainWindow;
-
 import javax.swing.UIManager;
 
+import gui.mainwindow.MainWindow;
 import util.JpaUtil;
 
 public class Main {
