@@ -1,9 +1,10 @@
 package gui.table.wine;
 
+import gui.table.ModelColumn;
 import model.Type;
 import model.Wine;
 
-public class TypeColumn extends Column<String> {
+public class TypeColumn extends ModelColumn<Wine, String> {
 
 	public TypeColumn() {
 		super("Type", String.class);

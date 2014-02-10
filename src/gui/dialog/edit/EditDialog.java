@@ -1,5 +1,6 @@
 package gui.dialog.edit;
 
+import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -19,6 +20,7 @@ public abstract class EditDialog<T extends Model> extends JOptionPane implements
 	public EditDialog(T model){
 		this.model = model;
 		title = "";
+		setLayout(new BorderLayout());
 	}
 	
 	protected abstract void save();
@@ -42,6 +44,10 @@ public abstract class EditDialog<T extends Model> extends JOptionPane implements
 			dialog.dispose();
 			dialog = null;
 		}
+	}
+
+	public boolean isCreate() {
+		return model.getId() == null;
 	}
 
 	@Override

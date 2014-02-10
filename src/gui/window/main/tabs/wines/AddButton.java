@@ -1,7 +1,7 @@
 package gui.window.main.tabs.wines;
 
 import gui.ActionButton;
-import gui.dialog.edit.wine.EditWineDialog;
+import gui.dialog.edit.wine.WineEditDialog;
 
 import java.awt.event.ActionEvent;
 
@@ -17,6 +17,6 @@ public class AddButton extends ActionButton {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		new EditWineDialog(new Wine()).show();
+		new WineEditDialog(new Wine()).show();
 	}
 }

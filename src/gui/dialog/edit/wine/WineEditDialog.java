@@ -13,7 +13,7 @@ import model.Wine;
 import model.Winery;
 import util.Repository;
 
-public class EditWineDialog extends EditDialog<Wine> {
+public class WineEditDialog extends EditDialog<Wine> {
 
 	private static final long serialVersionUID = -9141574978152096541L;
 
@@ -23,10 +23,10 @@ public class EditWineDialog extends EditDialog<Wine> {
 	private final List<Vine> vines;
 	private final List<Winery> wineries;
 
-	private final EditWineDataPanel dataPanel;
+	private final WineEditDataPanel dataPanel;
 	private final EditButtonPanel<Wine> buttonsPanel;
 
-	public EditWineDialog(final Wine wine) {
+	public WineEditDialog(final Wine wine) {
 		super(wine);
 
 		setTitle(isCreate() ? "Create Wine" : "Edit Wine");
@@ -37,8 +37,7 @@ public class EditWineDialog extends EditDialog<Wine> {
 		vines = Repository.getInstance().getAllVines();
 		wineries = Repository.getInstance().getAllWineries();
 
-		setLayout(new BorderLayout());
-		add(dataPanel = new EditWineDataPanel(this), BorderLayout.CENTER);
+		add(dataPanel = new WineEditDataPanel(this), BorderLayout.CENTER);
 		add(buttonsPanel = new EditButtonPanel<Wine>(this), BorderLayout.SOUTH);
 	}
 	
@@ -53,10 +52,6 @@ public class EditWineDialog extends EditDialog<Wine> {
 		//model.getWinery(dataPanel.getw);
 		Repository.getInstance().updateModel(model);
 		close();
-	}
-
-	public boolean isCreate() {
-		return model.getId() == null;
 	}
 
 	public List<City> getCities() {
@@ -83,7 +78,7 @@ public class EditWineDialog extends EditDialog<Wine> {
 		super.setVisible(b);
 	}
 
-	public EditWineDataPanel getDataPanel() {
+	public WineEditDataPanel getDataPanel() {
 		return dataPanel;
 	}
 

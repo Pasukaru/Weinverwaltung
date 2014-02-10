@@ -7,8 +7,6 @@ import gui.renderers.combobox.TypeRenderer;
 import gui.renderers.combobox.VineRenderer;
 import gui.renderers.combobox.WineryRenderer;
 
-import java.awt.GridBagLayout;
-
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -21,11 +19,11 @@ import model.Wine;
 import model.Winery;
 
 @SuppressWarnings("unchecked")
-public class EditWineDataPanel extends EditDataPanel<Wine> {
+public class WineEditDataPanel extends EditDataPanel<Wine> {
 
 	private static final long serialVersionUID = 646403762781205389L;
 
-	private final EditWineDialog editWindow;
+	private final WineEditDialog editDialog;
 
 	private JTextField name;
 	private JComboBox<City> city;
@@ -34,10 +32,9 @@ public class EditWineDataPanel extends EditDataPanel<Wine> {
 	private JComboBox<Vine> vine;
 	private JComboBox<Winery> winery;
 
-	public EditWineDataPanel(final EditWineDialog editWindow) {
+	public WineEditDataPanel(WineEditDialog editWindow) {
 		super(editWindow.getModel());
-		this.setLayout(new GridBagLayout());
-		this.editWindow = editWindow;
+		this.editDialog = editWindow;
 
 		addName();
 		addCity();
@@ -59,7 +56,7 @@ public class EditWineDataPanel extends EditDataPanel<Wine> {
 	}
 
 	private void addCity() {
-		City[] cities = editWindow.getCities().toArray(new City[0]);
+		City[] cities = editDialog.getCities().toArray(new City[0]);
 
 		city = new JComboBox<City>(cities);
 		city.setRenderer(new CityRenderer());
@@ -70,7 +67,7 @@ public class EditWineDataPanel extends EditDataPanel<Wine> {
 	}
 
 	private void addSort() {
-		Sort[] sorts = editWindow.getSorts().toArray(new Sort[0]);
+		Sort[] sorts = editDialog.getSorts().toArray(new Sort[0]);
 
 		sort = new JComboBox<Sort>(sorts);
 		sort.setRenderer(new SortRenderer());
@@ -81,7 +78,7 @@ public class EditWineDataPanel extends EditDataPanel<Wine> {
 	}
 
 	private void addVine() {
-		Vine[] vines = editWindow.getVines().toArray(new Vine[0]);
+		Vine[] vines = editDialog.getVines().toArray(new Vine[0]);
 
 		vine = new JComboBox<Vine>(vines);
 		vine.setRenderer(new VineRenderer());
@@ -92,7 +89,7 @@ public class EditWineDataPanel extends EditDataPanel<Wine> {
 	}
 
 	private void addWinery() {
-		Winery[] wineries = editWindow.getWineries().toArray(new Winery[0]);
+		Winery[] wineries = editDialog.getWineries().toArray(new Winery[0]);
 
 		winery = new JComboBox<Winery>(wineries);
 		winery.setRenderer(new WineryRenderer());
@@ -103,7 +100,7 @@ public class EditWineDataPanel extends EditDataPanel<Wine> {
 	}
 
 	private void addType() {
-		Type[] types = editWindow.getTypes().toArray(new Type[0]);
+		Type[] types = editDialog.getTypes().toArray(new Type[0]);
 
 		type = new JComboBox<Type>(types);
 		type.setRenderer(new TypeRenderer());

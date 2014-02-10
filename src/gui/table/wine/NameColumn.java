@@ -1,8 +1,9 @@
 package gui.table.wine;
 
+import gui.table.ModelColumn;
 import model.Wine;
 
-public class NameColumn extends Column<String> {
+public class NameColumn extends ModelColumn<Wine, String> {
 
 	public NameColumn() {
 		super("Name", String.class);

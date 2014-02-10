@@ -1,13 +1,13 @@
-package gui.table.wine;
+package gui.table;
 
-import model.Wine;
+import model.Model;
 
-public abstract class Column<T> {
+public abstract class ModelColumn<T extends Model, V> {
 
 	protected String name;
 	protected Class<?> clazz;
 
-	public Column(String name, Class<?> clazz) {
+	public ModelColumn(String name, Class<?> clazz) {
 		this.name = name;
 		this.clazz = clazz;
 	}
@@ -20,6 +20,6 @@ public abstract class Column<T> {
 		return clazz;
 	}
 
-	public abstract T getValue(Wine wine, int row, int col);
+	public abstract V getValue(T model, int row, int col);
 
 }

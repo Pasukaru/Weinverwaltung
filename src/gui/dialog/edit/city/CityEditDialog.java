@@ -1,50 +1,47 @@
-package gui.window.edit.city;
+package gui.dialog.edit.city;
+
+import gui.dialog.edit.EditButtonPanel;
+import gui.dialog.edit.EditDialog;
+import gui.window.main.MainWindow;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.util.List;
 
+import model.City;
 import model.Country;
 import model.Region;
 import util.Repository;
-import gui.window.BaseWindow;
-import gui.window.edit.city.ButtonsPanel;
-import gui.window.edit.city.DataPanel;
-import gui.window.main.MainWindow;
 
-public class EditCityWindow extends BaseWindow{
+public class CityEditDialog extends EditDialog<City> {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 9013808505821269241L;
 
-	private final DataPanel dataPanel;
-	private final ButtonsPanel buttonsPanel;
+	private final CityEditDataPanel dataPanel;
+	private final EditButtonPanel<City> buttonsPanel;
 	private MainWindow mainWindow;
 	private Country country;
 	private final List<Region> regions;
 	private final List<Country> countries;
+	
+	public CityEditDialog(City model) {
+		super(model);
 
+		setTitle(isCreate() ? "Create Wine" : "Edit Wine");
 
-	public EditCityWindow(MainWindow mainWindow) {
-
-		super();
 		this.setMainWindow(mainWindow);
 		regions = Repository.getInstance().getAllRegions();
 		countries = Repository.getInstance().getAllCountries();
 
-		Container container = getContentPane();
-		container.setLayout(new BorderLayout());
-
-		add(dataPanel = new DataPanel(this), BorderLayout.CENTER);
-		add(buttonsPanel = new ButtonsPanel(this), BorderLayout.SOUTH);
-
-		pack();
-		setSize(new Dimension(500, 500));
-		setLocationRelativeTo(null);
+		add(dataPanel = new CityEditDataPanel(this), BorderLayout.CENTER);
+		add(buttonsPanel = new EditButtonPanel<City>(this), BorderLayout.SOUTH);
 	}
+
+
+	@Override
+	protected void save() {
+		// TODO Auto-generated method stub
+	}
+
 
 	public List<Region> getRegions() {
 		return regions;
@@ -54,11 +51,11 @@ public class EditCityWindow extends BaseWindow{
 		return countries;
 	}
 
-	public DataPanel getDataPanel() {
+	public CityEditDataPanel getDataPanel() {
 		return dataPanel;
 	}
 
-	public ButtonsPanel getButtonsPanel() {
+	public EditButtonPanel<City> getButtonsPanel() {
 		return buttonsPanel;
 	}
 
@@ -77,5 +74,4 @@ public class EditCityWindow extends BaseWindow{
 	public void setCountry(Country country) {
 		this.country = country;
 	}
-
 }

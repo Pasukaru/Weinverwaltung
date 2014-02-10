@@ -1,11 +1,12 @@
 package gui.table.wine;
 
+import gui.table.ModelColumn;
 import model.City;
 import model.Country;
 import model.Region;
 import model.Wine;
 
-public class CountryColumn extends Column<String> {
+public class CountryColumn extends ModelColumn<Wine, String> {
 
 	public CountryColumn() {
 		super("Country", String.class);

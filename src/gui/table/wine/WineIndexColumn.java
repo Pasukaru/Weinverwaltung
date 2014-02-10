@@ -1,10 +1,11 @@
 package gui.table.wine;
 
+import gui.table.ModelColumn;
 import model.Wine;
 
-public class IndexColumn extends Column<Integer> {
+public class WineIndexColumn extends ModelColumn<Wine, Integer> {
 
-	public IndexColumn() {
+	public WineIndexColumn() {
 		super("#", Integer.class);
 	}
 

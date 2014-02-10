@@ -1,35 +1,35 @@
-package gui.window.edit.city;
+package gui.dialog.edit.city;
 
 
+import gui.dialog.edit.EditDataPanel;
 import gui.renderers.combobox.CountryRenderer;
 import gui.renderers.combobox.RegionRenderer;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import model.City;
 import model.Country;
 import model.Region;
 
-public class DataPanel extends JPanel {
+public class CityEditDataPanel extends EditDataPanel<City> {
+
 
 	private static final long serialVersionUID = 646403762781205389L;
 
-	private final EditCityWindow editCityWindow;
+	private CityEditDialog editDialog;
 	private JTextField city;
 	private int gridy = 0;
 	private JComboBox<Country> country;
 	private JComboBox<Region> region;
 
-	public DataPanel(final EditCityWindow editCityWindow) {
-		this.setLayout(new GridBagLayout());
-		this.editCityWindow = editCityWindow;
+	public CityEditDataPanel(CityEditDialog editWindow) {
+		super(editWindow.getModel());
+		this.editDialog = editWindow;
 
 		addName();
 		addRegion();
@@ -49,20 +49,6 @@ public class DataPanel extends JPanel {
 	public String getName() {
 		return city.getText();
 	}
-
-	public EditCityWindow getEditCityWindow() {
-		return editCityWindow;
-	}
-	private GridBagConstraints next(int gridx, int gridy) {
-		GridBagConstraints grid = new GridBagConstraints();
-		grid.gridx = gridx;
-		grid.gridy = gridy;
-		grid.weightx = 1.0;
-		grid.weighty = 1.0;
-		grid.fill = GridBagConstraints.HORIZONTAL;
-		grid.anchor = GridBagConstraints.CENTER;
-		return grid;
-	}
 	private void addName() {
 
 		city = new JTextField();
@@ -74,7 +60,7 @@ public class DataPanel extends JPanel {
 
 	@SuppressWarnings("unchecked")
 	private void addCountry() {
-		Country[] countries = editCityWindow.getCountries().toArray(new Country[0]);
+		Country[] countries = editDialog.getCountries().toArray(new Country[0]);
 
 		country = new JComboBox<Country>(countries);
 		country.setRenderer(new CountryRenderer());
@@ -85,7 +71,7 @@ public class DataPanel extends JPanel {
 
 	@SuppressWarnings("unchecked")
 	private void addRegion() {
-		Region[] regions = editCityWindow.getRegions().toArray(new Region[0]);
+		Region[] regions = editDialog.getRegions().toArray(new Region[0]);
 
 		region = new JComboBox<Region>(regions);
 		region.setRenderer(new RegionRenderer());

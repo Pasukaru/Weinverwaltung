@@ -3,15 +3,14 @@ package gui.window.main.tabs.wines;
 import events.EventManager;
 import gui.table.wine.WineTable;
 import gui.table.wine.WineTableModel;
-import gui.window.main.TablePanel;
-import gui.window.main.tabs.MainTab;
+import gui.window.main.tabs.ModelTab;
 
 import java.awt.BorderLayout;
 
 import model.Wine;
 import util.Repository;
 
-public class WineTab extends MainTab {
+public class WineTab extends ModelTab {
 
 	private static final long serialVersionUID = -6218897174571210449L;
 
