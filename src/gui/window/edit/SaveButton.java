@@ -5,6 +5,7 @@ import gui.ActionButton;
 import java.awt.event.ActionEvent;
 
 import model.Wine;
+import util.Repository;
 
 public class SaveButton extends ActionButton {
 
@@ -28,5 +29,9 @@ public class SaveButton extends ActionButton {
 	public void actionPerformed(ActionEvent e) {
 		DataPanel data = editWindow.getDataPanel();
 		wine.setName(data.getName());
+		wine.setCity(data.getCity());
+		wine.setType(data.getType());
+		Repository.getInstance().updateWine(wine);
+		editWindow.dispose();
 	}
 }

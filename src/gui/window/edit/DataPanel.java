@@ -89,4 +89,12 @@ public class DataPanel extends JPanel {
 		return name.getText();
 	}
 
+	public City getCity() {
+		return (City) city.getSelectedItem();
+	}
+
+	public Type getType() {
+		return (Type) type.getSelectedItem();
+	}
+
 }

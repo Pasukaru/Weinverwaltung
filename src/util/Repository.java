@@ -3,9 +3,12 @@ package util;
 import java.util.List;
 
 import model.City;
+import model.Type;
+import model.Wine;
 
 import org.hibernate.Session;
 
+@SuppressWarnings("unchecked")
 public class Repository {
 
 	private Session session = null;
@@ -22,8 +25,19 @@ public class Repository {
 		return instance;
 	}
 
-	@SuppressWarnings("unchecked")
+	public void updateWine(Wine wine) {
+		session.persist(wine);
+	}
+
+	public void updateCity(City city) {
+		session.persist(city);
+	}
+
 	public List<City> getAllCities() {
 		return session.createCriteria(City.class).list();
+	}
+
+	public List<Type> getAllTypes() {
+		return session.createCriteria(Type.class).list();
 	}
 }
