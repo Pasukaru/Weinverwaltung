@@ -42,7 +42,6 @@ public class Repository {
 		return session.createCriteria(City.class).list();
 	}
 
-
 	public List<Country> getAllCountries(){
 		return session.createCriteria(Country.class).list();
 	}
@@ -53,10 +52,6 @@ public class Repository {
 
 	public List<Vine> getAllVines(){
 		return session.createCriteria(Vine.class).list();
-	}
-
-	public List<Wine> getAllWines(){
-		return session.createCriteria(Wine.class).list();
 	}
 
 	public List<Sort> getAllSorts(){
