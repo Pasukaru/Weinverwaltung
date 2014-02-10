@@ -1,62 +1,61 @@
 package gui.window.main;
 
+import events.EventManager;
 import gui.window.BaseWindow;
+import gui.window.main.tabs.wines.WineTab;
 import gui.wine.table.Table;
 import gui.wine.table.TableModel;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
+import java.awt.Component;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
 
-import model.Wine;
-import util.Repository;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 public class MainWindow extends BaseWindow {
 
 	private static final long serialVersionUID = 1L;
 
-	private final List<Wine> wines;
-	private final TableModel tableModel;
-	private final Table table;
-	private final TablePanel tableWrapper;
+	private final JTabbedPane tabPane;
+
+	private final EventManager eventManager = new EventManager();
 
 	public MainWindow() {
 		super("Weinverwaltung");
 
-		wines = new ArrayList<Wine>();
+		tabPane = new JTabbedPane();
 
-		tableModel = new TableModel(wines);
-		table = new Table(tableModel);
-		tableWrapper = new TablePanel(table);
+		addSelectorTab();
+		addWineTab();
+		tabPane.setSelectedIndex(0);
 
-		loadData();
-
-		Container container = this.getContentPane();
-		container.setLayout(new BorderLayout());
-
-		container.add(BorderLayout.CENTER, tableWrapper);
-		container.add(BorderLayout.SOUTH, new ButtonsPanel(this));
-
+		this.setContentPane(tabPane);
 		this.pack();
 		this.setLocationRelativeTo(null);
 	}
 
+	private void addTab(String title, Component c) {
+		int i = tabPane.getTabCount() - 1;
+		tabPane.insertTab(title, null, c, null, i);
+	}
+
+	public void addWineTab() {
+		addTab("Wine", new WineTab(eventManager));
+	}
+
+	public void addSelectorTab() {
+		tabPane.addTab("+", new JPanel());
+	}
+
 	public TableModel getTableModel() {
-		return tableModel;
+		return null;
 	}
 
 	public Table getTable() {
-		return table;
+		return null;
 	}
 
-	public void loadData() {
-		List<Wine> wines = Repository.getInstance().getAllWines();
-		this.wines.clear();
-		this.wines.addAll(wines);
-		this.getTableModel().fireTableDataChanged();
-	}
+	public void loadData() {}
 
 	@Override
 	public void windowClosing(WindowEvent e) {

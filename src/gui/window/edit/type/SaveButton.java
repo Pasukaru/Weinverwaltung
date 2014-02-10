@@ -1,24 +1,24 @@
-package gui.window.edit.wine;
+package gui.window.edit.type;
 
 import gui.ActionButton;
 
 import java.awt.event.ActionEvent;
 
-import model.Wine;
+import model.Type;
 import util.Repository;
 
 public class SaveButton extends ActionButton {
 
 	private static final long serialVersionUID = 5049875329071992746L;
 
-	private final Wine wine;
+	private final Type type;
 	private final EditWindow editWindow;
 
 	public SaveButton(EditWindow editWindow) {
 		super();
 		this.editWindow = editWindow;
-		this.wine = editWindow.getWine();
-		if (editWindow.getWine().getId() == null) {
+		this.type = editWindow.getWineType();
+		if (type.getId() == null) {
 			this.setText("Create");
 		} else {
 			this.setText("Update");
@@ -28,11 +28,9 @@ public class SaveButton extends ActionButton {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		DataPanel data = editWindow.getDataPanel();
-		wine.setName(data.getName());
-		wine.setCity(data.getCity());
-		wine.setType(data.getType());
-		Repository.getInstance().updateWine(wine);
+		type.setName(data.getName());
+		Repository.getInstance().updateType(type);
 		editWindow.dispose();
-		// editWindow.getMainWindow().getTableModel().fireTableDataChanged();
+		editWindow.getMainWindow().getTableModel().fireTableDataChanged();
 	}
 }

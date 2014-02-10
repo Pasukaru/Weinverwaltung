@@ -1,6 +1,7 @@
-package gui.window.main;
+package gui.window.main.tabs.wines;
 
 import gui.ActionButton;
+import gui.window.edit.wine.EditWindow;
 
 import java.awt.event.ActionEvent;
 
@@ -8,16 +9,16 @@ import model.Wine;
 
 public class AddButton extends ActionButton {
 
-	private final MainWindow mainWindow;
+	private final WineTab tab;
 	private static final long serialVersionUID = -1778114520964065458L;
 
-	public AddButton(final MainWindow parent) {
+	public AddButton(final WineTab tab) {
 		super("Add");
-		this.mainWindow = parent;
+		this.tab = tab;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		new gui.window.edit.wine.EditWindow(new Wine(), mainWindow).setVisible(true);
+		new EditWindow(new Wine()).setVisible(true);
 	}
 }

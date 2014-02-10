@@ -44,6 +44,10 @@ public class Repository {
 		updateModel(city);
 	}
 
+	public void updateType(Type type) {
+		updateModel(type);
+	}
+
 	public List<City> getAllCities() {
 		return session.createCriteria(City.class).list();
 	}

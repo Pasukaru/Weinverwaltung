@@ -1,4 +1,4 @@
-package gui.window.main;
+package gui.window.edit.type;
 
 import java.awt.FlowLayout;
 
@@ -8,13 +8,13 @@ public class ButtonsPanel extends JPanel {
 
 	private static final long serialVersionUID = -7314612205656147889L;
 
-	private final MainWindow mainWindow;
+	private final EditWindow editWindow;
 
-	public ButtonsPanel(MainWindow p) {
+	public ButtonsPanel(EditWindow p) {
 		super();
-		this.mainWindow = p;
+		this.editWindow = p;
 
 		setLayout(new FlowLayout());
-		this.add(new DbButton(mainWindow));
+		this.add(new SaveButton(editWindow));
 	}
 }

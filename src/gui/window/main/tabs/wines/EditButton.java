@@ -1,6 +1,7 @@
-package gui.window.main;
+package gui.window.main.tabs.wines;
 
 import gui.ActionButton;
+import gui.window.edit.wine.EditWindow;
 
 import java.awt.event.ActionEvent;
 
@@ -12,12 +13,12 @@ import model.Wine;
 
 public class EditButton extends ActionButton implements ListSelectionListener {
 
-	private final MainWindow mainWindow;
+	private final WineTab tab;
 	private static final long serialVersionUID = -1778114520964065458L;
 
-	public EditButton(final MainWindow parent) {
+	public EditButton(final WineTab parent) {
 		super("Edit");
-		this.mainWindow = parent;
+		this.tab = parent;
 
 		setEnabled(false);
 		parent.getTable().getSelectionModel().addListSelectionListener(this);
@@ -30,12 +31,11 @@ public class EditButton extends ActionButton implements ListSelectionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Wine w = mainWindow.getTableModel().getRow(
-			mainWindow.getTable().getSelectionModel().getMinSelectionIndex());
+		Wine w = tab.getSelectedModel();
 		if (w == null) {
 			JOptionPane.showMessageDialog(null, "No wine selected");
 		} else {
-			new gui.window.edit.wine.EditWindow(w, mainWindow).setVisible(true);
+			new EditWindow(w).setVisible(true);
 		}
 	}
 }
