@@ -1,4 +1,4 @@
-package gui.window.edit;
+package gui.window.edit.wine;
 
 import gui.window.BaseWindow;
 import gui.window.main.MainWindow;

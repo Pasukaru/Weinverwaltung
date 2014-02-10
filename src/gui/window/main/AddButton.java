@@ -18,6 +18,6 @@ public class AddButton extends ActionButton {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		new gui.window.edit.EditWindow(new Wine(), mainWindow).setVisible(true);
+		new gui.window.edit.wine.EditWindow(new Wine(), mainWindow).setVisible(true);
 	}
 }
