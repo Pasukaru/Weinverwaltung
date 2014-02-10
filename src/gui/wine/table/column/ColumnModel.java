@@ -13,6 +13,7 @@ public class ColumnModel {
 		columns = new ArrayList<Column<?>>();
 		columns.add(new IndexColumn());
 		columns.add(new NameColumn());
+		columns.add(new TypeColumn());
 		columns.add(new CityColumn());
 		columns.add(new RegionColumn());
 		columns.add(new CountryColumn());

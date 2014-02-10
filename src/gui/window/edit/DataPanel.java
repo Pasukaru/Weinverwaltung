@@ -71,6 +71,7 @@ public class DataPanel extends JPanel {
 
 		add(new JLabel("City"), next(0, ++gridy));
 		add(city, next(1, gridy));
+		add(new AddCityButton(editWindow), next(2, gridy));
 	}
 
 	@SuppressWarnings("unchecked")
