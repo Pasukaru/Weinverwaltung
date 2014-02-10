@@ -1,7 +1,7 @@
 package gui.mainwindow;
 
 import events.EventManager;
-import gui.mainwindow.tabs.wine.WineTab;
+import gui.mainwindow.tabs.WineTab;
 import gui.table.wine.WineTable;
 import gui.table.wine.WineTableModel;
 
