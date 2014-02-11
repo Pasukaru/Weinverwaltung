@@ -1,6 +1,7 @@
 package gui.mainwindow.tabs;
 
 import java.awt.BorderLayout;
+import java.util.List;
 
 import javax.swing.JPanel;
 
@@ -17,13 +18,15 @@ public abstract class ModelTab<T extends Model> extends JPanel implements AnyMod
 
 	private static final long serialVersionUID = 6963316486962402827L;
 
-	protected final EventManager eventManager;
+	protected EventManager eventManager;
 
-	protected final ModelTableModel<T> tableModel;
-	protected final ModelTable<T> table;
+	protected ModelTableModel<T> tableModel;
+	protected ModelTable<T> table;
 	
 	public ModelTab(EventManager eventManager) {
 		this.eventManager = eventManager;
+		eventManager.addAnyModelChangedListener(this);
+
 		this.tableModel = initTableModel();
 		this.table = initTable(tableModel);
 
@@ -31,6 +34,8 @@ public abstract class ModelTab<T extends Model> extends JPanel implements AnyMod
 		add(BorderLayout.CENTER, new ModelTableScrollPane<T>(table));
 		add(BorderLayout.SOUTH, new TabButtonPanel<T>(this));
 	}
+	
+	public abstract List<T> fetchData();
 
 	public abstract ModelTableModel<T> initTableModel();
 
@@ -58,7 +63,11 @@ public abstract class ModelTab<T extends Model> extends JPanel implements AnyMod
 	@Override
 	public void modelChanged(ModelChangedEvent event) {
 		// TODO Auto-generated method stub
-		//RERENDER
+		tableModel.setData(fetchData());
+	}
+	
+	public void dispose(){
+		eventManager.removeAnyModelChangedListener(this);
 	}
 
 }

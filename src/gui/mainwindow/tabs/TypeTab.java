@@ -1,5 +1,7 @@
 package gui.mainwindow.tabs;
 
+import java.util.List;
+
 import events.EventManager;
 import gui.dialog.edit.EditDialog;
 import gui.dialog.type.TypeEditDialog;
@@ -16,10 +18,15 @@ public class TypeTab extends ModelTab<Type> {
 	public TypeTab(EventManager eventManager) {
 		super(eventManager);
 	}
+	
+	@Override
+	public List<Type> fetchData() {
+		return Repository.getInstance().getAllTypes();
+	}
 
 	@Override
 	public ModelTableModel<Type> initTableModel() {
-		return new ModelTableModel<Type>(Repository.getInstance().getAllTypes(), new TypeColumnDefinition());
+		return new ModelTableModel<Type>(fetchData(), new TypeColumnDefinition());
 	}
 
 	@Override

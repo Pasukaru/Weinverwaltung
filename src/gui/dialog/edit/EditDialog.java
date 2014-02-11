@@ -9,10 +9,9 @@ import javax.swing.JOptionPane;
 
 import events.AnyModelChangedListener;
 import events.EventManager;
-import events.ModelChangedEvent;
 import model.Model;
 
-public abstract class EditDialog<T extends Model> extends JOptionPane implements WindowListener, AnyModelChangedListener {
+public abstract class EditDialog<T extends Model> extends JOptionPane implements WindowListener {
 	
 	private static final long serialVersionUID = -3904763827415560312L;
 
@@ -28,7 +27,6 @@ public abstract class EditDialog<T extends Model> extends JOptionPane implements
 		setLayout(new BorderLayout());
 	}
 	
-	protected abstract void init();
 	protected abstract void save();
 	
 	public void setTitle(String title){
@@ -42,13 +40,11 @@ public abstract class EditDialog<T extends Model> extends JOptionPane implements
 	public void show(){
 		dialog = createDialog(title);
 		dialog.addWindowListener(this);
-		eventManager.addAnyModelChangedListener(this);
 		dialog.setVisible(true);
 	}
 	
 	public void dispose(){
 		if(dialog != null){
-			eventManager.removeAnyModelChangedListener(this);
 			dialog.dispose();
 			dialog = null;
 		}
@@ -80,9 +76,4 @@ public abstract class EditDialog<T extends Model> extends JOptionPane implements
 
 	@Override
 	public void windowOpened(WindowEvent e) {}
-	
-	@Override
-	public void modelChanged(ModelChangedEvent event) {
-		init();
-	}
 }

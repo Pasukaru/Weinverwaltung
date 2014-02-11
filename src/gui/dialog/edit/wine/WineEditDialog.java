@@ -29,12 +29,7 @@ public class WineEditDialog extends EditDialog<Wine> {
 
 	public WineEditDialog(final Wine wine, EventManager eventManager) {
 		super(wine, eventManager);
-		init();
-	}
 
-	@Override
-	protected void init() {
-		this.removeAll();
 		setTitle(isCreate() ? "Create Wine" : "Edit Wine");
 		
 		Repository repo = Repository.getInstance();

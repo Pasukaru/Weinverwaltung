@@ -1,5 +1,7 @@
 package gui.mainwindow.tabs;
 
+import java.util.List;
+
 import events.EventManager;
 import gui.dialog.edit.EditDialog;
 import gui.dialog.edit.wine.WineEditDialog;
@@ -16,10 +18,15 @@ public class WineTab extends ModelTab<Wine> {
 	public WineTab(EventManager eventManager) {
 		super(eventManager);
 	}
+	
+	@Override
+	public List<Wine> fetchData() {
+		return Repository.getInstance().getAllWines();
+	}
 
 	@Override
 	public ModelTableModel<Wine> initTableModel() {
-		return new ModelTableModel<Wine>(Repository.getInstance().getAllWines(), new WineColumnDefinition());
+		return new ModelTableModel<Wine>(fetchData(), new WineColumnDefinition());
 	}
 
 	@Override

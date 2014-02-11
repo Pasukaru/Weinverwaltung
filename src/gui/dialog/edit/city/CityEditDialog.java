@@ -25,12 +25,6 @@ public class CityEditDialog extends EditDialog<City> {
 	
 	public CityEditDialog(City model, EventManager eventManager) {
 		super(model, eventManager);
-	}
-
-
-	@Override
-	protected void init() {
-		this.removeAll();
 
 		setTitle(isCreate() ? "Create Wine" : "Edit Wine");
 
@@ -40,7 +34,6 @@ public class CityEditDialog extends EditDialog<City> {
 		add(dataPanel = new CityEditDataPanel(this), BorderLayout.CENTER);
 		add(buttonsPanel = new EditButtonPanel<City>(this), BorderLayout.SOUTH);
 	}
-
 
 	@Override
 	protected void save() {

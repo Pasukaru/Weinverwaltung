@@ -1,5 +1,7 @@
 package gui.mainwindow.tabs;
 
+import java.util.List;
+
 import events.EventManager;
 import gui.dialog.edit.EditDialog;
 import gui.dialog.edit.city.CityEditDialog;
@@ -16,10 +18,15 @@ public class CityTab extends ModelTab<City> {
 	public CityTab(EventManager eventManager) {
 		super(eventManager);
 	}
-
+	
+	@Override
+	public List<City> fetchData() {
+		return Repository.getInstance().getAllCities();
+	}
+	
 	@Override
 	public ModelTableModel<City> initTableModel() {
-		return new ModelTableModel<City>(Repository.getInstance().getAllCities(), new CityColumnDefinition());
+		return new ModelTableModel<City>(fetchData(), new CityColumnDefinition());
 	}
 
 	@Override

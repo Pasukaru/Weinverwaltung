@@ -22,6 +22,12 @@ public class ModelTableModel<T extends Model> extends AbstractTableModel {
 	private List<T> getData() {
 		return data;
 	}
+	
+	public void setData(List<T> data){
+		this.data.clear();
+		this.data.addAll(data);
+		fireTableDataChanged();
+	}
 
 	public T getRow(int row) {
 		List<T> data = getData();

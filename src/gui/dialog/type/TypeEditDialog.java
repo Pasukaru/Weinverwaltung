@@ -18,11 +18,7 @@ public class TypeEditDialog extends EditDialog<Type> {
 
 	public TypeEditDialog(final Type type, EventManager eventManager) {
 		super(type, eventManager);
-	}
-	
-	@Override
-	protected void init() {
-		this.removeAll();
+
 		setTitle(isCreate() ? "Create Wine" : "Edit Wine");
 
 		add(dataPanel = new TypeEditDataPanel(this), BorderLayout.CENTER);
