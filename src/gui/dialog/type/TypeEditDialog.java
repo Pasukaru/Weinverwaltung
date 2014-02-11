@@ -4,14 +4,8 @@ import gui.dialog.edit.EditButtonPanel;
 import gui.dialog.edit.EditDialog;
 
 import java.awt.BorderLayout;
-import java.util.List;
 
-import model.City;
-import model.Sort;
 import model.Type;
-import model.Vine;
-import model.Wine;
-import model.Winery;
 import util.Repository;
 
 public class TypeEditDialog extends EditDialog<Type> {
