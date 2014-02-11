@@ -1,6 +1,5 @@
 package gui.mainwindow.tabs;
 
-import gui.dialog.edit.city.CityEditDialog;
 import gui.mainwindow.DbButton;
 
 import java.awt.event.ActionEvent;
@@ -11,8 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import util.JpaUtil;
-import model.City;
 import model.Model;
 
 public class TabButtonPanel<T extends Model> extends JPanel {

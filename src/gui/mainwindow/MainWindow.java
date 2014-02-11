@@ -2,6 +2,7 @@ package gui.mainwindow;
 
 import events.EventManager;
 import gui.mainwindow.tabs.CityTab;
+import gui.mainwindow.tabs.TypeTab;
 import gui.mainwindow.tabs.WineTab;
 
 import java.awt.Component;
@@ -26,6 +27,7 @@ public class MainWindow extends BaseWindow {
 		addSelectorTab();
 		addWineTab();
 		addCityTab();
+		addTypeTab();
 		tabPane.setSelectedIndex(0);
 
 		this.setContentPane(tabPane);
@@ -46,6 +48,10 @@ public class MainWindow extends BaseWindow {
 		addTab("City", new CityTab(eventManager));
 	}
 
+	public void addTypeTab(){
+		addTab("Type", new TypeTab(eventManager));
+	}
+	
 	public void addSelectorTab() {
 		tabPane.addTab("+", new JPanel());
 	}
