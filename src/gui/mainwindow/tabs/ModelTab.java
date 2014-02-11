@@ -31,7 +31,10 @@ public abstract class ModelTab<T extends Model> extends JPanel {
 	}
 
 	public abstract ModelTableModel<T> initTableModel();
-	public abstract ModelTable<T> initTable(ModelTableModel<T> tableModel);
+
+	public ModelTable<T> initTable(ModelTableModel<T> tableModel){
+		return new ModelTable<T>(tableModel);
+	}
 
 	public abstract EditDialog<T> getCreateDialog();
 	public abstract EditDialog<T> getEditDialog();

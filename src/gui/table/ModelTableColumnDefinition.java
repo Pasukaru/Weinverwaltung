@@ -1,5 +1,7 @@
 package gui.table;
 
+import gui.table.columns.ModelColumn;
+
 import java.util.List;
 
 import model.Model;

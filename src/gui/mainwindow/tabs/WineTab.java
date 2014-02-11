@@ -3,10 +3,8 @@ package gui.mainwindow.tabs;
 import events.EventManager;
 import gui.dialog.edit.EditDialog;
 import gui.dialog.edit.wine.WineEditDialog;
-import gui.table.ModelTable;
 import gui.table.ModelTableModel;
-import gui.table.wine.WineTable;
-import gui.table.wine.WineTableModel;
+import gui.table.columns.wine.WineColumnDefinition;
 import model.Wine;
 import util.Repository;
 
@@ -21,13 +19,7 @@ public class WineTab extends ModelTab<Wine> {
 
 	@Override
 	public ModelTableModel<Wine> initTableModel() {
-		return new WineTableModel(Repository.getInstance().getAllWines());
-	}
-
-
-	@Override
-	public ModelTable<Wine> initTable(ModelTableModel<Wine> tableModel) {
-		return new WineTable(tableModel);
+		return new ModelTableModel<Wine>(Repository.getInstance().getAllWines(), new WineColumnDefinition());
 	}
 
 	@Override

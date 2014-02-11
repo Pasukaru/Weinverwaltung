@@ -13,9 +13,10 @@ public class ModelTableModel<T extends Model> extends AbstractTableModel {
 	protected ModelTableColumnDefinition<T> columnModel;
 	private List<T> data;
 
-	public ModelTableModel(List<T> data) {
+	public ModelTableModel(List<T> data, ModelTableColumnDefinition<T> columnModel) {
 		super();
 		this.data = data;
+		this.columnModel = columnModel;
 	}
 
 	private List<T> getData() {

@@ -1,9 +1,8 @@
 package gui.mainwindow;
 
 import events.EventManager;
+import gui.mainwindow.tabs.CityTab;
 import gui.mainwindow.tabs.WineTab;
-import gui.table.wine.WineTable;
-import gui.table.wine.WineTableModel;
 
 import java.awt.Component;
 import java.awt.event.WindowEvent;
@@ -26,6 +25,7 @@ public class MainWindow extends BaseWindow {
 
 		addSelectorTab();
 		addWineTab();
+		addCityTab();
 		tabPane.setSelectedIndex(0);
 
 		this.setContentPane(tabPane);
@@ -41,20 +41,14 @@ public class MainWindow extends BaseWindow {
 	public void addWineTab() {
 		addTab("Wine", new WineTab(eventManager));
 	}
+	
+	public void addCityTab(){
+		addTab("City", new CityTab(eventManager));
+	}
 
 	public void addSelectorTab() {
 		tabPane.addTab("+", new JPanel());
 	}
-
-	public WineTableModel getTableModel() {
-		return null;
-	}
-
-	public WineTable getTable() {
-		return null;
-	}
-
-	public void loadData() {}
 
 	@Override
 	public void windowClosing(WindowEvent e) {

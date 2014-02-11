@@ -6,6 +6,8 @@ import gui.dialog.edit.EditDialog;
 import java.awt.BorderLayout;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import model.City;
 import model.Country;
 import model.Region;
@@ -36,7 +38,8 @@ public class CityEditDialog extends EditDialog<City> {
 
 	@Override
 	protected void save() {
-		// TODO Auto-generated method stub
+		//TODO implementation
+		JOptionPane.showMessageDialog(null, "TODO");
 	}
 
 

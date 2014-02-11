@@ -1,6 +1,6 @@
-package gui.table.wine;
+package gui.table.columns.wine;
 
-import gui.table.ModelColumn;
+import gui.table.columns.ModelColumn;
 import model.City;
 import model.Country;
 import model.Region;

@@ -1,13 +1,13 @@
-package gui.table;
+package gui.table.columns;
 
 import model.Model;
 
 public abstract class ModelColumn<T extends Model, V> {
 
 	protected String name;
-	protected Class<?> clazz;
+	protected Class<V> clazz;
 
-	public ModelColumn(String name, Class<?> clazz) {
+	public ModelColumn(String name, Class<V> clazz) {
 		this.name = name;
 		this.clazz = clazz;
 	}
@@ -16,7 +16,7 @@ public abstract class ModelColumn<T extends Model, V> {
 		return name;
 	}
 
-	public Class<?> getValueClass() {
+	public Class<V> getValueClass() {
 		return clazz;
 	}
 
