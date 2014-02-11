@@ -55,15 +55,12 @@ public abstract class ModelTab<T extends Model> extends JPanel implements AnyMod
 	}
 	
 	public T getSelectedModel() {
-		return getTableModel().getRow(getTable()
-			.getSelectionModel()
-			.getMinSelectionIndex());
+		return table.getSelectedModel();
 	}
 	
 	@Override
 	public void modelChanged(ModelChangedEvent event) {
-		// TODO Auto-generated method stub
-		tableModel.setData(fetchData());
+		table.setData(fetchData());
 	}
 	
 	public void dispose(){

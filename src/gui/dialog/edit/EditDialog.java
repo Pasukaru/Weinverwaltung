@@ -7,8 +7,6 @@ import java.awt.event.WindowListener;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
-import events.AnyModelChangedListener;
-import events.EventManager;
 import model.Model;
 
 public abstract class EditDialog<T extends Model> extends JOptionPane implements WindowListener {
@@ -18,11 +16,9 @@ public abstract class EditDialog<T extends Model> extends JOptionPane implements
 	protected final T model;
 	private String title;
 	private JDialog dialog = null;
-	private EventManager eventManager = null;
 	
-	public EditDialog(T model, EventManager eventManager){
+	public EditDialog(T model){
 		this.model = model;
-		this.eventManager = eventManager;
 		title = "";
 		setLayout(new BorderLayout());
 	}

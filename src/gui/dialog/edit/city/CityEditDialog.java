@@ -1,6 +1,5 @@
 package gui.dialog.edit.city;
 
-import events.EventManager;
 import gui.dialog.edit.EditButtonPanel;
 import gui.dialog.edit.EditDialog;
 
@@ -23,8 +22,8 @@ public class CityEditDialog extends EditDialog<City> {
 	private List<Region> regions;
 	private List<Country> countries;
 	
-	public CityEditDialog(City model, EventManager eventManager) {
-		super(model, eventManager);
+	public CityEditDialog(City model) {
+		super(model);
 
 		setTitle(isCreate() ? "Create Wine" : "Edit Wine");
 

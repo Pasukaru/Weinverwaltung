@@ -1,6 +1,5 @@
 package gui.dialog.type;
 
-import events.EventManager;
 import gui.dialog.edit.EditButtonPanel;
 import gui.dialog.edit.EditDialog;
 
@@ -16,8 +15,8 @@ public class TypeEditDialog extends EditDialog<Type> {
 	private TypeEditDataPanel dataPanel;
 	private EditButtonPanel<Type> buttonsPanel;
 
-	public TypeEditDialog(final Type type, EventManager eventManager) {
-		super(type, eventManager);
+	public TypeEditDialog(final Type type) {
+		super(type);
 
 		setTitle(isCreate() ? "Create Wine" : "Edit Wine");
 

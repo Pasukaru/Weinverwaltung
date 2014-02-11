@@ -31,11 +31,11 @@ public class CityTab extends ModelTab<City> {
 
 	@Override
 	public EditDialog<City> getEditDialog() {
-		return new CityEditDialog(getSelectedModel(), eventManager);
+		return new CityEditDialog(getSelectedModel());
 	}
 
 	@Override
 	public EditDialog<City> getCreateDialog() {
-		return new CityEditDialog(new City(), eventManager);
+		return new CityEditDialog(new City());
 	}
 }

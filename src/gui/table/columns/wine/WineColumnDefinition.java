@@ -10,7 +10,6 @@ import model.City;
 import model.Country;
 import model.Region;
 import model.Sort;
-import model.Vine;
 import model.Wine;
 import model.Winery;
 

@@ -31,11 +31,11 @@ public class ModelTableModel<T extends Model> extends AbstractTableModel {
 
 	public T getRow(int row) {
 		List<T> data = getData();
-		T wine = null;
+		T model = null;
 		if (row >= 0 && data.size() > row) {
-			wine = getData().get(row);
+			model = getData().get(row);
 		}
-		return wine;
+		return model;
 	}
 
 	@Override

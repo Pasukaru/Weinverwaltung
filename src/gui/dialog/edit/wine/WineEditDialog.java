@@ -1,6 +1,5 @@
 package gui.dialog.edit.wine;
 
-import events.EventManager;
 import gui.dialog.edit.EditButtonPanel;
 import gui.dialog.edit.EditDialog;
 
@@ -27,8 +26,8 @@ public class WineEditDialog extends EditDialog<Wine> {
 	private WineEditDataPanel dataPanel;
 	private EditButtonPanel<Wine> buttonsPanel;
 
-	public WineEditDialog(final Wine wine, EventManager eventManager) {
-		super(wine, eventManager);
+	public WineEditDialog(final Wine wine) {
+		super(wine);
 
 		setTitle(isCreate() ? "Create Wine" : "Edit Wine");
 		

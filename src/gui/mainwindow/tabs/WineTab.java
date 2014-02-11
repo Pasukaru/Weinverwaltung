@@ -31,11 +31,11 @@ public class WineTab extends ModelTab<Wine> {
 
 	@Override
 	public EditDialog<Wine> getEditDialog() {
-		return new WineEditDialog(getSelectedModel(), eventManager);
+		return new WineEditDialog(getSelectedModel());
 	}
 
 	@Override
 	public EditDialog<Wine> getCreateDialog() {
-		return new WineEditDialog(new Wine(), eventManager);
+		return new WineEditDialog(new Wine());
 	}
 }
