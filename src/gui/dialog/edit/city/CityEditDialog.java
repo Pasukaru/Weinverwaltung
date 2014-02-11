@@ -7,8 +7,6 @@ import gui.dialog.edit.EditDialog;
 import java.awt.BorderLayout;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import model.City;
 import model.Country;
 import model.Region;
@@ -21,6 +19,7 @@ public class CityEditDialog extends EditDialog<City> {
 	private CityEditDataPanel dataPanel;
 	private EditButtonPanel<City> buttonsPanel;
 	private Country country;
+
 	private List<Region> regions;
 	private List<Country> countries;
 	
@@ -32,6 +31,7 @@ public class CityEditDialog extends EditDialog<City> {
 	@Override
 	protected void init() {
 		this.removeAll();
+
 		setTitle(isCreate() ? "Create Wine" : "Edit Wine");
 
 		regions = Repository.getInstance().getAllRegions();
@@ -44,8 +44,12 @@ public class CityEditDialog extends EditDialog<City> {
 
 	@Override
 	protected void save() {
-		//TODO implementation
-		JOptionPane.showMessageDialog(null, "TODO");
+
+		model.setName(dataPanel.getName());
+		model.setRegion(dataPanel.getRegion());
+
+		Repository.getInstance().updateModel(model);
+		dispose();
 	}
 
 

@@ -40,8 +40,8 @@ public class CityEditDataPanel extends EditDataPanel<City> {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 
-//				country.setSelectedItem(
-
+				Region region = (Region) e.getItem();
+				country.setSelectedItem(region.getCountry());
 			}
 		});
 	}
@@ -64,6 +64,7 @@ public class CityEditDataPanel extends EditDataPanel<City> {
 
 		country = new JComboBox<Country>(countries);
 		country.setRenderer(new CountryRenderer());
+		country.setEnabled(false);
 
 		add(new JLabel("Country"), next(0, ++gridy));
 		add(country, next(1, gridy));
