@@ -37,6 +37,6 @@ public class WineTab extends ModelTab<Wine> {
 
 	@Override
 	public EditDialog<Wine> getCreateDialog() {
-		return new WineEditDialog(null);
+		return new WineEditDialog(new Wine());
 	}
 }

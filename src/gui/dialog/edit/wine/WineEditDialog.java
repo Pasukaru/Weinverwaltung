@@ -74,10 +74,6 @@ public class WineEditDialog extends EditDialog<Wine> {
 		return wineries;
 	}
 
-	public void setVisible(boolean b) {
-		super.setVisible(b);
-	}
-
 	public WineEditDataPanel getDataPanel() {
 		return dataPanel;
 	}
