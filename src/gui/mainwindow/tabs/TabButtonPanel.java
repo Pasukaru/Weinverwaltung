@@ -1,6 +1,7 @@
 package gui.mainwindow.tabs;
 
 import gui.dialog.edit.city.CityEditDialog;
+import gui.mainwindow.DbButton;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import util.JpaUtil;
 import model.City;
 import model.Model;
 
@@ -44,15 +46,7 @@ public class TabButtonPanel<T extends Model> extends JPanel {
 			}
 		});
 
-		JButton test = new JButton("Test AddCity");
-		
-		test.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				new CityEditDialog(new City()).show();
-			}
-		});
+		JButton test = new DbButton();
 		
 		this.add(add);
 		this.add(edit);
