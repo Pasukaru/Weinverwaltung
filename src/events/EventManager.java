@@ -1,24 +1,29 @@
 package events;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Model;
 
 public class EventManager {
 
-	private List<ModelChangedListener> modelChangedListeners;
-
-	public void addModelChangedListener(ModelChangedListener l) {
-		modelChangedListeners.add(l);
+	private List<AnyModelChangedListener> anyModelChangedListeners;
+	
+	public EventManager(){
+		anyModelChangedListeners = new ArrayList<AnyModelChangedListener>();
 	}
 
-	public void removeModelChangedListener(ModelChangedListener l) {
-		modelChangedListeners.remove(l);
+	public void addAnyModelChangedListener(AnyModelChangedListener l) {
+		anyModelChangedListeners.add(l);
 	}
 
-	public void fireModelChanged(Model model) {
+	public void removeAnyModelChangedListener(AnyModelChangedListener l) {
+		anyModelChangedListeners.remove(l);
+	}
+
+	public void fireAnyModelChanged(Model model) {
 		ModelChangedEvent event = new ModelChangedEvent(model);
-		for (ModelChangedListener l : modelChangedListeners) {
+		for (AnyModelChangedListener l : anyModelChangedListeners) {
 			l.modelChanged(event);
 		}
 	}

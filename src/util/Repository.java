@@ -15,21 +15,32 @@ import model.Winery;
 import org.hibernate.FlushMode;
 import org.hibernate.Session;
 
+import events.EventManager;
+
 @SuppressWarnings("unchecked")
 public class Repository {
 
-	private Session session = null;
 	private static Repository instance = null;
 
-	private Repository(Session session) {
+	private Session session = null;
+	private EventManager eventManager;
+
+	private Repository(Session session, EventManager eventManager) {
 		this.session = session;
+		this.eventManager = eventManager;
 		session.setFlushMode(FlushMode.ALWAYS);
+	}
+	
+	public static Repository init(EventManager eventManager){
+		if (instance == null) {
+			instance = new Repository((Session) JpaUtil.getEM().getDelegate(), eventManager);
+			return instance;
+		} else {
+			throw new RuntimeException("Repository is already initialized!");
+		}
 	}
 
 	public static Repository getInstance() {
-		if (instance == null) {
-			instance = new Repository((Session) JpaUtil.getEM().getDelegate());
-		}
 		return instance;
 	}
 
@@ -37,18 +48,7 @@ public class Repository {
 		session.persist(model);
 		session.update(model);
 		session.flush();
-	}
-
-	public void updateWine(Wine wine) {
-		updateModel(wine);
-	}
-
-	public void updateCity(City city) {
-		updateModel(city);
-	}
-
-	public void updateType(Type type) {
-		updateModel(type);
+		eventManager.fireAnyModelChanged(model);
 	}
 
 	public List<City> getAllCities() {

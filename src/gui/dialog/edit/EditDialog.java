@@ -7,22 +7,28 @@ import java.awt.event.WindowListener;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
+import events.AnyModelChangedListener;
+import events.EventManager;
+import events.ModelChangedEvent;
 import model.Model;
 
-public abstract class EditDialog<T extends Model> extends JOptionPane implements WindowListener {
+public abstract class EditDialog<T extends Model> extends JOptionPane implements WindowListener, AnyModelChangedListener {
 	
 	private static final long serialVersionUID = -3904763827415560312L;
 
 	protected final T model;
 	private String title;
 	private JDialog dialog = null;
+	private EventManager eventManager = null;
 	
-	public EditDialog(T model){
+	public EditDialog(T model, EventManager eventManager){
 		this.model = model;
+		this.eventManager = eventManager;
 		title = "";
 		setLayout(new BorderLayout());
 	}
 	
+	protected abstract void init();
 	protected abstract void save();
 	
 	public void setTitle(String title){
@@ -36,11 +42,13 @@ public abstract class EditDialog<T extends Model> extends JOptionPane implements
 	public void show(){
 		dialog = createDialog(title);
 		dialog.addWindowListener(this);
+		eventManager.addAnyModelChangedListener(this);
 		dialog.setVisible(true);
 	}
 	
-	public void close(){
+	public void dispose(){
 		if(dialog != null){
+			eventManager.removeAnyModelChangedListener(this);
 			dialog.dispose();
 			dialog = null;
 		}
@@ -52,7 +60,7 @@ public abstract class EditDialog<T extends Model> extends JOptionPane implements
 
 	@Override
 	public void windowClosed(WindowEvent e) {
-		close();
+		dispose();
 	}
 
 	@Override
@@ -72,4 +80,9 @@ public abstract class EditDialog<T extends Model> extends JOptionPane implements
 
 	@Override
 	public void windowOpened(WindowEvent e) {}
+	
+	@Override
+	public void modelChanged(ModelChangedEvent event) {
+		init();
+	}
 }

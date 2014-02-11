@@ -11,6 +11,8 @@ import java.awt.event.WindowEvent;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import util.Repository;
+
 public class MainWindow extends BaseWindow {
 
 	private static final long serialVersionUID = 1L;
@@ -21,6 +23,8 @@ public class MainWindow extends BaseWindow {
 
 	public MainWindow() {
 		super("Weinverwaltung");
+
+		Repository.init(eventManager);
 
 		tabPane = new JTabbedPane();
 

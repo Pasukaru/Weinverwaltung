@@ -1,5 +1,6 @@
 package gui.dialog.edit.city;
 
+import events.EventManager;
 import gui.dialog.edit.EditButtonPanel;
 import gui.dialog.edit.EditDialog;
 
@@ -17,15 +18,20 @@ public class CityEditDialog extends EditDialog<City> {
 
 	private static final long serialVersionUID = 9013808505821269241L;
 
-	private final CityEditDataPanel dataPanel;
-	private final EditButtonPanel<City> buttonsPanel;
+	private CityEditDataPanel dataPanel;
+	private EditButtonPanel<City> buttonsPanel;
 	private Country country;
-	private final List<Region> regions;
-	private final List<Country> countries;
+	private List<Region> regions;
+	private List<Country> countries;
 	
-	public CityEditDialog(City model) {
-		super(model);
+	public CityEditDialog(City model, EventManager eventManager) {
+		super(model, eventManager);
+	}
 
+
+	@Override
+	protected void init() {
+		this.removeAll();
 		setTitle(isCreate() ? "Create Wine" : "Edit Wine");
 
 		regions = Repository.getInstance().getAllRegions();

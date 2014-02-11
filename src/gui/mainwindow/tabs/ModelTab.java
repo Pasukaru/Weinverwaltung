@@ -5,13 +5,15 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 import model.Model;
+import events.AnyModelChangedListener;
 import events.EventManager;
+import events.ModelChangedEvent;
 import gui.dialog.edit.EditDialog;
 import gui.table.ModelTable;
 import gui.table.ModelTableModel;
 import gui.table.ModelTableScrollPane;
 
-public abstract class ModelTab<T extends Model> extends JPanel {
+public abstract class ModelTab<T extends Model> extends JPanel implements AnyModelChangedListener {
 
 	private static final long serialVersionUID = 6963316486962402827L;
 
@@ -51,6 +53,12 @@ public abstract class ModelTab<T extends Model> extends JPanel {
 		return getTableModel().getRow(getTable()
 			.getSelectionModel()
 			.getMinSelectionIndex());
+	}
+	
+	@Override
+	public void modelChanged(ModelChangedEvent event) {
+		// TODO Auto-generated method stub
+		//RERENDER
 	}
 
 }

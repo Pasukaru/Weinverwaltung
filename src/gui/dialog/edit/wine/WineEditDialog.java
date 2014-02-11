@@ -1,5 +1,6 @@
 package gui.dialog.edit.wine;
 
+import events.EventManager;
 import gui.dialog.edit.EditButtonPanel;
 import gui.dialog.edit.EditDialog;
 
@@ -17,25 +18,31 @@ public class WineEditDialog extends EditDialog<Wine> {
 
 	private static final long serialVersionUID = -9141574978152096541L;
 
-	private final List<City> cities;
-	private final List<model.Type> types;
-	private final List<Sort> sorts;
-	private final List<Vine> vines;
-	private final List<Winery> wineries;
+	private List<City> cities;
+	private List<model.Type> types;
+	private List<Sort> sorts;
+	private List<Vine> vines;
+	private List<Winery> wineries;
 
-	private final WineEditDataPanel dataPanel;
-	private final EditButtonPanel<Wine> buttonsPanel;
+	private WineEditDataPanel dataPanel;
+	private EditButtonPanel<Wine> buttonsPanel;
 
-	public WineEditDialog(final Wine wine) {
-		super(wine);
+	public WineEditDialog(final Wine wine, EventManager eventManager) {
+		super(wine, eventManager);
+		init();
+	}
 
+	@Override
+	protected void init() {
+		this.removeAll();
 		setTitle(isCreate() ? "Create Wine" : "Edit Wine");
 		
-		cities = Repository.getInstance().getAllCities();
-		types = Repository.getInstance().getAllTypes();
-		sorts = Repository.getInstance().getAllSorts();
-		vines = Repository.getInstance().getAllVines();
-		wineries = Repository.getInstance().getAllWineries();
+		Repository repo = Repository.getInstance();
+		cities = repo.getAllCities();
+		types = repo.getAllTypes();
+		sorts = repo.getAllSorts();
+		vines = repo.getAllVines();
+		wineries = repo.getAllWineries();
 
 		add(dataPanel = new WineEditDataPanel(this), BorderLayout.CENTER);
 		add(buttonsPanel = new EditButtonPanel<Wine>(this), BorderLayout.SOUTH);
@@ -51,7 +58,7 @@ public class WineEditDialog extends EditDialog<Wine> {
 		//model.setVine(dataPanel.getvin);
 		//model.getWinery(dataPanel.getw);
 		Repository.getInstance().updateModel(model);
-		close();
+		dispose();
 	}
 
 	public List<City> getCities() {

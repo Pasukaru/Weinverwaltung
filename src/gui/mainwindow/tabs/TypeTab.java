@@ -24,11 +24,11 @@ public class TypeTab extends ModelTab<Type> {
 
 	@Override
 	public EditDialog<Type> getEditDialog() {
-		return new TypeEditDialog(getSelectedModel());
+		return new TypeEditDialog(getSelectedModel(), eventManager);
 	}
 
 	@Override
 	public EditDialog<Type> getCreateDialog() {
-		return new TypeEditDialog(new Type());
+		return new TypeEditDialog(new Type(), eventManager);
 	}
 }

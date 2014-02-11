@@ -1,5 +1,6 @@
 package gui.dialog.type;
 
+import events.EventManager;
 import gui.dialog.edit.EditButtonPanel;
 import gui.dialog.edit.EditDialog;
 
@@ -12,12 +13,16 @@ public class TypeEditDialog extends EditDialog<Type> {
 
 	private static final long serialVersionUID = -9141574978152096541L;
 
-	private final TypeEditDataPanel dataPanel;
-	private final EditButtonPanel<Type> buttonsPanel;
+	private TypeEditDataPanel dataPanel;
+	private EditButtonPanel<Type> buttonsPanel;
 
-	public TypeEditDialog(final Type type) {
-		super(type);
-
+	public TypeEditDialog(final Type type, EventManager eventManager) {
+		super(type, eventManager);
+	}
+	
+	@Override
+	protected void init() {
+		this.removeAll();
 		setTitle(isCreate() ? "Create Wine" : "Edit Wine");
 
 		add(dataPanel = new TypeEditDataPanel(this), BorderLayout.CENTER);
@@ -28,7 +33,7 @@ public class TypeEditDialog extends EditDialog<Type> {
 	public void save(){
 		model.setName(dataPanel.getName());
 		Repository.getInstance().updateModel(model);
-		close();
+		dispose();
 	}
 	public TypeEditDataPanel getDataPanel() {
 		return dataPanel;

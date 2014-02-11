@@ -1,6 +1,6 @@
 package events;
 
-public interface ModelChangedListener {
+public interface AnyModelChangedListener {
 
 	abstract void modelChanged(ModelChangedEvent event);
 
