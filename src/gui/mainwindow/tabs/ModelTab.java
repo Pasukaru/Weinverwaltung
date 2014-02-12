@@ -23,16 +23,19 @@ public abstract class ModelTab<T extends Model> extends JPanel implements AnyMod
 	protected ModelTableModel<T> tableModel;
 	protected ModelTable<T> table;
 	
+	protected TabButtonPanel<T> buttonPanel;
+	
 	public ModelTab(Class<T> model) {
 		this.clazz = model;
 		this.tableModel = initTableModel();
 		this.table = initTable(tableModel);
+		this.buttonPanel = new TabButtonPanel<T>(this);
 
 		Repository.getEventManager().addAnyModelChangedListener(this);
 
 		setLayout(new BorderLayout());
 		add(BorderLayout.CENTER, new ModelTableScrollPane<T>(table));
-		add(BorderLayout.SOUTH, new TabButtonPanel<T>(this));
+		add(BorderLayout.SOUTH, buttonPanel);
 	}
 	
 	public List<T> fetchData(){
