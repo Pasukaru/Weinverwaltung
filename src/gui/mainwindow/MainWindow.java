@@ -6,6 +6,7 @@ import gui.mainwindow.tabs.TypeTab;
 import gui.mainwindow.tabs.WineTab;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JPanel;
@@ -34,9 +35,10 @@ public class MainWindow extends BaseWindow {
 		addTypeTab();
 		tabPane.setSelectedIndex(0);
 
-		this.setContentPane(tabPane);
-		this.pack();
-		this.setLocationRelativeTo(null);
+		setContentPane(tabPane);
+		pack();
+		setSize(new Dimension(800, getHeight()));
+		setLocationRelativeTo(null);
 	}
 
 	private void addTab(String title, Component c) {
