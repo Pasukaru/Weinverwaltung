@@ -5,11 +5,13 @@ import gui.table.columns.IndexColumn;
 import gui.table.columns.ModelColumn;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import model.City;
 import model.Country;
 import model.Region;
 import model.Sort;
+import model.Vine;
 import model.Wine;
 import model.Winery;
 
@@ -50,13 +52,31 @@ public class WineColumnDefinition extends ModelTableColumnDefinition<Wine> {
 			}
 		});
 
+		columns.add(new ModelColumn<Wine, String>("Vine", String.class) {
+			@Override
+			public String getValue(Wine model, int row, int col) {
+				String value = "---";
+				Set<Vine> vines = model.getVine();
+				if (vines != null) {
+					for (Vine vine : vines) {
+						if(value.equals("---")){
+							value = vine.getName();
+						}else{
+							value = value+", "+vine.getName();
+						}
+					}
+				}
+				return value;
+			}
+		});
+
 		columns.add(new ModelColumn<Wine, String>("Winery", String.class) {
 			@Override
 			public String getValue(Wine model, int row, int col) {
 				String value = "---";
 				Winery winery = model.getWinery();
 				if (winery != null) {
-							value = winery.getName();
+					value = winery.getName();
 				}
 				return value;
 			}
@@ -106,14 +126,5 @@ public class WineColumnDefinition extends ModelTableColumnDefinition<Wine> {
 				return value;
 			}
 		});
-
-		//TODO Vine muss noch mit hinzugefügt werden!
-
-
-		// columns.add(new NameColumn());
-		// columns.add(new TypeColumn());
-		// columns.add(new CityColumn());
-		// columns.add(new RegionColumn());
-		// columns.add(new CountryColumn());
 	}
 }
