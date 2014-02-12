@@ -5,9 +5,9 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import util.Repository;
 import model.Model;
 import events.AnyModelChangedListener;
-import events.EventManager;
 import events.ModelChangedEvent;
 import gui.dialog.edit.EditDialog;
 import gui.table.ModelTable;
@@ -15,27 +15,29 @@ import gui.table.ModelTableModel;
 import gui.table.ModelTableScrollPane;
 
 public abstract class ModelTab<T extends Model> extends JPanel implements AnyModelChangedListener {
+	
+	private final Class<T> clazz;
 
 	private static final long serialVersionUID = 6963316486962402827L;
-
-	protected EventManager eventManager;
 
 	protected ModelTableModel<T> tableModel;
 	protected ModelTable<T> table;
 	
-	public ModelTab(EventManager eventManager) {
-		this.eventManager = eventManager;
-		eventManager.addAnyModelChangedListener(this);
-
+	public ModelTab(Class<T> model) {
+		this.clazz = model;
 		this.tableModel = initTableModel();
 		this.table = initTable(tableModel);
+
+		Repository.getEventManager().addAnyModelChangedListener(this);
 
 		setLayout(new BorderLayout());
 		add(BorderLayout.CENTER, new ModelTableScrollPane<T>(table));
 		add(BorderLayout.SOUTH, new TabButtonPanel<T>(this));
 	}
 	
-	public abstract List<T> fetchData();
+	public List<T> fetchData(){
+		return Repository.getInstance(clazz).getAll();
+	};
 
 	public abstract ModelTableModel<T> initTableModel();
 
@@ -64,7 +66,7 @@ public abstract class ModelTab<T extends Model> extends JPanel implements AnyMod
 	}
 	
 	public void dispose(){
-		eventManager.removeAnyModelChangedListener(this);
+		Repository.getEventManager().removeAnyModelChangedListener(this);
 	}
 
 }

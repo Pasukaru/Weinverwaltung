@@ -8,6 +8,7 @@ import java.util.List;
 
 import model.City;
 import model.Sort;
+import model.Type;
 import model.Vine;
 import model.Wine;
 import model.Winery;
@@ -31,12 +32,11 @@ public class WineEditDialog extends EditDialog<Wine> {
 
 		setTitle(isCreate() ? "Create Wine" : "Edit Wine");
 		
-		Repository repo = Repository.getInstance();
-		cities = repo.getAllCities();
-		types = repo.getAllTypes();
-		sorts = repo.getAllSorts();
-		vines = repo.getAllVines();
-		wineries = repo.getAllWineries();
+		cities = Repository.getInstance(City.class).getAll();
+		types = Repository.getInstance(Type.class).getAll();
+		sorts = Repository.getInstance(Sort.class).getAll();
+		vines = Repository.getInstance(Vine.class).getAll();
+		wineries = Repository.getInstance(Winery.class).getAll();
 
 		add(dataPanel = new WineEditDataPanel(this), BorderLayout.CENTER);
 		add(buttonsPanel = new EditButtonPanel<Wine>(this), BorderLayout.SOUTH);
@@ -51,7 +51,7 @@ public class WineEditDialog extends EditDialog<Wine> {
 		//model.setSort(dataP);
 		//model.setVine(dataPanel.getvin);
 		//model.getWinery(dataPanel.getw);
-		Repository.getInstance().updateModel(model);
+		Repository.getInstance(Wine.class).update(model);
 		dispose();
 	}
 

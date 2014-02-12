@@ -6,11 +6,42 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public abstract class Model implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public abstract Integer getId();
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	private Integer id;	
+	
+	@Column(name = "name", unique = true, nullable = false)
+	private String name;
+	
+	public Model(){}
+	
+	public Model(String name){
+		setName(name);
+	}
+	
+	public Integer getId(){
+		return id;
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
+	
+	public String getName(){
+		return name;
+	}
 	
 	@Override
 	public String toString() {

@@ -26,10 +26,9 @@ public class SortEditDialog extends EditDialog<Sort> {
 
 	@Override
 	protected void save() {
-
 		model.setName(dataPanel.getName());
 
-		Repository.getInstance().updateModel(model);
+		Repository.getInstance(Sort.class).update(model);
 		dispose();
 	}
 

@@ -26,10 +26,9 @@ public class VineEditDialog extends EditDialog<Vine> {
 
 	@Override
 	protected void save() {
-
 		model.setName(dataPanel.getName());
 
-		Repository.getInstance().updateModel(model);
+		Repository.getInstance(Vine.class).update(model);
 		dispose();
 	}
 

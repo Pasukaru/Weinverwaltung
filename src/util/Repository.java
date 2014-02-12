@@ -1,6 +1,9 @@
 package util;
 
+import java.util.HashMap;
 import java.util.List;
+
+import org.hibernate.Session;
 
 import model.City;
 import model.Country;
@@ -11,93 +14,74 @@ import model.Type;
 import model.Vine;
 import model.Wine;
 import model.Winery;
-
-import org.hibernate.FlushMode;
-import org.hibernate.Session;
-
 import events.EventManager;
 
 @SuppressWarnings("unchecked")
-public class Repository {
+public class Repository<T extends Model> {
 
-	private static Repository instance = null;
-
-	private Session session = null;
-	private EventManager eventManager;
-
-	private Repository(Session session, EventManager eventManager) {
-		this.session = session;
-		this.eventManager = eventManager;
-		session.setFlushMode(FlushMode.ALWAYS);
+	private Class<T> model;
+	private static Session session = null;
+	private static EventManager eventManager;
+	
+	private static HashMap<Class<? extends Model>, Repository<? extends Model>> instances;
+	
+	private Repository(Class<T> model){
+		this.model = model;
 	}
 	
-	public static Repository init(EventManager eventManager){
-		if (instance == null) {
-			instance = new Repository((Session) JpaUtil.getEM().getDelegate(), eventManager);
-			return instance;
+	public static void init(EventManager em){
+		if(session == null){
+			session = (Session) JpaUtil.getEM().getDelegate();
+			eventManager = em;
+			instances = new HashMap<Class<? extends Model>, Repository<? extends Model>>();
+			instances.put(City.class, new Repository<City>(City.class));
+			instances.put(Country.class, new Repository<Country>(Country.class));
+			instances.put(Region.class, new Repository<Region>(Region.class));
+			instances.put(Sort.class, new Repository<Sort>(Sort.class));
+			instances.put(Type.class, new Repository<Type>(Type.class));
+			instances.put(Vine.class, new Repository<Vine>(Vine.class));
+			instances.put(Wine.class, new Repository<Wine>(Wine.class));
+			instances.put(Winery.class, new Repository<Winery>(Winery.class));
 		} else {
 			throw new RuntimeException("Repository is already initialized!");
 		}
 	}
-
-	public static Repository getInstance() {
-		return instance;
+	
+	public static EventManager getEventManager(){
+		return eventManager;
+	}
+	
+	public static <T extends Model> Repository<T> getInstance(Class<T> model){
+		return (Repository<T>) instances.get(model);
+	}
+	
+	public List<T> getAll(){
+		return session.createCriteria(model).list();
+	}
+	
+	public T getById(Integer id){
+		return (T) session.get(model, id);
 	}
 
-	public void updateModel(Model model) {
+	public void update(T model){
 		session.persist(model);
 		session.update(model);
 		session.flush();
 		eventManager.fireAnyModelChanged(model);
 	}
-
-	public boolean deleteModel(Model model){
+	
+	public boolean delete(Integer id){
 		boolean deleted = false;
-		try {
-		    session.delete(model);
-			session.flush();
-			Object result = session.get(model.getClass(), model.getId());
-			if(result == null){
-				eventManager.fireAnyModelChanged(model);
-				deleted = true;
-			}
-			
-		} catch(Exception e){}
+		
+		T model = getById(id);
+		
+	    session.delete(model);
+		session.flush();
+		Object result = session.get(model.getClass(), model.getId());
+		if(result == null){
+			eventManager.fireAnyModelChanged(model);
+			deleted = true;
+		}
 		return deleted;
-	}
-	
-	public void getModelById(Integer id){
-	}
-	
-	public List<City> getAllCities() {
-		return session.createCriteria(City.class).list();
-	}
-
-	public List<Country> getAllCountries() {
-		return session.createCriteria(Country.class).list();
-	}
-
-	public List<Region> getAllRegions() {
-		return session.createCriteria(Region.class).list();
-	}
-
-	public List<Vine> getAllVines() {
-		return session.createCriteria(Vine.class).list();
-	}
-
-	public List<Wine> getAllWines() {
-		return session.createCriteria(Wine.class).list();
-	}
-
-	public List<Sort> getAllSorts() {
-		return session.createCriteria(Sort.class).list();
-	}
-
-	public List<Winery> getAllWineries() {
-		return session.createCriteria(Winery.class).list();
-	}
-
-	public List<Type> getAllTypes() {
-		return session.createCriteria(Type.class).list();
 	}
 }

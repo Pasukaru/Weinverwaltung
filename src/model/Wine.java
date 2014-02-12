@@ -1,14 +1,10 @@
 package model;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -17,14 +13,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Wine")
-public class Wine extends Model implements Serializable {
+public class Wine extends Model {
 
 	private static final long serialVersionUID = -8755001068472289262L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
-	private String name;
 
 	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(
@@ -55,25 +46,12 @@ public class Wine extends Model implements Serializable {
 
 	public Wine(String name, Set<Vine> vine, City city, Sort sort, Type type,
 		Winery winery) {
-		super();
-		this.name = name;
+		super(name);
 		this.vine = vine;
 		this.city = city;
 		this.sort = sort;
 		this.type = type;
 		this.winery = winery;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Set<Vine> getVine() {

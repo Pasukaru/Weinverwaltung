@@ -53,27 +53,27 @@ public class MainWindow extends BaseWindow {
 	}
 
 	public void addWineTab() {
-		addTab("Wine", new WineTab(eventManager));
+		addTab("Wine", new WineTab());
 	}
 
 	public void addCityTab(){
-		addTab("City", new CityTab(eventManager));
+		addTab("City", new CityTab());
 	}
 
 	public void addTypeTab(){
-		addTab("Type", new TypeTab(eventManager));
+		addTab("Type", new TypeTab());
 	}
 
 	public void addSortTab(){
-		addTab("Sort", new SortTab(eventManager));
+		addTab("Sort", new SortTab());
 	}
 
 	public void addVineTab(){
-		addTab("Vine", new VineTab(eventManager));
+		addTab("Vine", new VineTab());
 	}
 
 	public void addWineryTab(){
-		addTab("Winery", new WineryTab(eventManager));
+		addTab("Winery", new WineryTab());
 	}
 
 	public void addSelectorTab() {

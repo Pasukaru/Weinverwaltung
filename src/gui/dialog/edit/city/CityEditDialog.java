@@ -27,8 +27,8 @@ public class CityEditDialog extends EditDialog<City> {
 
 		setTitle(isCreate() ? "Create City" : "Edit City");
 
-		regions = Repository.getInstance().getAllRegions();
-		countries = Repository.getInstance().getAllCountries();
+		regions = Repository.getInstance(Region.class).getAll();
+		countries = Repository.getInstance(Country.class).getAll();
 
 		add(dataPanel = new CityEditDataPanel(this), BorderLayout.CENTER);
 		add(buttonsPanel = new EditButtonPanel<City>(this), BorderLayout.SOUTH);
@@ -36,11 +36,10 @@ public class CityEditDialog extends EditDialog<City> {
 
 	@Override
 	protected void save() {
-
 		model.setName(dataPanel.getName());
 		model.setRegion(dataPanel.getRegion());
 
-		Repository.getInstance().updateModel(model);
+		Repository.getInstance(City.class).update(model);
 		dispose();
 	}
 

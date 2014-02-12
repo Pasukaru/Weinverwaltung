@@ -27,7 +27,7 @@ public class TypeEditDialog extends EditDialog<Type> {
 	@Override
 	public void save(){
 		model.setName(dataPanel.getName());
-		Repository.getInstance().updateModel(model);
+		Repository.getInstance(Type.class).update(model);
 		dispose();
 	}
 	public TypeEditDataPanel getDataPanel() {

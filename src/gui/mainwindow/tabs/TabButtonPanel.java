@@ -43,8 +43,11 @@ public class TabButtonPanel<T extends Model> extends JPanel {
 		delete.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(!Repository.getInstance().deleteModel(tab.getSelectedModel())){
-					JOptionPane.showMessageDialog(tab, "You cannot delete this entry because it is still used.", "Error", JOptionPane.ERROR_MESSAGE);
+				T model = tab.getSelectedModel();
+				if(model != null){
+					if(!Repository.getInstance(model.getClass()).delete(model.getId())){
+						JOptionPane.showMessageDialog(tab, "You cannot delete this entry because it is still used.", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		});
