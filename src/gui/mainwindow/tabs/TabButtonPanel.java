@@ -6,10 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import util.Repository;
 import model.Model;
 
 public class TabButtonPanel<T extends Model> extends JPanel {
@@ -36,10 +38,23 @@ public class TabButtonPanel<T extends Model> extends JPanel {
 			}
 		});
 		
+		final JButton delete = new JButton("Delete");
+		delete.setEnabled(false);
+		delete.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(!Repository.getInstance().deleteModel(tab.getSelectedModel())){
+					JOptionPane.showMessageDialog(tab, "You cannot delete this entry because it is still used.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		
 		tab.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent event) {
-				edit.setEnabled(event.getFirstIndex() >= 0);
+				boolean selected = tab.getSelectedModel() != null;
+				edit.setEnabled(selected);
+				delete.setEnabled(selected);
 			}
 		});
 
@@ -47,6 +62,7 @@ public class TabButtonPanel<T extends Model> extends JPanel {
 		
 		this.add(add);
 		this.add(edit);
+		this.add(delete);
 		this.add(test);
 	}
 }

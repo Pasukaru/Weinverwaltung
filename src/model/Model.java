@@ -1,11 +1,14 @@
 package model;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public abstract class Model {
+public abstract class Model implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	public abstract Integer getId();
 	

@@ -24,7 +24,7 @@ public class Region extends Model implements Serializable {
 	private Integer id;
 	private String name;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "country_id")
 	private Country country;
 

@@ -51,6 +51,24 @@ public class Repository {
 		eventManager.fireAnyModelChanged(model);
 	}
 
+	public boolean deleteModel(Model model){
+		boolean deleted = false;
+		try {
+		    session.delete(model);
+			session.flush();
+			Object result = session.get(model.getClass(), model.getId());
+			if(result == null){
+				eventManager.fireAnyModelChanged(model);
+				deleted = true;
+			}
+			
+		} catch(Exception e){}
+		return deleted;
+	}
+	
+	public void getModelById(Integer id){
+	}
+	
 	public List<City> getAllCities() {
 		return session.createCriteria(City.class).list();
 	}

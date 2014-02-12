@@ -25,7 +25,7 @@ public class City extends Model implements Serializable {
 	private String name;
 	private String zipCode;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "region_id")
 	private Region region;
 

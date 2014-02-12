@@ -33,19 +33,19 @@ public class Wine extends Model implements Serializable {
 		inverseJoinColumns = { @JoinColumn(name = "vine_id") })
 	private Set<Vine> vine = new HashSet<Vine>();
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "city_id")
 	private City city;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "sort_id")
 	private Sort sort;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "type_id")
 	private Type type;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "winery_id")
 	private Winery winery;
 
