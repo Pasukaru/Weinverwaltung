@@ -21,11 +21,11 @@ public class CityEditDialog extends EditDialog<City> {
 
 	private List<Region> regions;
 	private List<Country> countries;
-	
+
 	public CityEditDialog(City model) {
 		super(model);
 
-		setTitle(isCreate() ? "Create Wine" : "Edit Wine");
+		setTitle(isCreate() ? "Create City" : "Edit City");
 
 		regions = Repository.getInstance().getAllRegions();
 		countries = Repository.getInstance().getAllCountries();
