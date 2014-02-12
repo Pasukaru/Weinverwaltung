@@ -4,7 +4,9 @@ import events.EventManager;
 import gui.mainwindow.tabs.CityTab;
 import gui.mainwindow.tabs.SortTab;
 import gui.mainwindow.tabs.TypeTab;
+import gui.mainwindow.tabs.VineTab;
 import gui.mainwindow.tabs.WineTab;
+import gui.mainwindow.tabs.WineryTab;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -32,9 +34,11 @@ public class MainWindow extends BaseWindow {
 
 		addSelectorTab();
 		addWineTab();
-		addCityTab();
 		addTypeTab();
 		addSortTab();
+		addVineTab();
+		addWineryTab();
+		addCityTab();
 		tabPane.setSelectedIndex(0);
 
 		setContentPane(tabPane);
@@ -62,6 +66,14 @@ public class MainWindow extends BaseWindow {
 
 	public void addSortTab(){
 		addTab("Sort", new SortTab(eventManager));
+	}
+
+	public void addVineTab(){
+		addTab("Vine", new VineTab(eventManager));
+	}
+
+	public void addWineryTab(){
+		addTab("Winery", new WineryTab(eventManager));
 	}
 
 	public void addSelectorTab() {
