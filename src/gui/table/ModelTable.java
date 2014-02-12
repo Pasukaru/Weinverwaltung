@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.TableColumnModel;
 
 import model.Model;
 
@@ -16,7 +17,11 @@ public class ModelTable<T extends Model> extends JTable {
 	public ModelTable(ModelTableModel<T> tableModel){
 		super(tableModel);
 		this.tableModel = tableModel;
-		this.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		TableColumnModel tcm = getColumnModel();
+		tcm.getColumn(0).setMaxWidth(35);
+		
 	}
 	
 	public T getSelectedModel(){
