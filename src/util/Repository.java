@@ -1,5 +1,6 @@
 package util;
 
+import java.net.ConnectException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,24 +35,20 @@ public class Repository<T extends Model> {
 		this.model = model;
 	}
 	
-	public static void init(EventManager em){
-		
-		if(session == null){
-			EntityManager entityManager = JpaUtil.getEM();
-			session = (Session) entityManager.getDelegate();
-			eventManager = em;
-			instances = new HashMap<Class<? extends Model>, Repository<? extends Model>>();
-			instances.put(City.class, new Repository<City>(City.class));
-			instances.put(Country.class, new Repository<Country>(Country.class));
-			instances.put(Region.class, new Repository<Region>(Region.class));
-			instances.put(Sort.class, new Repository<Sort>(Sort.class));
-			instances.put(Type.class, new Repository<Type>(Type.class));
-			instances.put(Vine.class, new Repository<Vine>(Vine.class));
-			instances.put(Wine.class, new WineRepository());
-			instances.put(Winery.class, new Repository<Winery>(Winery.class));
-		} else {
-			throw new RuntimeException("Repository is already initialized!");
-		}
+	public static void init(String pu, EventManager eventManager){
+		JpaUtil.init(pu);
+		EntityManager entityManager = JpaUtil.getEM();
+		session = (Session) entityManager.getDelegate();
+		Repository.eventManager = eventManager;
+		instances = new HashMap<Class<? extends Model>, Repository<? extends Model>>();
+		instances.put(City.class, new Repository<City>(City.class));
+		instances.put(Country.class, new Repository<Country>(Country.class));
+		instances.put(Region.class, new Repository<Region>(Region.class));
+		instances.put(Sort.class, new Repository<Sort>(Sort.class));
+		instances.put(Type.class, new Repository<Type>(Type.class));
+		instances.put(Vine.class, new Repository<Vine>(Vine.class));
+		instances.put(Wine.class, new WineRepository());
+		instances.put(Winery.class, new Repository<Winery>(Winery.class));
 	}
 	
 	public static EventManager getEventManager(){

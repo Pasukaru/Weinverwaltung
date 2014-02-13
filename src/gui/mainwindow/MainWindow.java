@@ -12,6 +12,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
 import util.Repository;
@@ -20,9 +21,9 @@ public class MainWindow extends BaseWindow {
 
 	private static final long serialVersionUID = 1L;
 
-	private final JTabbedPane tabPane;
+	private JTabbedPane tabPane;
 
-	private final EventManager eventManager = new EventManager();
+	private EventManager eventManager;
 	
 	private CityTab city = null;
 	private SortTab sort = null;
@@ -33,19 +34,43 @@ public class MainWindow extends BaseWindow {
 	
 	public MainWindow() {
 		super("Weinverwaltung");
-
-		Repository.init(eventManager);
-
-		tabPane = new JTabbedPane();
-
-		addSelectorTab();
-		addWineTab();
-		tabPane.setSelectedIndex(0);
-
-		setContentPane(tabPane);
+	}
+	
+	public void init(){
+		setUndecorated(true);
+		setContentPane(new LoadingPanel(this));
+		setAlwaysOnTop(true);
 		pack();
-		setSize(new Dimension(800, getHeight()));
 		setLocationRelativeTo(null);
+		setVisible(true);
+		
+		tabPane = new JTabbedPane();
+		addSelectorTab();
+		
+		eventManager = new EventManager();
+
+		try {
+			Repository.init("WEINVERWALTUNG", eventManager);
+			
+			setVisible(false);
+			dispose();
+		
+			setAlwaysOnTop(false);
+			setUndecorated(false);
+
+			addWineTab();
+
+			setContentPane(tabPane);
+			pack();
+			setSize(new Dimension(800, getHeight()));
+			setLocationRelativeTo(null);
+			setVisible(true);
+		} catch(Exception e){
+			setVisible(false);
+			JOptionPane.showMessageDialog(null, "Es konnte keine Verbindung zur Datenbank hergestellt werden", null, JOptionPane.ERROR_MESSAGE);
+			dispose();
+			System.exit(1);
+		}
 	}
 
 	private void addTab(String title, Component c) {
