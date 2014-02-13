@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -22,22 +23,23 @@ public class Wine extends Model {
 		name = "WineVine",
 		joinColumns = { @JoinColumn(name = "wine_id") },
 		inverseJoinColumns = { @JoinColumn(name = "vine_id") })
+	@Column(nullable = false)
 	private Set<Vine> vine = new HashSet<Vine>();
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "city_id")
+	@JoinColumn(name = "city_id", nullable = false)
 	private City city;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "sort_id")
+	@JoinColumn(name = "sort_id", nullable = false)
 	private Sort sort;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "type_id")
+	@JoinColumn(name = "type_id", nullable = false)
 	private Type type;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "winery_id")
+	@JoinColumn(name = "winery_id", nullable = false)
 	private Winery winery;
 
 	public Wine() {
