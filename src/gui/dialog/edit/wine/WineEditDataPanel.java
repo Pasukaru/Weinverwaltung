@@ -1,11 +1,18 @@
 package gui.dialog.edit.wine;
 
+import java.awt.Dimension;
+import java.util.HashSet;
+import java.util.Set;
+
 import gui.dialog.edit.EditDataPanel;
 import gui.renderers.combobox.ModelRenderer;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 import model.City;
 import model.Sort;
@@ -25,7 +32,7 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 	private JComboBox<City> city;
 	private JComboBox<Type> type;
 	private JComboBox<Sort> sort;
-	private JComboBox<Vine> vine;
+	private JList<Vine> vine;
 	private JComboBox<Winery> winery;
 
 	public WineEditDataPanel(WineEditDialog editWindow) {
@@ -39,7 +46,7 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 		addVine();
 		addWinery();
 	}
-	
+
 	private void addName() {
 		name = new JTextField();
 		if (model != null) {
@@ -76,12 +83,18 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 	private void addVine() {
 		Vine[] vines = editDialog.getVines().toArray(new Vine[0]);
 
-		vine = new JComboBox<Vine>(vines);
-		vine.setRenderer(new ModelRenderer<Vine>());
-		vine.setSelectedItem(model.getVine());
+
+		vine = new JList<Vine>(vines);
+		vine.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		vine.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		vine.setVisibleRowCount(-1);
+		vine.setCellRenderer(new ModelRenderer<Vine>());
+
+		JScrollPane scrollPane = new JScrollPane(vine);
+		scrollPane.setPreferredSize(new Dimension(100, 80));
 
 		add(new JLabel("Vine"), next(0, ++gridy));
-		add(vine, next(1, gridy));
+		add(scrollPane, next(1, gridy));
 	}
 
 	private void addWinery() {
@@ -116,6 +129,19 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 
 	public Type getType() {
 		return (Type) type.getSelectedItem();
+	}
+
+	public Sort getSort() {
+		return (Sort) sort.getSelectedItem();
+	}
+
+	public Winery getWinery() {
+		return (Winery) winery.getSelectedItem();
+	}
+
+	public Set<Vine> getVines() {
+		Set<Vine> vines = new HashSet<Vine>(vine.getSelectedValuesList());
+		return vines;
 	}
 
 }
