@@ -2,8 +2,7 @@ package gui.dialog.edit.city;
 
 
 import gui.dialog.edit.EditDataPanel;
-import gui.renderers.combobox.CountryRenderer;
-import gui.renderers.combobox.RegionRenderer;
+import gui.renderers.combobox.ModelRenderer;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -63,7 +62,7 @@ public class CityEditDataPanel extends EditDataPanel<City> {
 		Country[] countries = editDialog.getCountries().toArray(new Country[0]);
 
 		country = new JComboBox<Country>(countries);
-		country.setRenderer(new CountryRenderer());
+		country.setRenderer(new ModelRenderer<Country>());
 		country.setEnabled(false);
 
 		add(new JLabel("Country"), next(0, ++gridy));
@@ -75,7 +74,7 @@ public class CityEditDataPanel extends EditDataPanel<City> {
 		Region[] regions = editDialog.getRegions().toArray(new Region[0]);
 
 		region = new JComboBox<Region>(regions);
-		region.setRenderer(new RegionRenderer());
+		region.setRenderer(new ModelRenderer<Region>());
 
 		add(new JLabel("Region"), next(0, ++gridy));
 		add(region, next(1, gridy));

@@ -30,6 +30,7 @@ public class Repository<T extends Model> {
 	}
 	
 	public static void init(EventManager em){
+		
 		if(session == null){
 			session = (Session) JpaUtil.getEM().getDelegate();
 			eventManager = em;

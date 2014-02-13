@@ -7,7 +7,7 @@ import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
 import model.Model;
 
-public abstract class ModelRenderer<T extends Model> extends
+public class ModelRenderer<T extends Model> extends
 	BasicComboBoxRenderer {
 
 	private static final long serialVersionUID = 6745412362568365583L;
@@ -36,5 +36,7 @@ public abstract class ModelRenderer<T extends Model> extends
 		return this;
 	}
 
-	public abstract String getValue(T model);
+	public String getValue(T model){
+		return model.getName();
+	}
 }

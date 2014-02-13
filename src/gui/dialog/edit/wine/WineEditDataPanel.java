@@ -1,11 +1,7 @@
 package gui.dialog.edit.wine;
 
 import gui.dialog.edit.EditDataPanel;
-import gui.renderers.combobox.CityRenderer;
-import gui.renderers.combobox.SortRenderer;
-import gui.renderers.combobox.TypeRenderer;
-import gui.renderers.combobox.VineRenderer;
-import gui.renderers.combobox.WineryRenderer;
+import gui.renderers.combobox.ModelRenderer;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -59,7 +55,7 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 		City[] cities = editDialog.getCities().toArray(new City[0]);
 
 		city = new JComboBox<City>(cities);
-		city.setRenderer(new CityRenderer());
+		city.setRenderer(new ModelRenderer<City>());
 		city.setSelectedItem(model.getCity());
 
 		add(new JLabel("City"), next(0, ++gridy));
@@ -70,7 +66,7 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 		Sort[] sorts = editDialog.getSorts().toArray(new Sort[0]);
 
 		sort = new JComboBox<Sort>(sorts);
-		sort.setRenderer(new SortRenderer());
+		sort.setRenderer(new ModelRenderer<Vine>());
 		sort.setSelectedItem(model.getSort());
 
 		add(new JLabel("Sort"), next(0, ++gridy));
@@ -81,7 +77,7 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 		Vine[] vines = editDialog.getVines().toArray(new Vine[0]);
 
 		vine = new JComboBox<Vine>(vines);
-		vine.setRenderer(new VineRenderer());
+		vine.setRenderer(new ModelRenderer<Vine>());
 		vine.setSelectedItem(model.getVine());
 
 		add(new JLabel("Vine"), next(0, ++gridy));
@@ -92,7 +88,7 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 		Winery[] wineries = editDialog.getWineries().toArray(new Winery[0]);
 
 		winery = new JComboBox<Winery>(wineries);
-		winery.setRenderer(new WineryRenderer());
+		winery.setRenderer(new ModelRenderer<Winery>());
 		winery.setSelectedItem(model.getWinery());
 
 		add(new JLabel("Winery"), next(0, ++gridy));
@@ -103,7 +99,7 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 		Type[] types = editDialog.getTypes().toArray(new Type[0]);
 
 		type = new JComboBox<Type>(types);
-		type.setRenderer(new TypeRenderer());
+		type.setRenderer(new ModelRenderer<Type>());
 		type.setSelectedItem(model.getType());
 
 		add(new JLabel("Type"), next(0, ++gridy));
