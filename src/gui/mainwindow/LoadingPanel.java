@@ -29,11 +29,7 @@ public class LoadingPanel extends JPanel implements Runnable, ComponentListener{
 	@Override
 	public void run() {
 		while(!stop){
-			System.out.println("here");
-			i++;
-			if(i == dots.length){
-				i = 0;
-			}
+			i = ++i == dots.length ? 0 : i;
 			
 			label.setText("Lädt"+dots[i]);
 			parent.pack();
@@ -41,10 +37,7 @@ public class LoadingPanel extends JPanel implements Runnable, ComponentListener{
 			
 			try {
 				Thread.sleep(250);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} catch (InterruptedException e) {}
 		}
 	}
 
