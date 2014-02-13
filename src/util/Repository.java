@@ -3,7 +3,11 @@ package util;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import model.City;
 import model.Country;
@@ -19,20 +23,22 @@ import events.EventManager;
 @SuppressWarnings("unchecked")
 public class Repository<T extends Model> {
 
-	private Class<T> model;
-	private static Session session = null;
-	private static EventManager eventManager;
+	protected final Class<T> model;
+	
+	protected static Session session = null;
+	protected static EventManager eventManager;
 	
 	private static HashMap<Class<? extends Model>, Repository<? extends Model>> instances;
 	
-	private Repository(Class<T> model){
+	protected Repository(Class<T> model){
 		this.model = model;
 	}
 	
 	public static void init(EventManager em){
 		
 		if(session == null){
-			session = (Session) JpaUtil.getEM().getDelegate();
+			EntityManager entityManager = JpaUtil.getEM();
+			session = (Session) entityManager.getDelegate();
 			eventManager = em;
 			instances = new HashMap<Class<? extends Model>, Repository<? extends Model>>();
 			instances.put(City.class, new Repository<City>(City.class));
@@ -41,7 +47,7 @@ public class Repository<T extends Model> {
 			instances.put(Sort.class, new Repository<Sort>(Sort.class));
 			instances.put(Type.class, new Repository<Type>(Type.class));
 			instances.put(Vine.class, new Repository<Vine>(Vine.class));
-			instances.put(Wine.class, new Repository<Wine>(Wine.class));
+			instances.put(Wine.class, new WineRepository());
 			instances.put(Winery.class, new Repository<Winery>(Winery.class));
 		} else {
 			throw new RuntimeException("Repository is already initialized!");
@@ -56,8 +62,19 @@ public class Repository<T extends Model> {
 		return (Repository<T>) instances.get(model);
 	}
 	
+	public Criteria getSearchCriteria(String query){
+		return session.createCriteria(model).add(Restrictions.like("name", "%"+query+"%"));
+	}
+	
+	public List<T> getAll(Criteria criteria){
+		if(criteria == null){
+			criteria = session.createCriteria(model);
+		}
+		return criteria.list();
+	}
+	
 	public List<T> getAll(){
-		return session.createCriteria(model).list();
+		return getAll(null);
 	}
 	
 	public T getById(Integer id){
@@ -69,6 +86,10 @@ public class Repository<T extends Model> {
 		session.update(model);
 		session.flush();
 		eventManager.fireAnyModelChanged(model);
+	}
+	
+	public List<T> search(String query){
+		return getSearchCriteria(query).list();
 	}
 	
 	public boolean delete(Integer id){

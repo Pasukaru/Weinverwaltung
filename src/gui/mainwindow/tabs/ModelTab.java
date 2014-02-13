@@ -3,6 +3,7 @@ package gui.mainwindow.tabs;
 import java.awt.BorderLayout;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import util.Repository;
@@ -34,8 +35,17 @@ public abstract class ModelTab<T extends Model> extends JPanel implements AnyMod
 		Repository.getEventManager().addAnyModelChangedListener(this);
 
 		setLayout(new BorderLayout());
+		add(BorderLayout.NORTH, new TabSearchPanel<T>(this));
 		add(BorderLayout.CENTER, new ModelTableScrollPane<T>(table));
 		add(BorderLayout.SOUTH, buttonPanel);
+	}
+	
+	public void close(){
+		JOptionPane.showMessageDialog(null, "TODO (CLOSE TAB)");
+	}
+	
+	public Class<T> getClazz(){
+		return clazz;
 	}
 	
 	public List<T> fetchData(){
