@@ -13,7 +13,7 @@ public class Region extends Model {
 	private static final long serialVersionUID = 8631375902987124009L;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "country_id")
+	@JoinColumn(name = "country_id", nullable = false)
 	private Country country;
 
 	public Region() {
