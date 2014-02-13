@@ -11,12 +11,12 @@ public class SortTab extends ModelTab<Sort> {
 	private static final long serialVersionUID = -6218897174571210449L;
 
 	public SortTab() {
-		super(Sort.class);
+		super(Sort.class, "Weinsorten");
 	}
 
 	@Override
 	public ModelTableModel<Sort> initTableModel() {
-		return new ModelTableModel<Sort>(fetchData(), new SortColumnDefinition());
+		return new ModelTableModel<Sort>(new SortColumnDefinition());
 	}
 
 	@Override

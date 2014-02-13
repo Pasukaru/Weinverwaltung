@@ -1,5 +1,6 @@
 package gui.table;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -13,9 +14,9 @@ public class ModelTableModel<T extends Model> extends AbstractTableModel {
 	protected ModelTableColumnDefinition<T> columnModel;
 	private List<T> data;
 
-	public ModelTableModel(List<T> data, ModelTableColumnDefinition<T> columnModel) {
+	public ModelTableModel(ModelTableColumnDefinition<T> columnModel) {
 		super();
-		this.data = data;
+		this.data = new ArrayList<T>();
 		this.columnModel = columnModel;
 	}
 

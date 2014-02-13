@@ -1,12 +1,14 @@
 package gui.mainwindow.tabs;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,7 +28,7 @@ public class TabSearchPanel<T extends Model> extends JPanel {
 	public void doSearch(){
 		String query = search.getText().trim();
 		if(query.length() == 0){
-			tab.getTable().setData(tab.fetchData());
+			tab.getTable().setData(Repository.getInstance(tab.getClazz()).getAll());
 		} else {
 			tab.getTable().setData(Repository.getInstance(tab.getClazz()).search(query));
 		}
@@ -35,8 +37,9 @@ public class TabSearchPanel<T extends Model> extends JPanel {
 	public TabSearchPanel(final ModelTab<T> tab){
 		this.tab = tab;
 		
-		setLayout(new BorderLayout());
+		setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 		search = new JTextField();
+		search.setMaximumSize(new Dimension(Integer.MAX_VALUE, 25));
 		
 		final TabSearchPanel<T> self = this;
 		
@@ -54,7 +57,6 @@ public class TabSearchPanel<T extends Model> extends JPanel {
 			@Override
 			public void keyPressed(KeyEvent arg0) {}
 		});
-		
 		
 		add(BorderLayout.WEST, new JLabel("Suche: "));
 		add(BorderLayout.CENTER, search);

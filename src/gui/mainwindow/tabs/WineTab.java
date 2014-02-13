@@ -18,7 +18,7 @@ public class WineTab extends ModelTab<Wine> {
 	private static final long serialVersionUID = -6218897174571210449L;
 
 	public WineTab() {
-		super(Wine.class);
+		super(Wine.class, "Weine");
 
 		final JButton cart = new JButton("Add to cart");
 		cart.setEnabled(false);
@@ -47,7 +47,7 @@ public class WineTab extends ModelTab<Wine> {
 
 	@Override
 	public ModelTableModel<Wine> initTableModel() {
-		return new ModelTableModel<Wine>(fetchData(), new WineColumnDefinition());
+		return new ModelTableModel<Wine>(new WineColumnDefinition());
 	}
 
 	@Override

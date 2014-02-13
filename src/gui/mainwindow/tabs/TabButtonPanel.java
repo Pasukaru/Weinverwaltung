@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -20,8 +21,10 @@ public class TabButtonPanel<T extends Model> extends JPanel {
 
 	public TabButtonPanel(final ModelTab<T> tab) {
 		super();
-		
-		JButton add = new JButton("Add");
+
+		setBorder(new TitledBorder(null, "Aktionen", TitledBorder.CENTER, TitledBorder.TOP));
+
+		JButton add = new JButton("Hinzufügen");
 		add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -29,7 +32,7 @@ public class TabButtonPanel<T extends Model> extends JPanel {
 			}
 		});
 		
-		final JButton edit = new JButton("Edit");
+		final JButton edit = new JButton("Bearbeiten");
 		edit.setEnabled(false);
 		edit.addActionListener(new ActionListener(){
 			@Override
@@ -38,7 +41,7 @@ public class TabButtonPanel<T extends Model> extends JPanel {
 			}
 		});
 		
-		final JButton delete = new JButton("Delete");
+		final JButton delete = new JButton("Löschen");
 		delete.setEnabled(false);
 		delete.addActionListener(new ActionListener(){
 			@Override
@@ -46,7 +49,7 @@ public class TabButtonPanel<T extends Model> extends JPanel {
 				T model = tab.getSelectedModel();
 				if(model != null){
 					if(!Repository.getInstance(model.getClass()).delete(model.getId())){
-						JOptionPane.showMessageDialog(tab, "You cannot delete this entry because it is still used.", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(tab, "Dieser Eintrag kann nicht gelöscht werden, da andere Daten von ihm abhängen.", "Fehler", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}

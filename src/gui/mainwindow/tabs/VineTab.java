@@ -11,12 +11,12 @@ public class VineTab extends ModelTab<Vine> {
 	private static final long serialVersionUID = -6218897174571210449L;
 
 	public VineTab() {
-		super(Vine.class);
+		super(Vine.class, "Rebsorten");
 	}
 
 	@Override
 	public ModelTableModel<Vine> initTableModel() {
-		return new ModelTableModel<Vine>(fetchData(), new VineColumnDefinition());
+		return new ModelTableModel<Vine>(new VineColumnDefinition());
 	}
 
 	@Override

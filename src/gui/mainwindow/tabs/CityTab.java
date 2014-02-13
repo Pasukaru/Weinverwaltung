@@ -11,12 +11,12 @@ public class CityTab extends ModelTab<City> {
 	private static final long serialVersionUID = -6218897174571210449L;
 
 	public CityTab() {
-		super(City.class);
+		super(City.class, "Städte");
 	}
 	
 	@Override
 	public ModelTableModel<City> initTableModel() {
-		return new ModelTableModel<City>(fetchData(), new CityColumnDefinition());
+		return new ModelTableModel<City>(new CityColumnDefinition());
 	}
 
 	@Override

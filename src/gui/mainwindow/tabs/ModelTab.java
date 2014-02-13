@@ -3,7 +3,6 @@ package gui.mainwindow.tabs;
 import java.awt.BorderLayout;
 import java.util.List;
 
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import util.Repository;
@@ -18,7 +17,8 @@ import gui.table.ModelTableScrollPane;
 public abstract class ModelTab<T extends Model> extends JPanel implements AnyModelChangedListener {
 	
 	private final Class<T> clazz;
-
+	private String title;
+	
 	private static final long serialVersionUID = 6963316486962402827L;
 
 	protected ModelTableModel<T> tableModel;
@@ -26,22 +26,30 @@ public abstract class ModelTab<T extends Model> extends JPanel implements AnyMod
 	
 	protected TabButtonPanel<T> buttonPanel;
 	
-	public ModelTab(Class<T> model) {
+	public ModelTab(Class<T> model, String title) {
+		this.title = title;
 		this.clazz = model;
 		this.tableModel = initTableModel();
 		this.table = initTable(tableModel);
 		this.buttonPanel = new TabButtonPanel<T>(this);
-
 		setLayout(new BorderLayout());
 		add(BorderLayout.NORTH, new TabSearchPanel<T>(this));
 		add(BorderLayout.CENTER, new ModelTableScrollPane<T>(table));
 		add(BorderLayout.SOUTH, buttonPanel);
-
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public void open(){
 		Repository.getEventManager().addAnyModelChangedListener(this);
+		table.setData(fetchData());
 	}
 	
 	public void close(){
-		JOptionPane.showMessageDialog(null, "TODO (CLOSE TAB)");
+		Repository.getEventManager().addAnyModelChangedListener(this);
+		getParent().remove(this);
 	}
 	
 	public Class<T> getClazz(){

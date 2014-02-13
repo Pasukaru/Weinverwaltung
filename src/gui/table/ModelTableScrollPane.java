@@ -1,7 +1,7 @@
 package gui.table;
 
+import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
-import javax.swing.border.BevelBorder;
 
 import model.Model;
 
@@ -10,6 +10,6 @@ public class ModelTableScrollPane<T extends Model> extends JScrollPane {
 
 	public ModelTableScrollPane(ModelTable<T> table) {
 		this.setViewportView(table);
-		this.setBorder(new BevelBorder(BevelBorder.LOWERED));
+		setBorder(BorderFactory.createEmptyBorder(5,0,5,0));
 	}
 }

@@ -21,7 +21,6 @@ public class ModelTable<T extends Model> extends JTable {
 		getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		TableColumnModel tcm = getColumnModel();
 		tcm.getColumn(0).setMaxWidth(35);
-		
 	}
 	
 	public T getSelectedModel(){

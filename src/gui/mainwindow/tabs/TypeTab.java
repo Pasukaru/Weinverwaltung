@@ -11,12 +11,12 @@ public class TypeTab extends ModelTab<Type> {
 	private static final long serialVersionUID = -6218897174571210449L;
 
 	public TypeTab() {
-		super(Type.class);
+		super(Type.class, "Weinarten");
 	}
 
 	@Override
 	public ModelTableModel<Type> initTableModel() {
-		return new ModelTableModel<Type>(fetchData(), new TypeColumnDefinition());
+		return new ModelTableModel<Type>(new TypeColumnDefinition());
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import model.City;
@@ -78,10 +79,19 @@ public class Repository<T extends Model> {
 	}
 
 	public void update(T model){
-		session.persist(model);
-		session.update(model);
-		session.flush();
-		eventManager.fireAnyModelChanged(model);
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.persist(model);
+			session.update(model);
+			tx.commit();
+			eventManager.fireAnyModelChanged(model);	
+		} catch(RuntimeException e){
+			if(tx != null){
+				tx.rollback();
+			}
+			throw e;
+		}
 	}
 	
 	public List<T> search(String query){
@@ -94,7 +104,6 @@ public class Repository<T extends Model> {
 		T model = getById(id);
 		
 	    session.delete(model);
-		session.flush();
 		Object result = session.get(model.getClass(), model.getId());
 		if(result == null){
 			eventManager.fireAnyModelChanged(model);

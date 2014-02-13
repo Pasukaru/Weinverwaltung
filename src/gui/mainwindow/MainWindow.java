@@ -2,19 +2,26 @@ package gui.mainwindow;
 
 import events.EventManager;
 import gui.mainwindow.tabs.CityTab;
+import gui.mainwindow.tabs.ModelTab;
 import gui.mainwindow.tabs.SortTab;
 import gui.mainwindow.tabs.TypeTab;
 import gui.mainwindow.tabs.VineTab;
 import gui.mainwindow.tabs.WineTab;
 import gui.mainwindow.tabs.WineryTab;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
+import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
+import model.City;
+import model.Model;
+import model.Sort;
+import model.Vine;
+import model.Wine;
+import model.Winery;
 import util.Repository;
 
 public class MainWindow extends BaseWindow {
@@ -25,12 +32,7 @@ public class MainWindow extends BaseWindow {
 
 	private EventManager eventManager;
 	
-	private CityTab city = null;
-	private SortTab sort = null;
-	private TypeTab type = null;
-	private VineTab vine = null;
-	private WineryTab winery = null;
-	private WineTab wine = null;
+	private HashMap<Class<? extends Model>, ModelTab<?>> tabs;
 	
 	public MainWindow() {
 		super("Weinverwaltung");
@@ -44,26 +46,38 @@ public class MainWindow extends BaseWindow {
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
-		
-		tabPane = new JTabbedPane();
-		addSelectorTab();
-		
+
 		eventManager = new EventManager();
+
 		loading.setText("Verbinde mit Datenbank...");
 		pack();
 		setLocationRelativeTo(null);
 
 		try {
 			Repository.init("WEINVERWALTUNG", eventManager);
+
+			//TODO: - Test connection here - 
+
+			loading.setText("Erstelle Oberfläche...");
+			pack();
+			setLocationRelativeTo(null);
 			
-			setVisible(false);
+			tabs = new HashMap<Class<? extends Model>, ModelTab<?>>();
+			tabs.put(City.class, new CityTab());
+			tabs.put(Sort.class, new SortTab());
+			tabs.put(model.Type.class, new TypeTab());
+			tabs.put(Vine.class, new VineTab());
+			tabs.put(Winery.class, new WineryTab());
+			tabs.put(Wine.class, new WineTab());
+
+			tabPane = new JTabbedPane();
+			tabPane.addTab("+", new TabSelectorTab(this));
+			openTab(Wine.class);
+			
 			dispose();
-		
+			
 			setAlwaysOnTop(false);
 			setUndecorated(false);
-
-			addWineTab();
-
 			setContentPane(tabPane);
 			pack();
 			setSize(new Dimension(800, getHeight()));
@@ -77,63 +91,27 @@ public class MainWindow extends BaseWindow {
 		}
 	}
 
-	private void addTab(String title, Component c) {
-		int i = tabPane.getTabCount() - 1;
-		tabPane.insertTab(title, null, c, null, i);
-		tabPane.setSelectedComponent(c);
-	}
-
-	public void addWineTab() {
-		if(wine == null){
-			addTab("Weine", wine = new WineTab());
+	public <T extends Model> void openTab(Class<T> model) {
+		@SuppressWarnings("unchecked")
+		ModelTab<T> tab = (ModelTab<T>) tabs.get(model);
+		if(tab.getParent() == tabPane){
+			tabPane.setSelectedComponent(tab);
 		} else {
-			tabPane.setSelectedComponent(wine);
+			int i = tabPane.getTabCount() - 1;
+			tabPane.insertTab(tab.getTitle(), null, tab, null, i);
+			tabPane.setSelectedIndex(i);
+			tab.open();
 		}
 	}
-
-	public void addCityTab(){
-		if(city == null){
-			addTab("Städte", city = new CityTab());
-		} else {
-			tabPane.setSelectedComponent(city);
-		}
-		
+	
+	public void removeTab(Class<? extends Model> model){
+		ModelTab<?> tab = tabs.get(model);
+		tabPane.remove(tabs.get(model));
+		tab.close();
 	}
-
-	public void addTypeTab(){
-		if(type == null){
-			addTab("Weinarten", type = new TypeTab());
-		} else {
-			tabPane.setSelectedComponent(type);
-		}
-	}
-
-	public void addSortTab(){
-		if(sort == null){
-			addTab("Weinsorten", sort = new SortTab());
-		} else {
-			tabPane.setSelectedComponent(sort);
-		}
-	}
-
-	public void addVineTab(){
-		if(vine == null){
-			addTab("Rebsorten", vine = new VineTab());
-		} else {
-			tabPane.setSelectedComponent(vine);
-		}
-	}
-
-	public void addWineryTab(){
-		if(winery == null){
-			addTab("Winzer", winery = new WineryTab());
-		} else {
-			tabPane.setSelectedComponent(winery);
-		}
-	}
-
-	public void addSelectorTab() {
-		tabPane.addTab("+", new TabSelectorTab(this));
+	
+	public String getTabTitle(Class<? extends Model> model){
+		return tabs.get(model).getTitle();
 	}
 
 	@Override
