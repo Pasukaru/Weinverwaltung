@@ -32,12 +32,12 @@ public abstract class ModelTab<T extends Model> extends JPanel implements AnyMod
 		this.table = initTable(tableModel);
 		this.buttonPanel = new TabButtonPanel<T>(this);
 
-		Repository.getEventManager().addAnyModelChangedListener(this);
-
 		setLayout(new BorderLayout());
 		add(BorderLayout.NORTH, new TabSearchPanel<T>(this));
 		add(BorderLayout.CENTER, new ModelTableScrollPane<T>(table));
 		add(BorderLayout.SOUTH, buttonPanel);
+
+		Repository.getEventManager().addAnyModelChangedListener(this);
 	}
 	
 	public void close(){
