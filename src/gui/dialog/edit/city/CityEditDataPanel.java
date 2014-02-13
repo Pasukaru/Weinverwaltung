@@ -53,7 +53,7 @@ public class CityEditDataPanel extends EditDataPanel<City> {
 		city = new JTextField();
 		city.setText("");
 
-		add(new JLabel("City"), next(0, ++gridy));
+		add(new JLabel("Stadt"), next(0, ++gridy));
 		add(city, next(1, gridy));
 	}
 
@@ -65,7 +65,7 @@ public class CityEditDataPanel extends EditDataPanel<City> {
 		country.setRenderer(new ModelRenderer<Country>());
 		country.setEnabled(false);
 
-		add(new JLabel("Country"), next(0, ++gridy));
+		add(new JLabel("Land"), next(0, ++gridy));
 		add(country, next(1, gridy));
 	}
 

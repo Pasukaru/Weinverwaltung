@@ -30,7 +30,7 @@ public class VineEditDataPanel extends EditDataPanel<Vine> {
 		vine = new JTextField();
 		vine.setText("");
 
-		add(new JLabel("Vine"), next(0, ++gridy));
+		add(new JLabel("Rebsorte"), next(0, ++gridy));
 		add(vine, next(1, gridy));
 	}
 }

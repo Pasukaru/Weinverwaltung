@@ -40,11 +40,11 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 		this.editDialog = editWindow;
 
 		addName();
-		addCity();
 		addType();
 		addSort();
 		addVine();
 		addWinery();
+		addCity();
 	}
 
 	private void addName() {
@@ -65,7 +65,7 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 		city.setRenderer(new ModelRenderer<City>());
 		city.setSelectedItem(model.getCity());
 
-		add(new JLabel("City"), next(0, ++gridy));
+		add(new JLabel("Stadt"), next(0, ++gridy));
 		add(city, next(1, gridy));
 	}
 
@@ -76,13 +76,12 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 		sort.setRenderer(new ModelRenderer<Vine>());
 		sort.setSelectedItem(model.getSort());
 
-		add(new JLabel("Sort"), next(0, ++gridy));
+		add(new JLabel("Weinsorte"), next(0, ++gridy));
 		add(sort, next(1, gridy));
 	}
 
 	private void addVine() {
 		Vine[] vines = editDialog.getVines().toArray(new Vine[0]);
-
 
 		vine = new JList<Vine>(vines);
 		vine.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -93,7 +92,7 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 		JScrollPane scrollPane = new JScrollPane(vine);
 		scrollPane.setPreferredSize(new Dimension(100, 80));
 
-		add(new JLabel("Vine"), next(0, ++gridy));
+		add(new JLabel("Rebsorte"), next(0, ++gridy));
 		add(scrollPane, next(1, gridy));
 	}
 
@@ -104,7 +103,7 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 		winery.setRenderer(new ModelRenderer<Winery>());
 		winery.setSelectedItem(model.getWinery());
 
-		add(new JLabel("Winery"), next(0, ++gridy));
+		add(new JLabel("Winzer"), next(0, ++gridy));
 		add(winery, next(1, gridy));
 	}
 
@@ -115,7 +114,7 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 		type.setRenderer(new ModelRenderer<Type>());
 		type.setSelectedItem(model.getType());
 
-		add(new JLabel("Type"), next(0, ++gridy));
+		add(new JLabel("Weinart"), next(0, ++gridy));
 		add(type, next(1, gridy));
 	}
 
