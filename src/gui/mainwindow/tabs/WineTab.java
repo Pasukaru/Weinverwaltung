@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import gui.dialog.edit.EditDialog;
 import gui.dialog.edit.wine.WineEditDialog;
@@ -19,12 +21,19 @@ public class WineTab extends ModelTab<Wine> {
 	public WineTab() {
 		super(Wine.class);
 		
-		JButton cart = new JButton("Add to cart");
+		final JButton cart = new JButton("Add to cart");
+		cart.setEnabled(false);
 		cart.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				JOptionPane.showMessageDialog(null, "TODO");
+			}
+		});
+		
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent arg0) {
+				cart.setEnabled(table.getSelectedModel() != null);
 			}
 		});
 		
