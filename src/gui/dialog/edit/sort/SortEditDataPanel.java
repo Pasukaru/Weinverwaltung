@@ -30,7 +30,7 @@ public class SortEditDataPanel extends EditDataPanel<Sort> {
 		sort = new JTextField();
 		sort.setText("");
 
-		add(new JLabel("Sort"), next(0, ++gridy));
+		add(new JLabel("Weinsorte"), next(0, ++gridy));
 		add(sort, next(1, gridy));
 	}
 }

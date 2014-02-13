@@ -30,7 +30,7 @@ public class WineryEditDataPanel extends EditDataPanel<Winery> {
 		winery = new JTextField();
 		winery.setText("");
 
-		add(new JLabel("Winery"), next(0, ++gridy));
+		add(new JLabel("Winzer"), next(0, ++gridy));
 		add(winery, next(1, gridy));
 	}
 }
