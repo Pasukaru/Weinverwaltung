@@ -38,8 +38,9 @@ public class MainWindow extends BaseWindow {
 	
 	public void init(){
 		setUndecorated(true);
-		setContentPane(new LoadingPanel(this));
 		setAlwaysOnTop(true);
+		LoadingPanel loading = new LoadingPanel("Initialisiere...");
+		setContentPane(loading);
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -48,6 +49,9 @@ public class MainWindow extends BaseWindow {
 		addSelectorTab();
 		
 		eventManager = new EventManager();
+		loading.setText("Verbinde mit Datenbank...");
+		pack();
+		setLocationRelativeTo(null);
 
 		try {
 			Repository.init("WEINVERWALTUNG", eventManager);
