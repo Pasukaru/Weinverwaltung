@@ -1,6 +1,8 @@
 package gui.dialog.edit.wine;
 
 import java.awt.Dimension;
+import java.util.HashSet;
+import java.util.Set;
 
 import gui.dialog.edit.EditDataPanel;
 import gui.renderers.combobox.ModelRenderer;
@@ -127,6 +129,19 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 
 	public Type getType() {
 		return (Type) type.getSelectedItem();
+	}
+
+	public Sort getSort() {
+		return (Sort) sort.getSelectedItem();
+	}
+
+	public Winery getWinery() {
+		return (Winery) winery.getSelectedItem();
+	}
+
+	public Set<Vine> getVines() {
+		Set<Vine> vines = new HashSet<Vine>(vine.getSelectedValuesList());
+		return vines;
 	}
 
 }

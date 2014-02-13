@@ -31,7 +31,7 @@ public class WineEditDialog extends EditDialog<Wine> {
 		super(wine);
 
 		setTitle(isCreate() ? "Create Wine" : "Edit Wine");
-		
+
 		cities = Repository.getInstance(City.class).getAll();
 		types = Repository.getInstance(Type.class).getAll();
 		sorts = Repository.getInstance(Sort.class).getAll();
@@ -41,16 +41,16 @@ public class WineEditDialog extends EditDialog<Wine> {
 		add(dataPanel = new WineEditDataPanel(this), BorderLayout.CENTER);
 		add(buttonsPanel = new EditButtonPanel<Wine>(this), BorderLayout.SOUTH);
 	}
-	
+
 	@Override
 	public void save(){
 		model.setName(dataPanel.getName());
 		model.setCity(dataPanel.getCity());
 		model.setType(dataPanel.getType());
-		//TODO update these properties in the model
-		//model.setSort(dataP);
-		//model.setVine(dataPanel.getvin);
-		//model.getWinery(dataPanel.getw);
+		model.setSort(dataPanel.getSort());
+		model.setWinery(dataPanel.getWinery());
+		model.setVine(dataPanel.getVines());
+
 		Repository.getInstance(Wine.class).update(model);
 		dispose();
 	}
