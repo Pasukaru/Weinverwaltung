@@ -28,7 +28,7 @@ public class WineColumnDefinition extends ModelTableColumnDefinition<Wine> {
 			}
 		});
 
-		columns.add(new ModelColumn<Wine, String>("Type", String.class) {
+		columns.add(new ModelColumn<Wine, String>("Weinart", String.class) {
 			@Override
 			public String getValue(Wine model, int row, int col) {
 				String value = "---";
@@ -40,7 +40,7 @@ public class WineColumnDefinition extends ModelTableColumnDefinition<Wine> {
 			}
 		});
 
-		columns.add(new ModelColumn<Wine, String>("Sort", String.class) {
+		columns.add(new ModelColumn<Wine, String>("Weinsorte", String.class) {
 			@Override
 			public String getValue(Wine model, int row, int col) {
 				String value = "---";
@@ -52,7 +52,7 @@ public class WineColumnDefinition extends ModelTableColumnDefinition<Wine> {
 			}
 		});
 
-		columns.add(new ModelColumn<Wine, String>("Vine", String.class) {
+		columns.add(new ModelColumn<Wine, String>("Rebsorten", String.class) {
 			@Override
 			public String getValue(Wine model, int row, int col) {
 				String value = "---";
@@ -70,7 +70,7 @@ public class WineColumnDefinition extends ModelTableColumnDefinition<Wine> {
 			}
 		});
 
-		columns.add(new ModelColumn<Wine, String>("Winery", String.class) {
+		columns.add(new ModelColumn<Wine, String>("Winzer", String.class) {
 			@Override
 			public String getValue(Wine model, int row, int col) {
 				String value = "---";
@@ -82,7 +82,7 @@ public class WineColumnDefinition extends ModelTableColumnDefinition<Wine> {
 			}
 		});
 
-		columns.add(new ModelColumn<Wine, String>("City", String.class) {
+		columns.add(new ModelColumn<Wine, String>("Stadt", String.class) {
 			@Override
 			public String getValue(Wine model, int row, int col) {
 				String value = "---";
@@ -109,7 +109,7 @@ public class WineColumnDefinition extends ModelTableColumnDefinition<Wine> {
 			}
 		});
 
-		columns.add(new ModelColumn<Wine, String>("Country", String.class) {
+		columns.add(new ModelColumn<Wine, String>("Land", String.class) {
 			@Override
 			public String getValue(Wine model, int row, int col) {
 				String value = "---";

@@ -36,7 +36,7 @@ public class CityColumnDefinition extends ModelTableColumnDefinition<City> {
 			}
 		});
 
-		columns.add(new ModelColumn<City, String>("Country", String.class){
+		columns.add(new ModelColumn<City, String>("Land", String.class){
 			@Override
 			public String getValue(City model, int row, int col) {
 				String value = "---";
