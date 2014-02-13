@@ -12,7 +12,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import util.Repository;
@@ -24,7 +23,14 @@ public class MainWindow extends BaseWindow {
 	private final JTabbedPane tabPane;
 
 	private final EventManager eventManager = new EventManager();
-
+	
+	private CityTab city = null;
+	private SortTab sort = null;
+	private TypeTab type = null;
+	private VineTab vine = null;
+	private WineryTab winery = null;
+	private WineTab wine = null;
+	
 	public MainWindow() {
 		super("Weinverwaltung");
 
@@ -34,11 +40,6 @@ public class MainWindow extends BaseWindow {
 
 		addSelectorTab();
 		addWineTab();
-		addTypeTab();
-		addSortTab();
-		addVineTab();
-		addWineryTab();
-		addCityTab();
 		tabPane.setSelectedIndex(0);
 
 		setContentPane(tabPane);
@@ -50,34 +51,60 @@ public class MainWindow extends BaseWindow {
 	private void addTab(String title, Component c) {
 		int i = tabPane.getTabCount() - 1;
 		tabPane.insertTab(title, null, c, null, i);
+		tabPane.setSelectedComponent(c);
 	}
 
 	public void addWineTab() {
-		addTab("Wine", new WineTab());
+		if(wine == null){
+			addTab("Weine", wine = new WineTab());
+		} else {
+			tabPane.setSelectedComponent(wine);
+		}
 	}
 
 	public void addCityTab(){
-		addTab("City", new CityTab());
+		if(city == null){
+			addTab("Städte", city = new CityTab());
+		} else {
+			tabPane.setSelectedComponent(city);
+		}
+		
 	}
 
 	public void addTypeTab(){
-		addTab("Type", new TypeTab());
+		if(type == null){
+			addTab("Weinarten", type = new TypeTab());
+		} else {
+			tabPane.setSelectedComponent(type);
+		}
 	}
 
 	public void addSortTab(){
-		addTab("Sort", new SortTab());
+		if(sort == null){
+			addTab("Weinsorten", sort = new SortTab());
+		} else {
+			tabPane.setSelectedComponent(sort);
+		}
 	}
 
 	public void addVineTab(){
-		addTab("Vine", new VineTab());
+		if(vine == null){
+			addTab("Rebsorten", vine = new VineTab());
+		} else {
+			tabPane.setSelectedComponent(vine);
+		}
 	}
 
 	public void addWineryTab(){
-		addTab("Winery", new WineryTab());
+		if(winery == null){
+			addTab("Winzer", winery = new WineryTab());
+		} else {
+			tabPane.setSelectedComponent(winery);
+		}
 	}
 
 	public void addSelectorTab() {
-		tabPane.addTab("+", new JPanel());
+		tabPane.addTab("+", new TabSelectorTab(this));
 	}
 
 	@Override
