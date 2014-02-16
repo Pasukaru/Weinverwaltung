@@ -32,8 +32,11 @@ public abstract class EditDialog<T extends Model> extends JOptionPane implements
 		String error = null;
 		if(name.isEmpty()){
 			error = "Bitte einen Namen eintragen";
-		} else if(Repository.getInstance(model.getClass()).getByName(name) != null){
-			error = "Dieser Name ist bereits vergeben";
+		} else {
+			Model check = Repository.getInstance(model.getClass()).getByName(name);
+			if(check != null && !check.equals(model)){
+				error = "Dieser Name ist bereits vergeben";
+			}
 		}
 		return error;
 	}
