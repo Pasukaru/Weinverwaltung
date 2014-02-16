@@ -15,7 +15,6 @@ public class CityEditDialog extends EditDialog<City> {
 
 	private static final long serialVersionUID = 9013808505821269241L;
 
-	private CityEditDataPanel dataPanel;
 	private EditButtonPanel<City> buttonsPanel;
 	private Country country;
 
@@ -25,7 +24,7 @@ public class CityEditDialog extends EditDialog<City> {
 	public CityEditDialog(City model) {
 		super(model);
 
-		setTitle(isCreate() ? "Create City" : "Edit City");
+		setTitle(isCreate() ? "Stadt hinzufügen" : "Stadt bearbeiten");
 
 		regions = Repository.getInstance(Region.class).getAll();
 		countries = Repository.getInstance(Country.class).getAll();
@@ -36,6 +35,8 @@ public class CityEditDialog extends EditDialog<City> {
 
 	@Override
 	protected void save() {
+		CityEditDataPanel dataPanel = getDataPanel();
+		
 		model.setName(dataPanel.getName());
 		model.setRegion(dataPanel.getRegion());
 
@@ -53,7 +54,7 @@ public class CityEditDialog extends EditDialog<City> {
 	}
 
 	public CityEditDataPanel getDataPanel() {
-		return dataPanel;
+		return (CityEditDataPanel) dataPanel;
 	}
 
 	public EditButtonPanel<City> getButtonsPanel() {

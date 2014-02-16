@@ -44,11 +44,12 @@ public class TabButtonPanel<T extends Model> extends JPanel {
 		final JButton delete = new JButton("Löschen");
 		delete.setEnabled(false);
 		delete.addActionListener(new ActionListener(){
+			@SuppressWarnings("unchecked")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				T model = tab.getSelectedModel();
 				if(model != null){
-					if(!Repository.getInstance(model.getClass()).delete(model.getId())){
+					if(!((Repository<T>) Repository.getInstance(model.getClass())).delete(model)){
 						JOptionPane.showMessageDialog(tab, "Dieser Eintrag kann nicht gelöscht werden, da andere Daten von ihm abhängen.", "Fehler", JOptionPane.ERROR_MESSAGE);
 					}
 				}

@@ -12,10 +12,10 @@ public class ModelRenderer<T extends Model> extends
 
 	private static final long serialVersionUID = 6745412362568365583L;
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	@Override
 	public Component getListCellRendererComponent(
-		@SuppressWarnings("rawtypes") JList list, Object value, int index,
+		JList list, Object value, int index,
 		boolean isSelected, boolean cellHasFocus) {
 		super.getListCellRendererComponent(
 			list,
@@ -24,14 +24,7 @@ public class ModelRenderer<T extends Model> extends
 			isSelected,
 			cellHasFocus);
 
-		String text;
-
-		if (value == null) {
-			text = "---";
-		} else {
-			text = this.getValue((T) value);
-		}
-		setText(text);
+		setText(value == null ? "---" : ((T) value).getName());
 
 		return this;
 	}

@@ -2,9 +2,12 @@ package gui.dialog.edit;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
+import util.StringUtils;
 import model.Model;
 
 public abstract class SaveModelButton<T extends Model> extends JButton implements ActionListener {
@@ -21,6 +24,11 @@ public abstract class SaveModelButton<T extends Model> extends JButton implement
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		List<String> errors = editDialog.validateModel();
+		if(!errors.isEmpty()){
+			JOptionPane.showMessageDialog(null, StringUtils.join(errors, System.lineSeparator()), "Ungültige Eingabe(n)", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
 		editDialog.save();
 	}
 }

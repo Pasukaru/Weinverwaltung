@@ -12,13 +12,12 @@ public class VineEditDialog extends EditDialog<Vine> {
 
 	private static final long serialVersionUID = 9013808505821269241L;
 
-	private VineEditDataPanel dataPanel;
 	private EditButtonPanel<Vine> buttonsPanel;
 
 	public VineEditDialog(Vine model) {
 		super(model);
 
-		setTitle(isCreate() ? "Create Vine" : "Edit Vine");
+		setTitle(isCreate() ? "Rebsorte hinzufügen" : "Rebsorte bearbeiten");
 
 		add(dataPanel = new VineEditDataPanel(this), BorderLayout.CENTER);
 		add(buttonsPanel = new EditButtonPanel<Vine>(this), BorderLayout.SOUTH);
@@ -33,7 +32,7 @@ public class VineEditDialog extends EditDialog<Vine> {
 	}
 
 	public VineEditDataPanel getDataPanel() {
-		return dataPanel;
+		return (VineEditDataPanel) dataPanel;
 	}
 
 	public EditButtonPanel<Vine> getButtonsPanel() {

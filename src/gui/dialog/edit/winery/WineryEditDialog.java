@@ -12,13 +12,12 @@ public class WineryEditDialog extends EditDialog<Winery> {
 
 	private static final long serialVersionUID = 9013808505821269241L;
 
-	private WineryEditDataPanel dataPanel;
 	private EditButtonPanel<Winery> buttonsPanel;
 
 	public WineryEditDialog(Winery model) {
 		super(model);
 
-		setTitle(isCreate() ? "Create Winery" : "Edit Winery");
+		setTitle(isCreate() ? "Winzer hinzufügen" : "Winzer bearbeiten");
 
 		add(dataPanel = new WineryEditDataPanel(this), BorderLayout.CENTER);
 		add(buttonsPanel = new EditButtonPanel<Winery>(this), BorderLayout.SOUTH);
@@ -33,7 +32,7 @@ public class WineryEditDialog extends EditDialog<Winery> {
 	}
 
 	public WineryEditDataPanel getDataPanel() {
-		return dataPanel;
+		return (WineryEditDataPanel) dataPanel;
 	}
 
 	public EditButtonPanel<Winery> getButtonsPanel() {

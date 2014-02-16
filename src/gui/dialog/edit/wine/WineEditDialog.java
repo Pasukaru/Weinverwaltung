@@ -24,13 +24,12 @@ public class WineEditDialog extends EditDialog<Wine> {
 	private List<Vine> vines;
 	private List<Winery> wineries;
 
-	private WineEditDataPanel dataPanel;
 	private EditButtonPanel<Wine> buttonsPanel;
 
 	public WineEditDialog(final Wine wine) {
 		super(wine);
 
-		setTitle(isCreate() ? "Create Wine" : "Edit Wine");
+		setTitle(isCreate() ? "Wein hinzufügen" : "Wein bearbeiten");
 
 		cities = Repository.getInstance(City.class).getAll();
 		types = Repository.getInstance(Type.class).getAll();
@@ -43,7 +42,35 @@ public class WineEditDialog extends EditDialog<Wine> {
 	}
 
 	@Override
+	protected List<String> validateModel() {
+		List<String> errors = super.validateModel();
+
+		WineEditDataPanel dataPanel = getDataPanel();
+		
+		if(dataPanel.getType() == null){
+			errors.add("Bitte eine Weinart auswählen");
+		}
+		if(dataPanel.getSort() == null){
+			errors.add("Bitte eine Weinsorte auswählen");
+		}
+		if(dataPanel.getVines().isEmpty()){
+			errors.add("Bitte mindestens eine Rebsorte auswählen");
+		}
+		if(dataPanel.getWinery() == null){
+			errors.add("Bitte einen Winzer auswählen");
+		}
+		if(dataPanel.getCity() == null){
+			errors.add("Bitte eine Stadt auswählen");
+		}
+
+		return errors;
+	}
+	
+	@Override
 	public void save(){
+		
+		WineEditDataPanel dataPanel = getDataPanel();
+		
 		model.setName(dataPanel.getName());
 		model.setCity(dataPanel.getCity());
 		model.setType(dataPanel.getType());
@@ -76,7 +103,7 @@ public class WineEditDialog extends EditDialog<Wine> {
 	}
 
 	public WineEditDataPanel getDataPanel() {
-		return dataPanel;
+		return (WineEditDataPanel) dataPanel;
 	}
 
 	public EditButtonPanel<Wine> getButtonsPanel() {

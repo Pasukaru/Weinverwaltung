@@ -1,7 +1,7 @@
 package gui.mainwindow.tabs;
 
 import gui.dialog.edit.EditDialog;
-import gui.dialog.type.TypeEditDialog;
+import gui.dialog.edit.type.TypeEditDialog;
 import gui.table.ModelTableModel;
 import gui.table.columns.type.TypeColumnDefinition;
 import model.Type;

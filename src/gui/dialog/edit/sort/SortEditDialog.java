@@ -12,13 +12,12 @@ public class SortEditDialog extends EditDialog<Sort> {
 
 	private static final long serialVersionUID = 9013808505821269241L;
 
-	private SortEditDataPanel dataPanel;
 	private EditButtonPanel<Sort> buttonsPanel;
 
 	public SortEditDialog(Sort model) {
 		super(model);
 
-		setTitle(isCreate() ? "Create Sort" : "Edit Sort");
+		setTitle(isCreate() ? "Weinsorte hinzufügen" : "Weinsorte bearbeiten");
 
 		add(dataPanel = new SortEditDataPanel(this), BorderLayout.CENTER);
 		add(buttonsPanel = new EditButtonPanel<Sort>(this), BorderLayout.SOUTH);
@@ -33,7 +32,7 @@ public class SortEditDialog extends EditDialog<Sort> {
 	}
 
 	public SortEditDataPanel getDataPanel() {
-		return dataPanel;
+		return (SortEditDataPanel) dataPanel;
 	}
 
 	public EditButtonPanel<Sort> getButtonsPanel() {

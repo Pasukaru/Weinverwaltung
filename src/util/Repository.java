@@ -63,6 +63,14 @@ public class Repository<T extends Model> {
 		return session.createCriteria(model).add(Restrictions.like("name", "%"+query+"%"));
 	}
 	
+	public T getOne(Criteria criteria){
+		if(criteria == null){
+			session.createCriteria(model);
+		}
+		List<T> results = getAll(criteria.setMaxResults(1));
+		return results.isEmpty() ? null : results.get(0);
+	}
+	
 	public List<T> getAll(Criteria criteria){
 		if(criteria == null){
 			criteria = session.createCriteria(model);
@@ -77,6 +85,14 @@ public class Repository<T extends Model> {
 	public T getById(Integer id){
 		return (T) session.get(model, id);
 	}
+	
+	public T getByName(String name){
+		return getOne(session.createCriteria(model).add(Restrictions.eq("name", name)));
+	}
+	
+	public List<T> search(String query){
+		return getAll(getSearchCriteria(query));
+	}
 
 	public void update(T model){
 		Transaction tx = null;
@@ -87,27 +103,28 @@ public class Repository<T extends Model> {
 			tx.commit();
 			eventManager.fireAnyModelChanged(model);	
 		} catch(RuntimeException e){
-			if(tx != null){
-				tx.rollback();
-			}
+			if(tx != null){ tx.rollback(); }
 			throw e;
 		}
 	}
 	
-	public List<T> search(String query){
-		return getSearchCriteria(query).list();
-	}
-	
-	public boolean delete(Integer id){
+	public boolean delete(T model){
 		boolean deleted = false;
-		
-		T model = getById(id);
-		
-	    session.delete(model);
-		Object result = session.get(model.getClass(), model.getId());
-		if(result == null){
-			eventManager.fireAnyModelChanged(model);
-			deleted = true;
+
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+		    session.delete(model);
+		    tx.commit();
+		    
+			Object result = session.get(model.getClass(), model.getId());
+			if(result == null){
+				eventManager.fireAnyModelChanged(model);
+				deleted = true;
+			}
+		} catch(RuntimeException e){
+			if(tx != null){ tx.rollback(); }
+			throw e;
 		}
 		return deleted;
 	}

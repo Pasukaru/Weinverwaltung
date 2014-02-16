@@ -1,6 +1,5 @@
 package gui.dialog.edit.wine;
 
-import java.awt.Dimension;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +10,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 import model.City;
@@ -28,7 +26,6 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 
 	private final WineEditDialog editDialog;
 
-	private JTextField name;
 	private JComboBox<City> city;
 	private JComboBox<Type> type;
 	private JComboBox<Sort> sort;
@@ -48,12 +45,6 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 	}
 
 	private void addName() {
-		name = new JTextField();
-		if (model != null) {
-			name.setText(model.getName());
-		} else {
-			name.setText("");
-		}
 		add(new JLabel("Name"), next(0, ++gridy));
 		add(name, next(1, gridy));
 	}
@@ -84,15 +75,13 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 		Vine[] vines = editDialog.getVines().toArray(new Vine[0]);
 
 		vine = new JList<Vine>(vines);
-		vine.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		vine.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		vine.setVisibleRowCount(-1);
 		vine.setCellRenderer(new ModelRenderer<Vine>());
+		vine.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		vine.setVisibleRowCount(5);
 
 		JScrollPane scrollPane = new JScrollPane(vine);
-		scrollPane.setPreferredSize(new Dimension(100, 80));
 
-		add(new JLabel("Rebsorte"), next(0, ++gridy));
+		add(new JLabel("Rebsorten"), next(0, ++gridy));
 		add(scrollPane, next(1, gridy));
 	}
 

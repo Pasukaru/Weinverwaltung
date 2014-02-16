@@ -1,12 +1,13 @@
 package gui.mainwindow;
 
-import gui.ActionButton;
-
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.EntityTransaction;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import model.City;
 import model.Country;
@@ -17,13 +18,15 @@ import model.Vine;
 import model.Wine;
 import model.Winery;
 import util.JpaUtil;
+import util.Repository;
 
-public class DbButton extends ActionButton {
+public class DbButton extends JButton implements ActionListener {
 
 	private static final long serialVersionUID = -4715489416822515615L;
 
 	public DbButton() {
-		super("Fill DB");
+		super("Test-Daten erstellen");
+		addActionListener(this);
 	}
 
 	@Override
@@ -32,9 +35,6 @@ public class DbButton extends ActionButton {
 	}
 
 	private void setDbData() {
-
-		EntityTransaction tx = JpaUtil.getTx();
-
 		Country country1 = new Country("Deutschland");
 		Country country2 = new Country("Italien");
 		Country country3 = new Country("Frankreich");
@@ -91,10 +91,19 @@ public class DbButton extends ActionButton {
 			type2,
 			winery3);
 
-		tx.begin();
-		JpaUtil.getEM().persist(wine1);
-		JpaUtil.getEM().persist(wine2);
-		JpaUtil.getEM().persist(wine3);
-		tx.commit();
+		EntityTransaction tx = null;
+		
+		try {
+			tx = JpaUtil.getTx();
+			tx.begin();
+			JpaUtil.getEM().persist(wine1);
+			JpaUtil.getEM().persist(wine2);
+			JpaUtil.getEM().persist(wine3);
+			tx.commit();
+			Repository.getEventManager().fireAnyModelChanged(wine1);
+		} catch(Exception e){
+			if(tx != null){ tx.rollback(); }
+			JOptionPane.showMessageDialog(null, "Das erstellen der Daten ist fehlgeschlagen", "Fehler", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }

@@ -3,16 +3,20 @@ package gui.dialog.edit;
 import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
+import util.Repository;
 import model.Model;
 
 public abstract class EditDialog<T extends Model> extends JOptionPane implements WindowListener {
 	
 	private static final long serialVersionUID = -3904763827415560312L;
 
+	protected EditDataPanel<T> dataPanel;
 	protected final T model;
 	private String title;
 	private JDialog dialog = null;
@@ -23,6 +27,26 @@ public abstract class EditDialog<T extends Model> extends JOptionPane implements
 		setLayout(new BorderLayout());
 	}
 	
+	protected String validateName(){
+		String name = dataPanel.getName().trim();
+		String error = null;
+		if(name.isEmpty()){
+			error = "Bitte einen Namen eintragen";
+		} else if(Repository.getInstance(model.getClass()).getByName(name) != null){
+			error = "Dieser Name ist bereits vergeben";
+		}
+		return error;
+	}
+	
+	protected List<String> validateModel(){
+		List<String> errors = new ArrayList<String>();
+		String nameError = validateName();
+		if(nameError != null){
+			errors.add(nameError);
+		}
+		return errors;
+	}
+
 	protected abstract void save();
 	
 	public void setTitle(String title){

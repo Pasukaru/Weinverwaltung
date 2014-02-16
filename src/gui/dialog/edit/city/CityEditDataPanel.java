@@ -1,6 +1,5 @@
 package gui.dialog.edit.city;
 
-
 import gui.dialog.edit.EditDataPanel;
 import gui.renderers.combobox.ModelRenderer;
 
@@ -9,7 +8,6 @@ import java.awt.event.ItemListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 import model.City;
 import model.Country;
@@ -17,12 +15,9 @@ import model.Region;
 
 public class CityEditDataPanel extends EditDataPanel<City> {
 
-
 	private static final long serialVersionUID = 646403762781205389L;
 
 	private CityEditDialog editDialog;
-	private JTextField city;
-	private int gridy = 0;
 	private JComboBox<Country> country;
 	private JComboBox<Region> region;
 
@@ -45,16 +40,9 @@ public class CityEditDataPanel extends EditDataPanel<City> {
 		});
 	}
 
-	public String getName() {
-		return city.getText();
-	}
 	private void addName() {
-
-		city = new JTextField();
-		city.setText("");
-
 		add(new JLabel("Stadt"), next(0, ++gridy));
-		add(city, next(1, gridy));
+		add(name, next(1, gridy));
 	}
 
 	@SuppressWarnings("unchecked")
