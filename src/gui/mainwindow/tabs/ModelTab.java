@@ -60,7 +60,19 @@ public abstract class ModelTab<T extends Model> extends JPanel implements AnyMod
 	
 	public List<T> fetchData(){
 		return Repository.getInstance(clazz).getAll();
-	};
+	}
+	
+	public void refreshData(){
+		String query = searchPanel.getQuery().trim();
+		Repository<T> repo =  Repository.getInstance(clazz);
+		List<T> data;
+		if(query.isEmpty()){
+			data = repo.getAll();
+		} else {
+			data = repo.search(query);
+		}
+		table.setData(data);
+	}
 
 	public abstract ModelTableModel<T> initTableModel();
 
@@ -85,7 +97,7 @@ public abstract class ModelTab<T extends Model> extends JPanel implements AnyMod
 	
 	@Override
 	public void modelChanged(ModelChangedEvent event) {
-		table.setData(fetchData());
+		refreshData();
 	}
 	
 	public void dispose(){

@@ -14,25 +14,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import util.Repository;
 import model.Model;
 
 public class TabSearchPanel<T extends Model> extends JPanel {
 
 	private static final long serialVersionUID = -3675296343620436137L;
 
-	private final ModelTab<T> tab;
-	
 	private JTextField search;
-	
-	public void doSearch(){
-		String query = search.getText().trim();
-		if(query.length() == 0){
-			tab.getTable().setData(Repository.getInstance(tab.getClazz()).getAll());
-		} else {
-			tab.getTable().setData(Repository.getInstance(tab.getClazz()).search(query));
-		}
-	}
 	
 	public void setQuery(String query){
 		search.setText(query);
@@ -43,19 +31,15 @@ public class TabSearchPanel<T extends Model> extends JPanel {
 	}
 	
 	public TabSearchPanel(final ModelTab<T> tab){
-		this.tab = tab;
-		
 		setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 		search = new JTextField();
 		search.setMaximumSize(new Dimension(Integer.MAX_VALUE, 25));
-		
-		final TabSearchPanel<T> self = this;
 		
 		search.addKeyListener(new KeyListener() {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER){
-					self.doSearch();
+					tab.refreshData();
 				}
 			}
 			
@@ -77,7 +61,7 @@ public class TabSearchPanel<T extends Model> extends JPanel {
 		searchButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				doSearch();
+				tab.refreshData();
 			}
 		});
 		
