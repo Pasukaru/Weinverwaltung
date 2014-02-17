@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import gui.dialog.cart.CartDialog;
 import gui.dialog.edit.EditDialog;
 import gui.dialog.edit.wine.WineEditDialog;
 import gui.table.ModelTableModel;
@@ -25,12 +26,7 @@ public class WineTab extends ModelTab<Wine> {
 		cart.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-//				JOptionPane.showMessageDialog(null, "TODO");
-
-//				JFrame jf = new JFrame();
-//				FlowLayout fl = new FlowLayout();
-//				jf.setLayout(fl);
-//				jf.setVisible(true);
+				new CartDialog();
 
 			}
 		});

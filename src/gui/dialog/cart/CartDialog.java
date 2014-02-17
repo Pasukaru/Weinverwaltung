@@ -1,12 +1,29 @@
 package gui.dialog.cart;
 
-import gui.mainwindow.BaseWindow;
+import java.awt.BorderLayout;
 
-public class CartDialog extends BaseWindow{
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
+
+public class CartDialog extends JOptionPane{
 
 	private static final long serialVersionUID = 1570317439463845409L;
 
-	//TODO Add to Cart Dialog
+	protected CartDataPanel dataPanel;
+	private String title;
+	private JDialog dialog = null;
 
 
+	public CartDialog(){
+		setLayout(new BorderLayout());
+		add(dataPanel = new CartDataPanel(), BorderLayout.CENTER);
+		title="";
+		show();
+	}
+
+	public void show(){
+		dialog = createDialog(title);
+		dialog.setVisible(true);
+	}
 }
