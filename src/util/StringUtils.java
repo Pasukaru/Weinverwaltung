@@ -1,6 +1,8 @@
 package util;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public final class StringUtils {
 
@@ -16,5 +18,15 @@ public final class StringUtils {
 			}
 		}
 		return sb.toString();
+	}
+	
+	public static String formatCurrency(double value){
+		Locale locale = new Locale("de", "DE");
+		NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
+		return fmt.format(value);
+	}
+	
+	public static String formatPrice(int value){
+		return StringUtils.formatCurrency(value/100d);
 	}
 }

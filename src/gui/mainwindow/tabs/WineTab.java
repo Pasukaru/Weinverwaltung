@@ -21,24 +21,32 @@ public class WineTab extends ModelTab<Wine> {
 	public WineTab() {
 		super(Wine.class, "Weine");
 
-		final JButton cart = new JButton("Add to cart");
-		cart.setEnabled(false);
-		cart.addActionListener(new ActionListener() {
+		final JButton addToCart = new JButton("Zum Warenkorb hinzufügen");
+		addToCart.setEnabled(false);
+		addToCart.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				new CartDialog();
-
+				CartDialog.add(table.getSelectedModel());
+			}
+		});
+		
+		final JButton showCart = new JButton("Warenkorb anzeigen");
+		showCart.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new CartDialog().show();
 			}
 		});
 
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent arg0) {
-				cart.setEnabled(table.getSelectedModel() != null);
+				addToCart.setEnabled(table.getSelectedModel() != null);
 			}
 		});
 
-		buttonPanel.add(cart);
+		buttonPanel.add(addToCart);
+		buttonPanel.add(showCart);
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import gui.table.columns.ModelColumn;
 import java.util.ArrayList;
 import java.util.Set;
 
+import util.StringUtils;
 import model.City;
 import model.Country;
 import model.Region;
@@ -25,6 +26,13 @@ public class WineColumnDefinition extends ModelTableColumnDefinition<Wine> {
 			@Override
 			public String getValue(Wine model, int row, int col) {
 				return model.getName();
+			}
+		});
+		
+		columns.add(new ModelColumn<Wine, String>("Preis", String.class) {
+			@Override
+			public String getValue(Wine model, int row, int col) {
+				return StringUtils.formatPrice(model.getPrice());
 			}
 		});
 

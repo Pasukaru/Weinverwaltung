@@ -46,7 +46,9 @@ public class WineEditDialog extends EditDialog<Wine> {
 		List<String> errors = super.validateModel();
 
 		WineEditDataPanel dataPanel = getDataPanel();
-		
+		if(dataPanel.getPrice()<1){
+			errors.add("Bitte einen Preis angeben");
+		}
 		if(dataPanel.getType() == null){
 			errors.add("Bitte eine Weinart auswählen");
 		}
@@ -72,6 +74,7 @@ public class WineEditDialog extends EditDialog<Wine> {
 		WineEditDataPanel dataPanel = getDataPanel();
 		
 		model.setName(dataPanel.getName());
+		model.setPrice(dataPanel.getPrice());
 		model.setCity(dataPanel.getCity());
 		model.setType(dataPanel.getType());
 		model.setSort(dataPanel.getSort());
