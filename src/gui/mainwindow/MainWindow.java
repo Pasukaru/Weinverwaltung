@@ -87,7 +87,7 @@ public class MainWindow extends BaseWindow {
 			repaint();
 		} catch(Exception e){
 			setVisible(false);
-			JOptionPane.showMessageDialog(null, "Es konnte keine Verbindung zur Datenbank hergestellt werden", null, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Es konnte keine Verbindung zur Datenbank hergestellt werden", "Fehler", JOptionPane.ERROR_MESSAGE);
 			dispose();
 			System.exit(1);
 		}
