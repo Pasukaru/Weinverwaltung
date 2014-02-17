@@ -1,7 +1,7 @@
 package gui.dialog.edit.city;
 
 import gui.dialog.edit.EditDataPanel;
-import gui.renderers.combobox.ModelRenderer;
+import gui.elements.ModelRenderer;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;

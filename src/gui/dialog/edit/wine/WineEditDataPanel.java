@@ -4,13 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import gui.dialog.edit.EditDataPanel;
-import gui.renderers.combobox.ModelRenderer;
+import gui.elements.ModelRenderer;
+import gui.elements.VineSelector;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
 
 import model.City;
 import model.Sort;
@@ -72,12 +72,10 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 	}
 
 	private void addVine() {
-		Vine[] vines = editDialog.getVines().toArray(new Vine[0]);
-
-		vine = new JList<Vine>(vines);
-		vine.setCellRenderer(new ModelRenderer<Vine>());
-		vine.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		vine.setVisibleRowCount(5);
+		VineSelector vine = new VineSelector(editDialog.getVines());
+		vine.setSelectedItems(model.getVine());
+		
+		this.vine = vine;
 
 		JScrollPane scrollPane = new JScrollPane(vine);
 

@@ -1,4 +1,4 @@
-package gui.renderers.combobox;
+package gui.elements;
 
 import java.awt.Component;
 
