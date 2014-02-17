@@ -11,7 +11,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 import model.City;
 import model.Sort;
@@ -27,7 +28,7 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 
 	private final WineEditDialog editDialog;
 
-	private JTextField price;
+	private JSpinner price;
 	private JComboBox<City> city;
 	private JComboBox<Type> type;
 	private JComboBox<Sort> sort;
@@ -53,7 +54,7 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 	}
 	
 	private void addPrice(){
-		price = new JTextField(Double.toString(model.getPrice()/100d));
+		price = new JSpinner(new SpinnerNumberModel(model.getPrice()/100d, 0, 1000, 1));
 		
 		add(new JLabel("Preis"), next(0, ++gridy));
 		add(price, next(1, gridy));
@@ -120,7 +121,9 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 	}
 	
 	public int getPrice(){
-		return (int)(Double.parseDouble(price.getText())*100);
+		double d = (Double) price.getValue();
+		d*= 100;
+		return (int) d;
 	}
 
 	public City getCity() {
