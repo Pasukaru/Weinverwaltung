@@ -1,6 +1,7 @@
 package gui.mainwindow.tabs;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -49,9 +50,10 @@ public abstract class ModelTab<T extends Model> extends JPanel implements AnyMod
 	}
 	
 	public void close(){
+		searchPanel.cancelSearch();
+		searchPanel.setQuery("");
 		Repository.getEventManager().addAnyModelChangedListener(this);
 		getParent().remove(this);
-		searchPanel.setQuery("");
 	}
 	
 	public Class<T> getClazz(){
@@ -63,6 +65,7 @@ public abstract class ModelTab<T extends Model> extends JPanel implements AnyMod
 	}
 	
 	public void refreshData(){
+		table.setData(new ArrayList<T>());
 		String query = searchPanel.getQuery().trim();
 		Repository<T> repo =  Repository.getInstance(clazz);
 		List<T> data;
