@@ -2,7 +2,7 @@ package gui.mainwindow;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.io.IOException;
+import java.awt.Font;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -22,11 +22,14 @@ public class LoadingPanel extends JPanel {
 		setLayout(new BorderLayout());
 		setBorder(new CompoundBorder(new BevelBorder(BevelBorder.RAISED), new BevelBorder(BevelBorder.LOWERED)));
 
+		JLabel title = new JLabel("Weinverwaltung", JLabel.CENTER);
+		title.setFont(new Font("Lucida Sans", Font.PLAIN, 25));
+		
+		add(BorderLayout.NORTH, title);
+		
 		try {
 			add(BorderLayout.CENTER, new ImagePanel(ImageIO.read(getClass().getResource("/images/splash.jpg"))));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} catch (Exception e) {}
 		
 		add(BorderLayout.SOUTH, label = new JLabel(text, new ImageIcon(getClass().getResource("/images/ajax-loader.gif")), JLabel.CENTER));
 	}
