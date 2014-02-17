@@ -42,18 +42,22 @@ public class Wine extends Model {
 	@JoinColumn(name = "winery_id", nullable = false)
 	private Winery winery;
 
+	@Column(nullable=false)
+	private int price;
+
 	public Wine() {
 		super();
 	}
 
 	public Wine(String name, Set<Vine> vine, City city, Sort sort, Type type,
-		Winery winery) {
+		Winery winery, int price) {
 		super(name);
 		this.vine = vine;
 		this.city = city;
 		this.sort = sort;
 		this.type = type;
 		this.winery = winery;
+		this.price = price;
 	}
 
 	public Set<Vine> getVine() {
@@ -94,5 +98,13 @@ public class Wine extends Model {
 
 	public void setWinery(Winery winery) {
 		this.winery = winery;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 }

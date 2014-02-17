@@ -69,30 +69,37 @@ public class DbButton extends JButton implements ActionListener {
 		Type type1 = new Type("Rotwein");
 		Type type2 = new Type("Weiﬂwein");
 
+		int price1 = 1250;
+		int price2 = 3000;
+		int price3 = 2222;
+
 		Wine wine1 = new Wine(
 			winery1.getName() + " " + vine1.getName(),
 			vines1,
 			city1,
 			sort1,
 			type1,
-			winery1);
+			winery1,
+			price1);
 		Wine wine2 = new Wine(
 			winery2.getName() + " " + vine2.getName(),
 			vines2,
 			city2,
 			sort2,
 			type2,
-			winery2);
+			winery2,
+			price2);
 		Wine wine3 = new Wine(
 			winery3.getName() + " " + vine3.getName(),
 			vines3,
 			city3,
 			sort1,
 			type2,
-			winery3);
+			winery3,
+			price3);
 
 		EntityTransaction tx = null;
-		
+
 		try {
 			tx = JpaUtil.getTx();
 			tx.begin();
