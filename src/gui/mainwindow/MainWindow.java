@@ -83,6 +83,8 @@ public class MainWindow extends BaseWindow {
 			setSize(new Dimension(800, getHeight()));
 			setLocationRelativeTo(null);
 			setVisible(true);
+			requestFocus();
+			repaint();
 		} catch(Exception e){
 			setVisible(false);
 			JOptionPane.showMessageDialog(null, "Es konnte keine Verbindung zur Datenbank hergestellt werden", null, JOptionPane.ERROR_MESSAGE);
