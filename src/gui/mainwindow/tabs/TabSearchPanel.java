@@ -34,6 +34,14 @@ public class TabSearchPanel<T extends Model> extends JPanel {
 		}
 	}
 	
+	public void setQuery(String query){
+		search.setText(query);
+	}
+	
+	public String getQuery(){
+		return search.getText();
+	}
+	
 	public TabSearchPanel(final ModelTab<T> tab){
 		this.tab = tab;
 		

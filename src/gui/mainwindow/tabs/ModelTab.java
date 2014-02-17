@@ -23,6 +23,7 @@ public abstract class ModelTab<T extends Model> extends JPanel implements AnyMod
 
 	protected ModelTableModel<T> tableModel;
 	protected ModelTable<T> table;
+	protected TabSearchPanel<T> searchPanel;
 	
 	protected TabButtonPanel<T> buttonPanel;
 	
@@ -33,7 +34,7 @@ public abstract class ModelTab<T extends Model> extends JPanel implements AnyMod
 		this.table = initTable(tableModel);
 		this.buttonPanel = new TabButtonPanel<T>(this);
 		setLayout(new BorderLayout());
-		add(BorderLayout.NORTH, new TabSearchPanel<T>(this));
+		add(BorderLayout.NORTH, searchPanel = new TabSearchPanel<T>(this));
 		add(BorderLayout.CENTER, new ModelTableScrollPane<T>(table));
 		add(BorderLayout.SOUTH, buttonPanel);
 	}
@@ -50,6 +51,7 @@ public abstract class ModelTab<T extends Model> extends JPanel implements AnyMod
 	public void close(){
 		Repository.getEventManager().addAnyModelChangedListener(this);
 		getParent().remove(this);
+		searchPanel.setQuery("");
 	}
 	
 	public Class<T> getClazz(){

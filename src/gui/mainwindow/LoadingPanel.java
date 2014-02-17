@@ -1,6 +1,7 @@
 package gui.mainwindow;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -8,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.CompoundBorder;
 
 public class LoadingPanel extends JPanel {
 
@@ -16,8 +18,9 @@ public class LoadingPanel extends JPanel {
 	private JLabel label;
 	
 	public LoadingPanel(String text){
+		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
-		setBorder(new BevelBorder(BevelBorder.RAISED));
+		setBorder(new CompoundBorder(new BevelBorder(BevelBorder.RAISED), new BevelBorder(BevelBorder.LOWERED)));
 
 		try {
 			add(BorderLayout.CENTER, new ImagePanel(ImageIO.read(getClass().getResource("/images/splash.jpg"))));
