@@ -21,7 +21,7 @@ public class ExceptionHandler implements util.ExceptionHandler {
 		boolean connectionLost = false;
 		
 		//Travel the cause chain to look for a SocketException
-		Throwable cause = e.getCause();
+		Throwable cause = e;
 		while(cause != null){
 			if(cause instanceof SocketException){
 				connectionLost = true;
@@ -31,7 +31,7 @@ public class ExceptionHandler implements util.ExceptionHandler {
 		}
 		
 		if(connectionLost){
-			JOptionPane.showMessageDialog(mainWindow, "Verbindung zur Datenbank kann nicht hergestellt werden.\nStarten Sie den Datenbankserver und führen Sie die Applikation erneut aus.", "Fehler", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(mainWindow, "Keine Verbindung zur Datenbank.\nStarten Sie den Datenbankserver und führen Sie die Applikation erneut aus.", "Fehler", JOptionPane.ERROR_MESSAGE);
 			JpaUtil.close();
 			System.exit(1);
 		} else {

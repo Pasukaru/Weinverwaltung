@@ -1,12 +1,10 @@
 package util;
 
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.swing.JOptionPane;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -30,10 +28,11 @@ public class Repository<T extends Model> {
 
 	protected final Class<T> model;
 	
+	protected static ExceptionHandler exceptionHandler;
+	
 	protected static EntityManager entityManager = null;
 	protected static Session session = null;
 	protected static EventManager eventManager;
-	protected static ExceptionHandler exceptionHandler;
 	
 	private static HashMap<Class<? extends Model>, Repository<? extends Model>> instances;
 	
@@ -41,8 +40,9 @@ public class Repository<T extends Model> {
 		this.model = model;
 	}
 	
-	public static void init(String pu, EventManager eventManager){
-		JpaUtil.init(pu);
+	public static void init(EventManager eventManager){
+		close();
+		JpaUtil.init("WEINVERWALTUNG");
 		entityManager = JpaUtil.getEM();
 		session = (Session) entityManager.getDelegate();
 		Repository.eventManager = eventManager;
@@ -55,6 +55,17 @@ public class Repository<T extends Model> {
 		instances.put(Vine.class, new Repository<Vine>(Vine.class));
 		instances.put(Wine.class, new WineRepository());
 		instances.put(Winery.class, new Repository<Winery>(Winery.class));
+	}
+	
+	public static void close() {
+		if(session != null){
+			try { session.flush(); } catch(Exception e) {}
+			try { session.close(); } catch(Exception e) {}
+			session = null;
+		}
+		JpaUtil.close();
+		entityManager = null;
+		eventManager = null;
 	}
 	
 	public static void setExceptionHandler(ExceptionHandler exceptionHander){
@@ -71,25 +82,6 @@ public class Repository<T extends Model> {
 	
 	public static <T extends Model> Repository<T> getInstance(Class<T> model){
 		return (Repository<T>) instances.get(model);
-	}
-	
-	public static void connectionLost(){
-		JOptionPane.showMessageDialog(null, "Verbindung zur Datenbank verloren!\nBitte starten sie die Anwendung neu.");
-	}
-	
-	public static void handleExeption(Exception e){
-		boolean connectionLost = false;
-		
-		if(e instanceof SocketException) {
-			connectionLost = true;
-		}
-		
-		if(connectionLost){
-			connectionLost();
-			throw new ConnectionLostException(e);
-		} else {
-			throw new RuntimeException(e);
-		}
 	}
 	
 	public Criteria getSearchCriteria(String query){
@@ -172,4 +164,5 @@ public class Repository<T extends Model> {
 		}
 		return deleted;
 	}
+
 }

@@ -11,6 +11,7 @@ import javax.persistence.EntityTransaction;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import events.EventManager;
 import model.City;
 import model.Country;
 import model.Region;
@@ -144,15 +145,19 @@ public class DbButton extends JButton implements ActionListener {
 			@Override
 			public void run() {
 				try {
+					mainWindow.showLoadingPanel("Trenne Datenbankverbindung");
+					EventManager eventManager = Repository.getEventManager();
+					Repository.close();
 					mainWindow.showLoadingPanel("Erstelle Datenbank...");
 					createDB();
 					mainWindow.showLoadingPanel("Erstelle Datenbankschema...");
-					Repository.init("WEINVERWALTUNG", Repository.getEventManager());
+					Repository.init(eventManager);
 					mainWindow.showLoadingPanel("Erstelle Daten...");
 					insertData();
 					Repository.getEventManager().fireAnyModelChanged(null);
 					mainWindow.hideLoadingPanel();
 				} catch(Exception e){
+					e.printStackTrace();
 					mainWindow.hideLoadingPanel();
 					JOptionPane.showMessageDialog(null, "Das erstellen der Daten ist fehlgeschlagen", "Fehler", JOptionPane.ERROR_MESSAGE);
 				}

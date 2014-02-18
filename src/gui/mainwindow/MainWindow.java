@@ -77,9 +77,9 @@ public class MainWindow extends BaseWindow {
 		
 		eventManager = new EventManager();
 		
-		showLoadingPanel("Verbinde mit Datenbank...");
+		showLoadingPanel("Lade Datenbankschema...");
 
-		Repository.init("WEINVERWALTUNG", eventManager);
+		Repository.init(eventManager);
 
 		showLoadingPanel("Erstelle Oberfläche...");
 		
@@ -126,6 +126,7 @@ public class MainWindow extends BaseWindow {
 
 	@Override
 	public void windowClosing(WindowEvent e) {
+		Repository.close();
 		System.exit(0);
 	}
 }

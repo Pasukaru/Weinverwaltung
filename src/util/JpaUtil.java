@@ -23,11 +23,11 @@ public class JpaUtil {
 
 	public static void close() {
 		if (em != null) {
-			em.close();
+			try { em.close(); } catch(Exception e){}
 			em = null;
 		}
 		if (emf != null) {
-			emf.close();
+			try { emf.close(); } catch(Exception e){}
 			emf = null;
 		}
 	}
