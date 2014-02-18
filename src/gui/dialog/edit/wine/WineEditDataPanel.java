@@ -56,7 +56,7 @@ public class WineEditDataPanel extends EditDataPanel<Wine> {
 	private void addPrice(){
 		price = new JSpinner(new SpinnerNumberModel(model.getPrice()/100d, 0, 1000, 1));
 		
-		add(new JLabel("Preis"), next(0, ++gridy));
+		add(new JLabel("Preis (in €)"), next(0, ++gridy));
 		add(price, next(1, gridy));
 	}
 

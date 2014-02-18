@@ -75,28 +75,28 @@ public class DbButton extends JButton implements ActionListener {
 
 		Wine wine1 = new Wine(
 			winery1.getName() + " " + vine1.getName(),
+			price1,
 			vines1,
 			city1,
 			sort1,
 			type1,
-			winery1,
-			price1);
+			winery1);
 		Wine wine2 = new Wine(
 			winery2.getName() + " " + vine2.getName(),
+			price2,
 			vines2,
 			city2,
 			sort2,
 			type2,
-			winery2,
-			price2);
+			winery2);
 		Wine wine3 = new Wine(
 			winery3.getName() + " " + vine3.getName(),
+			price3,
 			vines3,
 			city3,
 			sort1,
 			type2,
-			winery3,
-			price3);
+			winery3);
 
 		EntityTransaction tx = null;
 

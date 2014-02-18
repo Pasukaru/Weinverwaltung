@@ -49,15 +49,15 @@ public class Wine extends Model {
 		super();
 	}
 
-	public Wine(String name, Set<Vine> vine, City city, Sort sort, Type type,
-		Winery winery, int price) {
+	public Wine(String name, int price, Set<Vine> vine, City city, Sort sort, Type type,
+		Winery winery) {
 		super(name);
+		this.price = price;
 		this.vine = vine;
 		this.city = city;
 		this.sort = sort;
 		this.type = type;
 		this.winery = winery;
-		this.price = price;
 	}
 
 	public Set<Vine> getVine() {
