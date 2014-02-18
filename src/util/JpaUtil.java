@@ -10,24 +10,17 @@ import javax.persistence.Persistence;
  */
 public class JpaUtil {
 
-	/** EntityManager */
-	private static EntityManager em;
-
-	/** EntityManagerFactory */
-	private static EntityManagerFactory emf;
-
-	/** persistence: Datenbank */
+	private static EntityManager em = null;
+	private static EntityManagerFactory emf = null;
 	private static String persistenceunit = null;
 
-	/** soll geloggt werden? */
-	public static boolean log = true;
-
-	/** init: persistence name festlegen */
 	public static void init(final String pu) {
+		close();
+		em = null;
+		emf = null;
 		persistenceunit = pu;
 	}
 
-	/** close EntityManager ... */
 	public static void close() {
 		if (em != null) {
 			em.close();
@@ -39,26 +32,20 @@ public class JpaUtil {
 		}
 	}
 
-	/** EntityManager erzeugen */
 	public static EntityManager getEM() {
-
 		if (emf == null) {
 			if (persistenceunit == null) {
 				throw new RuntimeException("persistenceunit is null");
 			}
 			emf = Persistence.createEntityManagerFactory(persistenceunit);
 		}
-
 		if (em == null) {
 			em = emf.createEntityManager();
 		}
-
 		return em;
 	}
 
-	/** Transaktion erzeugen */
 	public static EntityTransaction getTx() {
 		return getEM().getTransaction();
 	}
-
 }

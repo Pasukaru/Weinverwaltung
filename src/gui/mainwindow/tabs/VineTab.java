@@ -2,6 +2,7 @@ package gui.mainwindow.tabs;
 
 import gui.dialog.edit.EditDialog;
 import gui.dialog.edit.vine.VineEditDialog;
+import gui.mainwindow.MainWindow;
 import gui.table.ModelTableModel;
 import gui.table.columns.vine.VineColumnDefinition;
 import model.Vine;
@@ -10,8 +11,8 @@ public class VineTab extends ModelTab<Vine> {
 
 	private static final long serialVersionUID = -6218897174571210449L;
 
-	public VineTab() {
-		super(Vine.class, "Rebsorten");
+	public VineTab(MainWindow mainWindow) {
+		super(mainWindow, Vine.class, "Rebsorten");
 	}
 
 	@Override

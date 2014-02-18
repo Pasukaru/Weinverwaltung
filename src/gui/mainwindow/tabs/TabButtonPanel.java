@@ -1,6 +1,7 @@
 package gui.mainwindow.tabs;
 
 import gui.mainwindow.DbButton;
+import gui.mainwindow.MainWindow;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +20,7 @@ public class TabButtonPanel<T extends Model> extends JPanel {
 
 	private static final long serialVersionUID = -7314612205656147889L;
 
-	public TabButtonPanel(final ModelTab<T> tab) {
+	public TabButtonPanel(final ModelTab<T> tab, MainWindow mainWindow) {
 		super();
 
 		setBorder(new TitledBorder(null, "Aktionen", TitledBorder.CENTER, TitledBorder.TOP));
@@ -65,7 +66,7 @@ public class TabButtonPanel<T extends Model> extends JPanel {
 			}
 		});
 
-		JButton test = new DbButton();
+		JButton test = new DbButton(mainWindow);
 		
 		this.add(add);
 		this.add(edit);

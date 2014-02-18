@@ -1,6 +1,7 @@
 package gui.mainwindow;
 
 import events.EventManager;
+import gui.ExceptionHandler;
 import gui.mainwindow.tabs.CityTab;
 import gui.mainwindow.tabs.ModelTab;
 import gui.mainwindow.tabs.SortTab;
@@ -13,7 +14,6 @@ import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
 
-import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 
 import model.City;
@@ -38,59 +38,67 @@ public class MainWindow extends BaseWindow {
 		super("Weinverwaltung");
 	}
 	
-	public void init(){
-		setUndecorated(true);
-		setAlwaysOnTop(true);
-		LoadingPanel loading = new LoadingPanel("Initialisiere...");
-		setContentPane(loading);
-		pack();
-		setLocationRelativeTo(null);
-		setVisible(true);
-
-		eventManager = new EventManager();
-
-		loading.setText("Verbinde mit Datenbank...");
-		pack();
-		setLocationRelativeTo(null);
-
-		try {
-			Repository.init("WEINVERWALTUNG", eventManager);
-
-			//TODO: - Test connection here - 
-
-			loading.setText("Erstelle Oberfläche...");
-			pack();
-			setLocationRelativeTo(null);
-			
-			tabs = new HashMap<Class<? extends Model>, ModelTab<?>>();
-			tabs.put(City.class, new CityTab());
-			tabs.put(Sort.class, new SortTab());
-			tabs.put(model.Type.class, new TypeTab());
-			tabs.put(Vine.class, new VineTab());
-			tabs.put(Winery.class, new WineryTab());
-			tabs.put(Wine.class, new WineTab());
-
-			tabPane = new JTabbedPane();
-			tabPane.addTab("+", new TabSelectorTab(this));
-			openTab(Wine.class);
-			
+	private LoadingPanel loading = null;
+	
+	public void showLoadingPanel(String text){
+		loading.setText(text);
+		if(getContentPane() != loading){
 			dispose();
-			
-			setAlwaysOnTop(false);
-			setUndecorated(false);
-			setContentPane(tabPane);
+			setContentPane(loading);
+			setUndecorated(true);
+			setAlwaysOnTop(true);
 			pack();
-			setSize(new Dimension(800, getHeight()));
 			setLocationRelativeTo(null);
 			setVisible(true);
-			requestFocus();
 			repaint();
-		} catch(Exception e){
-			setVisible(false);
-			JOptionPane.showMessageDialog(null, "Es konnte keine Verbindung zur Datenbank hergestellt werden", "Fehler", JOptionPane.ERROR_MESSAGE);
-			dispose();
-			System.exit(1);
+			requestFocus();
 		}
+	}
+	
+	public void hideLoadingPanel(){
+		dispose();
+		setAlwaysOnTop(false);
+		setUndecorated(false);
+		setContentPane(tabPane);
+		pack();
+		setSize(new Dimension(800, getHeight()));
+		setLocationRelativeTo(null);
+		setVisible(true);
+		repaint();
+		requestFocus();
+	}
+	
+	public void init(){
+		loading = new LoadingPanel("");
+		
+		showLoadingPanel("Initialisiere...");
+		
+		Repository.setExceptionHandler(new ExceptionHandler(this));
+		
+		eventManager = new EventManager();
+		
+		showLoadingPanel("Verbinde mit Datenbank...");
+
+		Repository.init("WEINVERWALTUNG", eventManager);
+
+		showLoadingPanel("Erstelle Oberfläche...");
+		
+		tabs = new HashMap<Class<? extends Model>, ModelTab<?>>();
+		tabs.put(City.class, new CityTab(this));
+		tabs.put(Sort.class, new SortTab(this));
+		tabs.put(model.Type.class, new TypeTab(this));
+		tabs.put(Vine.class, new VineTab(this));
+		tabs.put(Winery.class, new WineryTab(this));
+		tabs.put(Wine.class, new WineTab(this));
+
+		tabPane = new JTabbedPane();
+		tabPane.addTab("+", new TabSelectorTab(this));
+		
+		showLoadingPanel("Lade Daten...");
+
+		openTab(Wine.class);
+		
+		hideLoadingPanel();
 	}
 
 	public <T extends Model> void openTab(Class<T> model) {

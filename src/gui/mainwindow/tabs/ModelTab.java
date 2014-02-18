@@ -11,6 +11,7 @@ import model.Model;
 import events.AnyModelChangedListener;
 import events.ModelChangedEvent;
 import gui.dialog.edit.EditDialog;
+import gui.mainwindow.MainWindow;
 import gui.table.ModelTable;
 import gui.table.ModelTableModel;
 import gui.table.ModelTableScrollPane;
@@ -28,12 +29,12 @@ public abstract class ModelTab<T extends Model> extends JPanel implements AnyMod
 	
 	protected TabButtonPanel<T> buttonPanel;
 	
-	public ModelTab(Class<T> model, String title) {
+	public ModelTab(MainWindow mainWindow, Class<T> model, String title) {
 		this.title = title;
 		this.clazz = model;
 		this.tableModel = initTableModel();
 		this.table = initTable(tableModel);
-		this.buttonPanel = new TabButtonPanel<T>(this);
+		this.buttonPanel = new TabButtonPanel<T>(this, mainWindow);
 		setLayout(new BorderLayout());
 		add(BorderLayout.NORTH, searchPanel = new TabSearchPanel<T>(this));
 		add(BorderLayout.CENTER, new ModelTableScrollPane<T>(table));

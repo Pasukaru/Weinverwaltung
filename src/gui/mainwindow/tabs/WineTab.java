@@ -10,6 +10,7 @@ import javax.swing.event.ListSelectionListener;
 import gui.dialog.cart.CartDialog;
 import gui.dialog.edit.EditDialog;
 import gui.dialog.edit.wine.WineEditDialog;
+import gui.mainwindow.MainWindow;
 import gui.table.ModelTableModel;
 import gui.table.columns.wine.WineColumnDefinition;
 import model.Wine;
@@ -18,8 +19,8 @@ public class WineTab extends ModelTab<Wine> {
 
 	private static final long serialVersionUID = -6218897174571210449L;
 
-	public WineTab() {
-		super(Wine.class, "Weine");
+	public WineTab(MainWindow mainWindow) {
+		super(mainWindow, Wine.class, "Weine");
 
 		final JButton addToCart = new JButton("Zum Warenkorb hinzufügen");
 		addToCart.setEnabled(false);

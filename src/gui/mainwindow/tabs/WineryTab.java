@@ -2,6 +2,7 @@ package gui.mainwindow.tabs;
 
 import gui.dialog.edit.EditDialog;
 import gui.dialog.edit.winery.WineryEditDialog;
+import gui.mainwindow.MainWindow;
 import gui.table.ModelTableModel;
 import gui.table.columns.winery.WineryColumnDefinition;
 import model.Winery;
@@ -10,8 +11,8 @@ public class WineryTab extends ModelTab<Winery> {
 
 	private static final long serialVersionUID = -6218897174571210449L;
 
-	public WineryTab() {
-		super(Winery.class, "Winzer");
+	public WineryTab(MainWindow mainWindow) {
+		super(mainWindow, Winery.class, "Winzer");
 	}
 
 	@Override

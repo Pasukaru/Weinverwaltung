@@ -29,7 +29,7 @@ public class LoadingPanel extends JPanel {
 		
 		try {
 			add(BorderLayout.CENTER, new ImagePanel(ImageIO.read(getClass().getResource("/images/splash.jpg"))));
-		} catch (Exception e) {}
+		} catch (Exception e) {e.printStackTrace();}
 		
 		add(BorderLayout.SOUTH, label = new JLabel(text, new ImageIcon(getClass().getResource("/images/ajax-loader.gif")), JLabel.CENTER));
 	}

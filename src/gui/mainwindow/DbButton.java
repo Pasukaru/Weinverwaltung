@@ -2,6 +2,8 @@ package gui.mainwindow;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,17 +26,38 @@ public class DbButton extends JButton implements ActionListener {
 
 	private static final long serialVersionUID = -4715489416822515615L;
 
-	public DbButton() {
+	private final MainWindow mainWindow;
+	
+	public DbButton(MainWindow mainWindow) {
 		super("Test-Daten erstellen");
 		addActionListener(this);
+		this.mainWindow = mainWindow;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		setDbData();
 	}
-
-	private void setDbData() {
+	
+	private void createDB() throws Exception {
+		Connection c = null;
+		Exception e = null;
+		try {
+			c = DriverManager.getConnection("jdbc:mysql://localhost:3306/weinverwaltung", "root", "");
+			c.createStatement().execute("drop database weinverwaltung");
+			c.createStatement().execute("create database weinverwaltung");
+		} catch(Exception e1){
+			e = e1;
+		}
+		if(c != null){
+			c.close();
+		}
+		if(e != null){
+			throw e;
+		}
+	}
+	
+	private void insertData() throws Exception{
 		Country country1 = new Country("Deutschland");
 		Country country2 = new Country("Italien");
 		Country country3 = new Country("Frankreich");
@@ -99,7 +122,6 @@ public class DbButton extends JButton implements ActionListener {
 			winery3);
 
 		EntityTransaction tx = null;
-
 		try {
 			tx = JpaUtil.getTx();
 			tx.begin();
@@ -107,10 +129,35 @@ public class DbButton extends JButton implements ActionListener {
 			JpaUtil.getEM().persist(wine2);
 			JpaUtil.getEM().persist(wine3);
 			tx.commit();
-			Repository.getEventManager().fireAnyModelChanged(wine1);
 		} catch(Exception e){
 			if(tx != null){ tx.rollback(); }
-			JOptionPane.showMessageDialog(null, "Das erstellen der Daten ist fehlgeschlagen", "Fehler", JOptionPane.ERROR_MESSAGE);
+			throw e;
 		}
+	}
+
+	private void setDbData() {
+		final DbButton self = this;
+		self.setEnabled(false);
+
+		//Don't block UI-Thread
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					mainWindow.showLoadingPanel("Erstelle Datenbank...");
+					createDB();
+					mainWindow.showLoadingPanel("Erstelle Datenbankschema...");
+					Repository.init("WEINVERWALTUNG", Repository.getEventManager());
+					mainWindow.showLoadingPanel("Erstelle Daten...");
+					insertData();
+					Repository.getEventManager().fireAnyModelChanged(null);
+					mainWindow.hideLoadingPanel();
+				} catch(Exception e){
+					mainWindow.hideLoadingPanel();
+					JOptionPane.showMessageDialog(null, "Das erstellen der Daten ist fehlgeschlagen", "Fehler", JOptionPane.ERROR_MESSAGE);
+				}
+				self.setEnabled(true);
+			}
+		}).start();
 	}
 }

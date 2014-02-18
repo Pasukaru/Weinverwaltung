@@ -1,14 +1,18 @@
 package util;
 
+import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.swing.JOptionPane;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.exception.JDBCConnectionException;
 
 import model.City;
 import model.Country;
@@ -26,8 +30,10 @@ public class Repository<T extends Model> {
 
 	protected final Class<T> model;
 	
+	protected static EntityManager entityManager = null;
 	protected static Session session = null;
 	protected static EventManager eventManager;
+	protected static ExceptionHandler exceptionHandler;
 	
 	private static HashMap<Class<? extends Model>, Repository<? extends Model>> instances;
 	
@@ -37,7 +43,7 @@ public class Repository<T extends Model> {
 	
 	public static void init(String pu, EventManager eventManager){
 		JpaUtil.init(pu);
-		EntityManager entityManager = JpaUtil.getEM();
+		entityManager = JpaUtil.getEM();
 		session = (Session) entityManager.getDelegate();
 		Repository.eventManager = eventManager;
 		instances = new HashMap<Class<? extends Model>, Repository<? extends Model>>();
@@ -51,12 +57,39 @@ public class Repository<T extends Model> {
 		instances.put(Winery.class, new Repository<Winery>(Winery.class));
 	}
 	
+	public static void setExceptionHandler(ExceptionHandler exceptionHander){
+		Repository.exceptionHandler = exceptionHander;
+	}
+	
+	public static EntityManager getEntityManager(){
+		return entityManager;
+	}
+	
 	public static EventManager getEventManager(){
 		return eventManager;
 	}
 	
 	public static <T extends Model> Repository<T> getInstance(Class<T> model){
 		return (Repository<T>) instances.get(model);
+	}
+	
+	public static void connectionLost(){
+		JOptionPane.showMessageDialog(null, "Verbindung zur Datenbank verloren!\nBitte starten sie die Anwendung neu.");
+	}
+	
+	public static void handleExeption(Exception e){
+		boolean connectionLost = false;
+		
+		if(e instanceof SocketException) {
+			connectionLost = true;
+		}
+		
+		if(connectionLost){
+			connectionLost();
+			throw new ConnectionLostException(e);
+		} else {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public Criteria getSearchCriteria(String query){
@@ -72,10 +105,15 @@ public class Repository<T extends Model> {
 	}
 	
 	public List<T> getAll(Criteria criteria){
-		if(criteria == null){
-			criteria = session.createCriteria(model);
+		try {
+			if(criteria == null){
+				criteria = session.createCriteria(model);
+			}
+			return criteria.list();
+		} catch(JDBCConnectionException e){
+			exceptionHandler.handleException(e);
+			return new ArrayList<T>();
 		}
-		return criteria.list();
 	}
 	
 	public List<T> getAll(){
@@ -83,7 +121,13 @@ public class Repository<T extends Model> {
 	}
 	
 	public T getById(Integer id){
-		return (T) session.get(model, id);
+		try {
+			return (T) session.get(model, id);
+		} catch(RuntimeException e){
+			exceptionHandler.handleException(e);
+			return null;
+		}
+		
 	}
 	
 	public T getByName(String name){
@@ -102,9 +146,9 @@ public class Repository<T extends Model> {
 			session.update(model);
 			tx.commit();
 			eventManager.fireAnyModelChanged(model);	
-		} catch(RuntimeException e){
+		} catch(Exception e){
 			if(tx != null){ tx.rollback(); }
-			throw e;
+			exceptionHandler.handleException(e);
 		}
 	}
 	
@@ -122,9 +166,9 @@ public class Repository<T extends Model> {
 				eventManager.fireAnyModelChanged(model);
 				deleted = true;
 			}
-		} catch(RuntimeException e){
+		} catch(Exception e){
 			if(tx != null){ tx.rollback(); }
-			throw e;
+			exceptionHandler.handleException(e);
 		}
 		return deleted;
 	}
