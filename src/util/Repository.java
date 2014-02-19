@@ -112,16 +112,6 @@ public class Repository<T extends Model> {
 		return getAll(null);
 	}
 	
-	public T getById(Integer id){
-		try {
-			return (T) session.get(model, id);
-		} catch(RuntimeException e){
-			exceptionHandler.handleException(e);
-			return null;
-		}
-		
-	}
-	
 	public T getByName(String name){
 		return getOne(session.createCriteria(model).add(Restrictions.eq("name", name)));
 	}
