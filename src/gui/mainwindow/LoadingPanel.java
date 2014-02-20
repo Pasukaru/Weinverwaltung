@@ -42,7 +42,11 @@ public class LoadingPanel extends JPanel implements Runnable {
 	}
 	
 	public void start(){
-		stop();
+		if(splash != null){
+			try { splash.join(); } 
+			catch (InterruptedException e) {}
+			stop();
+		}
 		splash = new Thread(this);
 		splash.start();
 	}
