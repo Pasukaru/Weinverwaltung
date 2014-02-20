@@ -5,8 +5,8 @@ import gui.dialog.edit.EditDialog;
 
 import java.awt.BorderLayout;
 
+import repository.Repository;
 import model.Sort;
-import util.Repository;
 
 public class SortEditDialog extends EditDialog<Sort> {
 

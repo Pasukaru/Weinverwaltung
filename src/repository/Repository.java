@@ -1,4 +1,4 @@
-package util;
+package repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +12,8 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.JDBCConnectionException;
 
+import util.ExceptionHandler;
+import util.JpaUtil;
 import model.City;
 import model.Country;
 import model.Model;

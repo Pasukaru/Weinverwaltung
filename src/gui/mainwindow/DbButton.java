@@ -11,6 +11,7 @@ import javax.persistence.EntityTransaction;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import repository.Repository;
 import events.EventManager;
 import model.City;
 import model.Country;
@@ -21,7 +22,6 @@ import model.Vine;
 import model.Wine;
 import model.Winery;
 import util.JpaUtil;
-import util.Repository;
 
 public class DbButton extends JButton implements ActionListener {
 
@@ -145,14 +145,14 @@ public class DbButton extends JButton implements ActionListener {
 			@Override
 			public void run() {
 				try {
-					mainWindow.showLoadingPanel("Trenne Datenbankverbindung");
+					mainWindow.showLoadingPanel();
 					EventManager eventManager = Repository.getEventManager();
 					Repository.close();
-					mainWindow.showLoadingPanel("Erstelle Datenbank...");
+					mainWindow.showLoadingPanel();
 					createDB();
-					mainWindow.showLoadingPanel("Erstelle Datenbankschema...");
+					mainWindow.showLoadingPanel();
 					Repository.init(eventManager);
-					mainWindow.showLoadingPanel("Erstelle Daten...");
+					mainWindow.showLoadingPanel();
 					insertData();
 					Repository.getEventManager().fireAnyModelChanged(null);
 					mainWindow.hideLoadingPanel();

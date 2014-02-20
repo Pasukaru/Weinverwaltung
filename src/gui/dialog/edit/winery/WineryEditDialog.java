@@ -5,8 +5,8 @@ import gui.dialog.edit.EditDialog;
 
 import java.awt.BorderLayout;
 
+import repository.Repository;
 import model.Winery;
-import util.Repository;
 
 public class WineryEditDialog extends EditDialog<Winery> {
 

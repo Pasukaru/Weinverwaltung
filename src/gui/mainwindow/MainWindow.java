@@ -16,13 +16,13 @@ import java.util.HashMap;
 
 import javax.swing.JTabbedPane;
 
+import repository.Repository;
 import model.City;
 import model.Model;
 import model.Sort;
 import model.Vine;
 import model.Wine;
 import model.Winery;
-import util.Repository;
 
 public class MainWindow extends BaseWindow {
 
@@ -40,8 +40,7 @@ public class MainWindow extends BaseWindow {
 	
 	private LoadingPanel loading = null;
 	
-	public void showLoadingPanel(String text){
-		loading.setText(text);
+	public void showLoadingPanel(){
 		if(getContentPane() != loading){
 			dispose();
 			setContentPane(loading);
@@ -50,7 +49,7 @@ public class MainWindow extends BaseWindow {
 			pack();
 			setLocationRelativeTo(null);
 			setVisible(true);
-			repaint();
+			loading.start();
 			requestFocus();
 		}
 	}
@@ -59,30 +58,26 @@ public class MainWindow extends BaseWindow {
 		dispose();
 		setAlwaysOnTop(false);
 		setUndecorated(false);
+		loading.stop();
 		setContentPane(tabPane);
 		pack();
 		setSize(new Dimension(800, getHeight()));
 		setLocationRelativeTo(null);
 		setVisible(true);
-		repaint();
 		requestFocus();
 	}
 	
 	public void init(){
-		loading = new LoadingPanel("");
+		loading = new LoadingPanel();
 		
-		showLoadingPanel("Initialisiere...");
+		showLoadingPanel();
 		
 		Repository.setExceptionHandler(new ExceptionHandler(this));
 		
 		eventManager = new EventManager();
 		
-		showLoadingPanel("Lade Datenbankschema...");
-
 		Repository.init(eventManager);
 
-		showLoadingPanel("Erstelle Oberfläche...");
-		
 		tabs = new HashMap<Class<? extends Model>, ModelTab<?>>();
 		tabs.put(City.class, new CityTab(this));
 		tabs.put(Sort.class, new SortTab(this));
@@ -94,8 +89,6 @@ public class MainWindow extends BaseWindow {
 		tabPane = new JTabbedPane();
 		tabPane.addTab("+", new TabSelectorTab(this));
 		
-		showLoadingPanel("Lade Daten...");
-
 		openTab(Wine.class);
 		
 		hideLoadingPanel();

@@ -13,7 +13,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import util.Repository;
+import repository.Repository;
 import model.Model;
 
 public class TabButtonPanel<T extends Model> extends JPanel {

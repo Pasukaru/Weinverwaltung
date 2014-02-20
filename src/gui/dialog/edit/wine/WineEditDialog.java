@@ -6,13 +6,13 @@ import gui.dialog.edit.EditDialog;
 import java.awt.BorderLayout;
 import java.util.List;
 
+import repository.Repository;
 import model.City;
 import model.Sort;
 import model.Type;
 import model.Vine;
 import model.Wine;
 import model.Winery;
-import util.Repository;
 
 public class WineEditDialog extends EditDialog<Wine> {
 

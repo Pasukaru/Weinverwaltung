@@ -6,10 +6,10 @@ import gui.dialog.edit.EditDialog;
 import java.awt.BorderLayout;
 import java.util.List;
 
+import repository.Repository;
 import model.City;
 import model.Country;
 import model.Region;
-import util.Repository;
 
 public class CityEditDialog extends EditDialog<City> {
 

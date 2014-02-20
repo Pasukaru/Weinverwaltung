@@ -5,8 +5,8 @@ import gui.dialog.edit.EditDialog;
 
 import java.awt.BorderLayout;
 
+import repository.Repository;
 import model.Type;
-import util.Repository;
 
 public class TypeEditDialog extends EditDialog<Type> {
 
