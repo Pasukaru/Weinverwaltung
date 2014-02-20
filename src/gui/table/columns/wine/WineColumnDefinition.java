@@ -65,11 +65,13 @@ public class WineColumnDefinition extends ModelTableColumnDefinition<Wine> {
 			public String getValue(Wine model, int row, int col) {
 				String value = "---";
 				Set<Vine> vines = model.getVine();
-				if (vines != null) {
+				if (vines != null && !vines.isEmpty()) {
+					boolean first = true;
 					for (Vine vine : vines) {
-						if(value.equals("---")){
+						if(first){
 							value = vine.getName();
-						}else{
+							first = false;
+						} else {
 							value = value+", "+vine.getName();
 						}
 					}
