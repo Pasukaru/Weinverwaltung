@@ -38,7 +38,7 @@ public class LoadingPanel extends JPanel implements Runnable {
 	}
 	
 	private void setText(){
-		label.setText(SplashMessage.getRandom());
+		label.setText(SplashMessage.getNext());
 	}
 	
 	public void start(){
@@ -52,7 +52,7 @@ public class LoadingPanel extends JPanel implements Runnable {
 		while(splash != null){
 			try {
 				setText();
-				Thread.sleep((int)(Math.floor(Math.random()*3+1))*1000);
+				Thread.sleep(3000);
 			} catch (InterruptedException e) {}
 		}
 	}
