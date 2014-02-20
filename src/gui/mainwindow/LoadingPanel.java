@@ -11,13 +11,16 @@ import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 
-public class LoadingPanel extends JPanel {
+import util.SplashMessage;
+
+public class LoadingPanel extends JPanel implements Runnable {
 
 	private static final long serialVersionUID = -3202625181356999859L;
 	
 	private JLabel label;
+	private Thread splash = null;
 	
-	public LoadingPanel(String text){
+	public LoadingPanel(){
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
 		setBorder(new CompoundBorder(new BevelBorder(BevelBorder.RAISED), new BevelBorder(BevelBorder.LOWERED)));
@@ -31,11 +34,35 @@ public class LoadingPanel extends JPanel {
 			add(BorderLayout.CENTER, new ImagePanel(ImageIO.read(getClass().getResource("/images/splash.jpg"))));
 		} catch (Exception e) {e.printStackTrace();}
 		
-		add(BorderLayout.SOUTH, label = new JLabel(text, new ImageIcon(getClass().getResource("/images/ajax-loader.gif")), JLabel.CENTER));
+		add(BorderLayout.SOUTH, label = new JLabel("", new ImageIcon(getClass().getResource("/images/ajax-loader.gif")), JLabel.CENTER));
 	}
 	
-	public void setText(String text) {
-		label.setText(text);
+	private void setText(){
+		label.setText(SplashMessage.getNext());
+	}
+	
+	public void start(){
+		if(splash != null){
+			try { splash.join(); } 
+			catch (InterruptedException e) {}
+			stop();
+		}
+		splash = new Thread(this);
+		splash.start();
+	}
+	
+	@Override
+	public void run() {
+		while(splash != null){
+			try {
+				setText();
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {}
+		}
+	}
+	
+	public void stop(){
+		splash = null;
 	}
 
 }

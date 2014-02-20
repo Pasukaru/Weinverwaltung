@@ -40,10 +40,13 @@ public class CartDataPanel extends JPanel{
 
 		GridBagConstraints g = next(0, ++gridy);
 		g.gridwidth = 3;
-		g.insets = new Insets(20, 0, 0, 0);
+		g.insets = new Insets(15, 0, 0, 0);
 		add(new JLabel("Gesamtpreis"), g);
-		add(total = new JLabel("asdf"), next(3, gridy));
-		
+
+		g.gridwidth = 1;
+		g.gridx = 3;
+		add(total = new JLabel(), g);
+
 		calcTotal();
 	}
 	
@@ -114,6 +117,7 @@ public class CartDataPanel extends JPanel{
 		grid.gridy = gridy;
 		grid.weightx = 1.0;
 		grid.weighty = 1.0;
+		grid.insets = new Insets(3, 0, 0, 0);
 		grid.fill = GridBagConstraints.HORIZONTAL;
 		grid.anchor = GridBagConstraints.CENTER;
 		return grid;

@@ -1,4 +1,4 @@
-package util;
+package repository;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Disjunction;

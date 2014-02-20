@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import util.Repository;
+import repository.Repository;
 import model.Model;
 import events.AnyModelChangedListener;
 import events.ModelChangedEvent;

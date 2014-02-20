@@ -5,8 +5,8 @@ import gui.dialog.edit.EditDialog;
 
 import java.awt.BorderLayout;
 
+import repository.Repository;
 import model.Vine;
-import util.Repository;
 
 public class VineEditDialog extends EditDialog<Vine> {
 

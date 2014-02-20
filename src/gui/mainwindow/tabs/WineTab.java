@@ -10,6 +10,7 @@ import javax.swing.event.ListSelectionListener;
 import gui.dialog.cart.CartDialog;
 import gui.dialog.edit.EditDialog;
 import gui.dialog.edit.wine.WineEditDialog;
+import gui.mainwindow.DbButton;
 import gui.mainwindow.MainWindow;
 import gui.table.ModelTableModel;
 import gui.table.columns.wine.WineColumnDefinition;
@@ -46,6 +47,7 @@ public class WineTab extends ModelTab<Wine> {
 			}
 		});
 
+		buttonPanel.add(new DbButton(mainWindow));
 		buttonPanel.add(addToCart);
 		buttonPanel.add(showCart);
 	}

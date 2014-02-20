@@ -9,7 +9,7 @@ import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
-import util.Repository;
+import repository.Repository;
 import model.Model;
 
 public abstract class EditDialog<T extends Model> extends JOptionPane implements WindowListener {
