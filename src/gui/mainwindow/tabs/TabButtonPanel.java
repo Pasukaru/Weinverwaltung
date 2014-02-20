@@ -1,6 +1,5 @@
 package gui.mainwindow.tabs;
 
-import gui.mainwindow.DbButton;
 import gui.mainwindow.MainWindow;
 
 import java.awt.event.ActionEvent;
@@ -65,12 +64,9 @@ public class TabButtonPanel<T extends Model> extends JPanel {
 				delete.setEnabled(selected);
 			}
 		});
-
-		JButton test = new DbButton(mainWindow);
 		
 		this.add(add);
 		this.add(edit);
 		this.add(delete);
-		this.add(test);
 	}
 }
