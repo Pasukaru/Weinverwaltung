@@ -8,7 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import model.City;
+import model.Country;
 import model.Model;
+import model.Region;
 import model.Sort;
 import model.Type;
 import model.Vine;
@@ -18,7 +20,7 @@ import model.Winery;
 public class TabSelectorTab extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static final Class<?>[] clazzes = {Wine.class, Type.class, Sort.class, Vine.class, Winery.class, City.class};
+	private static final Class<?>[] clazzes = {Wine.class, Type.class, Sort.class, Vine.class, Winery.class, City.class, Region.class, Country.class};
 
 	public TabSelectorTab(final MainWindow mainWindow) {
 		setLayout(new FlowLayout());

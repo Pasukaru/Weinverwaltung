@@ -29,34 +29,44 @@ import events.EventManager;
 public class Repository<T extends Model> {
 
 	protected final Class<T> model;
-	
-	protected static ExceptionHandler exceptionHandler;
-	
+
+	protected static ExceptionHandler exceptionHandler = null;
+
 	protected static EntityManager entityManager = null;
 	protected static Session session = null;
 	protected static EventManager eventManager;
-	
+
 	private static HashMap<Class<? extends Model>, Repository<? extends Model>> instances;
-	
+
 	protected Repository(Class<T> model){
 		this.model = model;
 	}
-	
+
+	private static void handleException(Exception e){
+		if(exceptionHandler != null){
+			exceptionHandler.handleException(e);
+		}
+	}
+
 	public static void init(EventManager eventManager){
-		close();
-		JpaUtil.init("WEINVERWALTUNG");
-		entityManager = JpaUtil.getEM();
-		session = (Session) entityManager.getDelegate();
-		Repository.eventManager = eventManager;
-		instances = new HashMap<Class<? extends Model>, Repository<? extends Model>>();
-		instances.put(City.class, new Repository<City>(City.class));
-		instances.put(Country.class, new Repository<Country>(Country.class));
-		instances.put(Region.class, new Repository<Region>(Region.class));
-		instances.put(Sort.class, new Repository<Sort>(Sort.class));
-		instances.put(Type.class, new Repository<Type>(Type.class));
-		instances.put(Vine.class, new Repository<Vine>(Vine.class));
-		instances.put(Wine.class, new WineRepository());
-		instances.put(Winery.class, new Repository<Winery>(Winery.class));
+		try {
+			close();
+			JpaUtil.init("WEINVERWALTUNG");
+			entityManager = JpaUtil.getEM();
+			session = (Session) entityManager.getDelegate();
+			Repository.eventManager = eventManager;
+			instances = new HashMap<Class<? extends Model>, Repository<? extends Model>>();
+			instances.put(City.class, new Repository<City>(City.class));
+			instances.put(Country.class, new Repository<Country>(Country.class));
+			instances.put(Region.class, new Repository<Region>(Region.class));
+			instances.put(Sort.class, new Repository<Sort>(Sort.class));
+			instances.put(Type.class, new Repository<Type>(Type.class));
+			instances.put(Vine.class, new Repository<Vine>(Vine.class));
+			instances.put(Wine.class, new WineRepository());
+			instances.put(Winery.class, new Repository<Winery>(Winery.class));
+		} catch(Exception e){
+			handleException(e);
+		}
 	}
 	
 	public static void close() {
@@ -105,7 +115,7 @@ public class Repository<T extends Model> {
 			}
 			return criteria.list();
 		} catch(JDBCConnectionException e){
-			exceptionHandler.handleException(e);
+			handleException(e);
 			return new ArrayList<T>();
 		}
 	}
@@ -132,7 +142,7 @@ public class Repository<T extends Model> {
 			eventManager.fireAnyModelChanged(model);	
 		} catch(Exception e){
 			if(tx != null){ tx.rollback(); }
-			exceptionHandler.handleException(e);
+			handleException(e);
 		}
 	}
 	
@@ -152,7 +162,7 @@ public class Repository<T extends Model> {
 			}
 		} catch(Exception e){
 			if(tx != null){ tx.rollback(); }
-			exceptionHandler.handleException(e);
+			handleException(e);
 		}
 		return deleted;
 	}

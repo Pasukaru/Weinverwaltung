@@ -4,7 +4,7 @@ import gui.dialog.edit.EditDialog;
 import gui.dialog.edit.vine.VineEditDialog;
 import gui.mainwindow.MainWindow;
 import gui.table.ModelTableModel;
-import gui.table.columns.vine.VineColumnDefinition;
+import gui.table.columns.VineColumnDefinition;
 import model.Vine;
 
 public class VineTab extends ModelTab<Vine> {

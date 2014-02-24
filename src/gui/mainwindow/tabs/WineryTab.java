@@ -4,7 +4,7 @@ import gui.dialog.edit.EditDialog;
 import gui.dialog.edit.winery.WineryEditDialog;
 import gui.mainwindow.MainWindow;
 import gui.table.ModelTableModel;
-import gui.table.columns.winery.WineryColumnDefinition;
+import gui.table.columns.WineryColumnDefinition;
 import model.Winery;
 
 public class WineryTab extends ModelTab<Winery> {

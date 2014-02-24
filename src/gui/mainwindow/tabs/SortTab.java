@@ -4,7 +4,7 @@ import gui.dialog.edit.EditDialog;
 import gui.dialog.edit.sort.SortEditDialog;
 import gui.mainwindow.MainWindow;
 import gui.table.ModelTableModel;
-import gui.table.columns.sort.SortColumnDefinition;
+import gui.table.columns.SortColumnDefinition;
 import model.Sort;
 
 public class SortTab extends ModelTab<Sort> {

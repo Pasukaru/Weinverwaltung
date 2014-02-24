@@ -1,8 +1,6 @@
-package gui.table.columns.wine;
+package gui.table.columns;
 
 import gui.table.ModelTableColumnDefinition;
-import gui.table.columns.IndexColumn;
-import gui.table.columns.ModelColumn;
 
 import java.util.ArrayList;
 import java.util.Set;

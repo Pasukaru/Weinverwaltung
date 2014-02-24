@@ -4,7 +4,7 @@ import gui.dialog.edit.EditDialog;
 import gui.dialog.edit.city.CityEditDialog;
 import gui.mainwindow.MainWindow;
 import gui.table.ModelTableModel;
-import gui.table.columns.city.CityColumnDefinition;
+import gui.table.columns.CityColumnDefinition;
 import model.City;
 
 public class CityTab extends ModelTab<City> {

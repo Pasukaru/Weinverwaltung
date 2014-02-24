@@ -26,8 +26,8 @@ public class WineEditDialog extends EditDialog<Wine> {
 
 	private EditButtonPanel<Wine> buttonsPanel;
 
-	public WineEditDialog(final Wine wine) {
-		super(wine);
+	public WineEditDialog(Wine model) {
+		super(model);
 
 		setTitle(isCreate() ? "Wein hinzufügen" : "Wein bearbeiten");
 

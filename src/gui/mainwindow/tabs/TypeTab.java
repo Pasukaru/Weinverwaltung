@@ -4,7 +4,7 @@ import gui.dialog.edit.EditDialog;
 import gui.dialog.edit.type.TypeEditDialog;
 import gui.mainwindow.MainWindow;
 import gui.table.ModelTableModel;
-import gui.table.columns.type.TypeColumnDefinition;
+import gui.table.columns.TypeColumnDefinition;
 import model.Type;
 
 public class TypeTab extends ModelTab<Type> {

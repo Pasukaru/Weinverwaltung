@@ -13,7 +13,7 @@ import gui.dialog.edit.wine.WineEditDialog;
 import gui.mainwindow.DbButton;
 import gui.mainwindow.MainWindow;
 import gui.table.ModelTableModel;
-import gui.table.columns.wine.WineColumnDefinition;
+import gui.table.columns.WineColumnDefinition;
 import model.Wine;
 
 public class WineTab extends ModelTab<Wine> {

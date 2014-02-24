@@ -3,7 +3,9 @@ package gui.mainwindow;
 import events.EventManager;
 import gui.ExceptionHandler;
 import gui.mainwindow.tabs.CityTab;
+import gui.mainwindow.tabs.CountryTab;
 import gui.mainwindow.tabs.ModelTab;
+import gui.mainwindow.tabs.RegionTab;
 import gui.mainwindow.tabs.SortTab;
 import gui.mainwindow.tabs.TypeTab;
 import gui.mainwindow.tabs.VineTab;
@@ -18,7 +20,9 @@ import javax.swing.JTabbedPane;
 
 import repository.Repository;
 import model.City;
+import model.Country;
 import model.Model;
+import model.Region;
 import model.Sort;
 import model.Vine;
 import model.Wine;
@@ -80,6 +84,8 @@ public class MainWindow extends BaseWindow {
 
 		tabs = new HashMap<Class<? extends Model>, ModelTab<?>>();
 		tabs.put(City.class, new CityTab(this));
+		tabs.put(Country.class, new CountryTab(this));
+		tabs.put(Region.class, new RegionTab(this));
 		tabs.put(Sort.class, new SortTab(this));
 		tabs.put(model.Type.class, new TypeTab(this));
 		tabs.put(Vine.class, new VineTab(this));
