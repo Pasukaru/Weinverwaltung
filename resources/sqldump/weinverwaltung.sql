@@ -11,6 +11,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- Exportiere Datenbank Struktur für weinverwaltung
+DROP DATABASE IF EXISTS `weinverwaltung`;
 CREATE DATABASE IF NOT EXISTS `weinverwaltung` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `weinverwaltung`;
 
@@ -117,9 +118,9 @@ CREATE TABLE IF NOT EXISTS `vine` (
 /*!40000 ALTER TABLE `vine` DISABLE KEYS */;
 INSERT INTO `vine` (`id`, `name`) VALUES
 	(2, 'Burgunder'),
-	(4, 'Gewürztraminer'),
+	(3, 'Gewürztraminer'),
 	(1, 'Merlot'),
-	(3, 'Pinot Gris');
+	(4, 'Pinot Gris');
 /*!40000 ALTER TABLE `vine` ENABLE KEYS */;
 
 
