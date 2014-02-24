@@ -70,6 +70,22 @@ public class RepositoryTest {
 	public static void afterClass(){
 		Repository.close();
 	}
+	
+	@Test
+	public void testErrorHandling(){
+		final List<Boolean> l = new ArrayList<Boolean>();
+		Repository.setExceptionHandler(new ExceptionHandler() {
+			@Override
+			public void handleException(Exception e) {
+				l.add(true);
+			}
+		});
+		
+		city.update(new City("asdf", "326598", null));
+		
+		assertFalse("Exception was not handled properly", l.isEmpty());
+		assertTrue("Exception was not handled properly", l.get(0));
+	}
 
 	@Test
 	public void testCreateAndGetByName() {
@@ -95,19 +111,13 @@ public class RepositoryTest {
 	}
 	
 	@Test
-	public void testErrorHandling(){
-		final List<Boolean> l = new ArrayList<Boolean>();
-		Repository.setExceptionHandler(new ExceptionHandler() {
-			@Override
-			public void handleException(Exception e) {
-				l.add(true);
-			}
-		});
+	public void testSearch(){
+		country.update(new Country("Test 1"));
+		country.update(new Country("Test 2"));
+		country.update(new Country("Test 3"));
+		country.update(new Country("Test 4"));
 		
-		city.update(new City("asdf", "326598", null));
-		
-		assertFalse("Exception was not handled properly", l.isEmpty());
-		assertTrue("Exception was not handled properly", l.get(0));
+		assertTrue("Should find 4 countries", country.search("Test").size() == 4);
 	}
 
 }

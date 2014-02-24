@@ -136,11 +136,11 @@ public class Repository<T extends Model> {
 	
 	public List<T> search(String query){
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-		CriteriaQuery<T> q = cb.createQuery(model);
-		Root<T> root = q.from(model);
+		CriteriaQuery<T> cq = cb.createQuery(model);
+		Root<T> root = cq.from(model);
 		Expression<String> name = root.get("name");
-		q.where(cb.like(name, "%"+query+"%"));
-		return ((Query) q).getResultList();
+		cq.where(cb.like(name, "%"+query+"%"));
+		return entityManager.createQuery(cq).getResultList();
 	}
 
 	public void update(T model){
