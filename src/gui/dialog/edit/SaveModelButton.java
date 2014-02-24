@@ -26,7 +26,7 @@ public abstract class SaveModelButton<T extends Model> extends JButton implement
 	public void actionPerformed(ActionEvent e) {
 		List<String> errors = editDialog.validateModel();
 		if(!errors.isEmpty()){
-			JOptionPane.showMessageDialog(null, StringUtils.join(errors, System.lineSeparator()), "Ungültige Eingabe(n)", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, StringUtils.join(errors, System.lineSeparator()), "UngÃ¼ltige Eingabe(n)", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		editDialog.save();

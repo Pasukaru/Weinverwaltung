@@ -17,7 +17,7 @@ public class TypeEditDialog extends EditDialog<Type> {
 	public TypeEditDialog(Type model) {
 		super(model);
 
-		setTitle(isCreate() ? "Weinart hinzufügen" : "Weinart bearbeiten");
+		setTitle(isCreate() ? "Weinart hinzufÃ¼gen" : "Weinart bearbeiten");
 
 		add(dataPanel = new TypeEditDataPanel(this), BorderLayout.CENTER);
 		add(buttonsPanel = new EditButtonPanel<Type>(this), BorderLayout.SOUTH);

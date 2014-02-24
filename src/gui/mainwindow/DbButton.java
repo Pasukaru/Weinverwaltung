@@ -46,7 +46,7 @@ public class DbButton extends JButton implements ActionListener {
 		try {
 			c = DriverManager.getConnection("jdbc:mysql://localhost:3306/weinverwaltung", "root", "");
 			c.createStatement().execute("drop database weinverwaltung");
-			c.createStatement().execute("create database weinverwaltung");
+			c.createStatement().execute("create database weinverwaltung collate 'utf8_general_ci'");
 		} catch(Exception e1){
 			e = e1;
 		}
@@ -67,7 +67,7 @@ public class DbButton extends JButton implements ActionListener {
 		Region region2 = new Region("Toskana", country2);
 		Region region3 = new Region("Normandie", country3);
 
-		City city1 = new City("München", "88888", region1);
+		City city1 = new City("MÃ¼nchen", "88888", region1);
 		City city2 = new City("Pisa", "12152", region2);
 		City city3 = new City("Lille", "65594", region3);
 
@@ -79,11 +79,11 @@ public class DbButton extends JButton implements ActionListener {
 		vines2.add(vine2);
 		Set<Vine> vines3 = new HashSet<Vine>();
 		Vine vine3 = new Vine("Pinot Gris");
-		Vine vine4 = new Vine("Gewürztraminer");
+		Vine vine4 = new Vine("GewÃ¼rztraminer");
 		vines3.add(vine3);
 		vines3.add(vine4);
 
-		Winery winery1 = new Winery("Häusl");
+		Winery winery1 = new Winery("HÃ¤usl");
 		Winery winery2 = new Winery("Keller");
 		Winery winery3 = new Winery("Brauer");
 
@@ -91,7 +91,7 @@ public class DbButton extends JButton implements ActionListener {
 		Sort sort2 = new Sort("halbtrocken");
 
 		Type type1 = new Type("Rotwein");
-		Type type2 = new Type("Weißwein");
+		Type type2 = new Type("WeiÃŸwein");
 
 		int price1 = 1250;
 		int price2 = 3000;

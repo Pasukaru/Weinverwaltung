@@ -3,14 +3,14 @@ package util;
 public class SplashMessage {
 
 	private static final String[] messages = {
-		"Flaschen schütteln...",
+		"Flaschen schÃ¼tteln...",
 		"Korken ziehen...",
 		"Weintrauben stampfen...",
-		"Preise auswürfeln...",
+		"Preise auswÃ¼rfeln...",
 		"Weinproben organisieren...",
 		"Sommeliers bestechen...",
 		"Wein des Jahres mixen...",
-		"Fässer sortieren...",
+		"FÃ¤sser sortieren...",
 	};
 	
 	private static int next = (int) Math.floor(Math.random()*messages.length);

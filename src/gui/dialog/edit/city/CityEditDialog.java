@@ -24,7 +24,7 @@ public class CityEditDialog extends EditDialog<City> {
 	public CityEditDialog(City model) {
 		super(model);
 
-		setTitle(isCreate() ? "Stadt hinzuf�gen" : "Stadt bearbeiten");
+		setTitle(isCreate() ? "Stadt hinzufügen" : "Stadt bearbeiten");
 
 		regions = Repository.getInstance(Region.class).getAll();
 		countries = Repository.getInstance(Country.class).getAll();
@@ -33,6 +33,16 @@ public class CityEditDialog extends EditDialog<City> {
 		add(buttonsPanel = new EditButtonPanel<City>(this), BorderLayout.SOUTH);
 	}
 
+	@Override
+	protected java.util.List<String> validateModel() {
+		List<String> errors = super.validateModel();
+		CityEditDataPanel dataPanel = getDataPanel();
+		if(dataPanel.getRegion() == null){
+			errors.add("Bitte eine Region auswählen");
+		}
+		return errors;
+	};
+	
 	@Override
 	protected void save() {
 		CityEditDataPanel dataPanel = getDataPanel();

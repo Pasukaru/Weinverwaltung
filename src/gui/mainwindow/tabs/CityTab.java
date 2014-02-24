@@ -12,7 +12,7 @@ public class CityTab extends ModelTab<City> {
 	private static final long serialVersionUID = -6218897174571210449L;
 
 	public CityTab(MainWindow mainWindow) {
-		super(mainWindow, City.class, "St‰dte");
+		super(mainWindow, City.class, "St√§dte");
 	}
 	
 	@Override

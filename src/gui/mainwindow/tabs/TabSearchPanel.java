@@ -80,7 +80,7 @@ public class TabSearchPanel<T extends Model> extends JPanel {
 			}
 		});
 		
-		JButton close = new JButton("Tab schlieﬂen");
+		JButton close = new JButton("Tab schlie√üen");
 		close.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

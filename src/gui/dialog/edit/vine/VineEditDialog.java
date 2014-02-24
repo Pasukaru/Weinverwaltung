@@ -17,7 +17,7 @@ public class VineEditDialog extends EditDialog<Vine> {
 	public VineEditDialog(Vine model) {
 		super(model);
 
-		setTitle(isCreate() ? "Rebsorte hinzufügen" : "Rebsorte bearbeiten");
+		setTitle(isCreate() ? "Rebsorte hinzufÃ¼gen" : "Rebsorte bearbeiten");
 
 		add(dataPanel = new VineEditDataPanel(this), BorderLayout.CENTER);
 		add(buttonsPanel = new EditButtonPanel<Vine>(this), BorderLayout.SOUTH);

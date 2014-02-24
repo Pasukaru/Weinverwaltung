@@ -24,7 +24,7 @@ public class TabButtonPanel<T extends Model> extends JPanel {
 
 		setBorder(new TitledBorder(null, "Aktionen", TitledBorder.CENTER, TitledBorder.TOP));
 
-		JButton add = new JButton("Hinzufügen");
+		JButton add = new JButton("HinzufÃ¼gen");
 		add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -41,7 +41,7 @@ public class TabButtonPanel<T extends Model> extends JPanel {
 			}
 		});
 		
-		final JButton delete = new JButton("Löschen");
+		final JButton delete = new JButton("LÃ¶schen");
 		delete.setEnabled(false);
 		delete.addActionListener(new ActionListener(){
 			@SuppressWarnings("unchecked")
@@ -50,7 +50,7 @@ public class TabButtonPanel<T extends Model> extends JPanel {
 				T model = tab.getSelectedModel();
 				if(model != null){
 					if(!((Repository<T>) Repository.getInstance(model.getClass())).delete(model)){
-						JOptionPane.showMessageDialog(tab, "Dieser Eintrag kann nicht gelöscht werden, da andere Daten von ihm abhängen.", "Fehler", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(tab, "Dieser Eintrag kann nicht gelÃ¶scht werden, da andere Daten von ihm abhÃ¤ngen.", "Fehler", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}

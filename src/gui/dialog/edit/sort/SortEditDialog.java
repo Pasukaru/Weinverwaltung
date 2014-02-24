@@ -17,7 +17,7 @@ public class SortEditDialog extends EditDialog<Sort> {
 	public SortEditDialog(Sort model) {
 		super(model);
 
-		setTitle(isCreate() ? "Weinsorte hinzufügen" : "Weinsorte bearbeiten");
+		setTitle(isCreate() ? "Weinsorte hinzufÃ¼gen" : "Weinsorte bearbeiten");
 
 		add(dataPanel = new SortEditDataPanel(this), BorderLayout.CENTER);
 		add(buttonsPanel = new EditButtonPanel<Sort>(this), BorderLayout.SOUTH);

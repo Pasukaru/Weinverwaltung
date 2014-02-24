@@ -21,7 +21,7 @@ public class RegionEditDialog extends EditDialog<Region> {
 	public RegionEditDialog(Region model) {
 		super(model);
 
-		setTitle(isCreate() ? "Weinart hinzufügen" : "Weinart bearbeiten");
+		setTitle(isCreate() ? "Weinart hinzufÃ¼gen" : "Weinart bearbeiten");
 		
 		countries = Repository.getInstance(Country.class).getAll();
 
@@ -35,7 +35,7 @@ public class RegionEditDialog extends EditDialog<Region> {
 
 		RegionEditDataPanel dataPanel = getDataPanel();
 		if(dataPanel.getCountry() == null){
-			errors.add("Bitte ein Land auswählen");
+			errors.add("Bitte ein Land auswÃ¤hlen");
 		}
 		
 		return errors;

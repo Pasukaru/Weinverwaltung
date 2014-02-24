@@ -17,7 +17,7 @@ public class CountryEditDialog extends EditDialog<Country> {
 	public CountryEditDialog(Country model) {
 		super(model);
 
-		setTitle(isCreate() ? "Weinart hinzufügen" : "Weinart bearbeiten");
+		setTitle(isCreate() ? "Weinart hinzufÃ¼gen" : "Weinart bearbeiten");
 
 		add(dataPanel = new CountryEditDataPanel(this), BorderLayout.CENTER);
 		add(buttonsPanel = new EditButtonPanel<Country>(this), BorderLayout.SOUTH);

@@ -23,7 +23,7 @@ public class WineTab extends ModelTab<Wine> {
 	public WineTab(MainWindow mainWindow) {
 		super(mainWindow, Wine.class, "Weine");
 
-		final JButton addToCart = new JButton("Zum Warenkorb hinzufügen");
+		final JButton addToCart = new JButton("Zum Warenkorb hinzufÃ¼gen");
 		addToCart.setEnabled(false);
 		addToCart.addActionListener(new ActionListener() {
 			@Override

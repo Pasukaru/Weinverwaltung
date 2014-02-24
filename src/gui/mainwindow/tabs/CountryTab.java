@@ -12,7 +12,7 @@ public class CountryTab extends ModelTab<Country> {
 	private static final long serialVersionUID = -6218897174571210449L;
 
 	public CountryTab(MainWindow mainWindow) {
-		super(mainWindow, Country.class, "Länder");
+		super(mainWindow, Country.class, "LÃ¤nder");
 	}
 
 	@Override

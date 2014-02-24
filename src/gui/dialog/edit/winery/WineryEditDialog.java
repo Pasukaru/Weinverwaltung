@@ -17,7 +17,7 @@ public class WineryEditDialog extends EditDialog<Winery> {
 	public WineryEditDialog(Winery model) {
 		super(model);
 
-		setTitle(isCreate() ? "Winzer hinzufügen" : "Winzer bearbeiten");
+		setTitle(isCreate() ? "Winzer hinzufÃ¼gen" : "Winzer bearbeiten");
 
 		add(dataPanel = new WineryEditDataPanel(this), BorderLayout.CENTER);
 		add(buttonsPanel = new EditButtonPanel<Winery>(this), BorderLayout.SOUTH);

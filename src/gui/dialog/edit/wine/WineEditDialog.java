@@ -29,7 +29,7 @@ public class WineEditDialog extends EditDialog<Wine> {
 	public WineEditDialog(Wine model) {
 		super(model);
 
-		setTitle(isCreate() ? "Wein hinzuf¸gen" : "Wein bearbeiten");
+		setTitle(isCreate() ? "Wein hinzuf√ºgen" : "Wein bearbeiten");
 
 		cities = Repository.getInstance(City.class).getAll();
 		types = Repository.getInstance(Type.class).getAll();
@@ -50,19 +50,19 @@ public class WineEditDialog extends EditDialog<Wine> {
 			errors.add("Bitte einen Preis angeben");
 		}
 		if(dataPanel.getType() == null){
-			errors.add("Bitte eine Weinart ausw‰hlen");
+			errors.add("Bitte eine Weinart ausw√§hlen");
 		}
 		if(dataPanel.getSort() == null){
-			errors.add("Bitte eine Weinsorte ausw‰hlen");
+			errors.add("Bitte eine Weinsorte ausw√§hlen");
 		}
 		if(dataPanel.getVines().isEmpty()){
-			errors.add("Bitte mindestens eine Rebsorte ausw‰hlen");
+			errors.add("Bitte mindestens eine Rebsorte ausw√§hlen");
 		}
 		if(dataPanel.getWinery() == null){
-			errors.add("Bitte einen Winzer ausw‰hlen");
+			errors.add("Bitte einen Winzer ausw√§hlen");
 		}
 		if(dataPanel.getCity() == null){
-			errors.add("Bitte eine Stadt ausw‰hlen");
+			errors.add("Bitte eine Stadt ausw√§hlen");
 		}
 
 		return errors;
