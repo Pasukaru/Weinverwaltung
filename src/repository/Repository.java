@@ -5,12 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.exception.JDBCConnectionException;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import util.ExceptionHandler;
 import util.JpaUtil;
@@ -33,7 +35,6 @@ public class Repository<T extends Model> {
 	protected static ExceptionHandler exceptionHandler = null;
 
 	protected static EntityManager entityManager = null;
-	protected static Session session = null;
 	protected static EventManager eventManager;
 
 	private static HashMap<Class<? extends Model>, Repository<? extends Model>> instances;
@@ -47,13 +48,12 @@ public class Repository<T extends Model> {
 			exceptionHandler.handleException(e);
 		}
 	}
-
-	public static void init(EventManager eventManager){
+	
+	public static void init(EventManager eventManager, String persistenceUnit){
 		try {
 			close();
-			JpaUtil.init("WEINVERWALTUNG");
+			JpaUtil.init(persistenceUnit);
 			entityManager = JpaUtil.getEM();
-			session = (Session) entityManager.getDelegate();
 			Repository.eventManager = eventManager;
 			instances = new HashMap<Class<? extends Model>, Repository<? extends Model>>();
 			instances.put(City.class, new Repository<City>(City.class));
@@ -68,13 +68,12 @@ public class Repository<T extends Model> {
 			handleException(e);
 		}
 	}
+
+	public static void init(EventManager eventManager){
+		init(eventManager, "PROD");
+	}
 	
 	public static void close() {
-		if(session != null){
-			try { session.flush(); } catch(Exception e) {}
-			try { session.close(); } catch(Exception e) {}
-			session = null;
-		}
 		JpaUtil.close();
 		entityManager = null;
 		eventManager = null;
@@ -96,25 +95,25 @@ public class Repository<T extends Model> {
 		return (Repository<T>) instances.get(model);
 	}
 	
-	public Criteria getSearchCriteria(String query){
-		return session.createCriteria(model).add(Restrictions.like("name", "%"+query+"%"));
-	}
-	
-	public T getOne(Criteria criteria){
-		if(criteria == null){
-			session.createCriteria(model);
-		}
-		List<T> results = getAll(criteria.setMaxResults(1));
+	public T getOne(CriteriaQuery<T> cq){
+		Query q = entityManager.createQuery(cq);
+		q.setMaxResults(1);
+		List<T> results = q.getResultList();
 		return results.isEmpty() ? null : results.get(0);
 	}
 	
-	public List<T> getAll(Criteria criteria){
+	public List<T> getAll(Predicate p){
 		try {
-			if(criteria == null){
-				criteria = session.createCriteria(model);
+			CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+	        CriteriaQuery<T> cq = cb.createQuery(model);
+	        Root<T> rootEntry = cq.from(model);
+	        CriteriaQuery<T> all = cq.select(rootEntry);
+			if(p != null){
+				all.where(p);
 			}
-			return criteria.list();
-		} catch(JDBCConnectionException e){
+			TypedQuery<T> allQuery = entityManager.createQuery(all);
+			return allQuery.getResultList();
+		} catch(Exception e){
 			handleException(e);
 			return new ArrayList<T>();
 		}
@@ -125,23 +124,35 @@ public class Repository<T extends Model> {
 	}
 	
 	public T getByName(String name){
-		return getOne(session.createCriteria(model).add(Restrictions.eq("name", name)));
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<T> cq = cb.createQuery(model);
+		Root<T> root = cq.from(model);
+		
+		Expression<String> path = root.get("name");
+		cq.where(cb.equal(path, name));
+		
+		return getOne(cq);
 	}
 	
 	public List<T> search(String query){
-		return getAll(getSearchCriteria(query));
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<T> q = cb.createQuery(model);
+		Root<T> root = q.from(model);
+		Expression<String> name = root.get("name");
+		q.where(cb.like(name, "%"+query+"%"));
+		return ((Query) q).getResultList();
 	}
 
 	public void update(T model){
-		Transaction tx = null;
+		EntityTransaction tx = null;
 		try {
-			tx = session.beginTransaction();
-			session.persist(model);
-			session.update(model);
+			tx = entityManager.getTransaction();
+			tx.begin();
+			entityManager.persist(model);
 			tx.commit();
 			eventManager.fireAnyModelChanged(model);	
 		} catch(Exception e){
-			if(tx != null){ tx.rollback(); }
+			if(tx != null){ try { tx.rollback(); }catch(Exception e1) {}}
 			handleException(e);
 		}
 	}
@@ -149,21 +160,22 @@ public class Repository<T extends Model> {
 	public boolean delete(T model){
 		boolean deleted = false;
 
-		Transaction tx = null;
+		EntityTransaction tx = null;
 		try {
-			tx = session.beginTransaction();
-		    session.delete(model);
+			tx = entityManager.getTransaction();
+			tx.begin();
+			entityManager.remove(model);
 		    tx.commit();
-		    
-			Object result = session.get(model.getClass(), model.getId());
+			Object result = entityManager.find(model.getClass(), model.getId());
 			if(result == null){
 				eventManager.fireAnyModelChanged(model);
 				deleted = true;
 			}
 		} catch(Exception e){
-			if(tx != null){ tx.rollback(); }
+			if(tx != null){ try { tx.rollback(); }catch(Exception e1) {}}
 			handleException(e);
 		}
+
 		return deleted;
 	}
 
