@@ -31,7 +31,7 @@ public class ExceptionHandler implements util.ExceptionHandler {
 		}
 		
 		if(connectionLost){
-			JOptionPane.showMessageDialog(mainWindow, "Keine Verbindung zur Datenbank.\nStarten Sie den Datenbankserver und führen Sie die Applikation erneut aus.", "Fehler", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(mainWindow, "Keine Verbindung zur Datenbank.\nStarten Sie den Datenbankserver und fÃ¼hren Sie die Applikation erneut aus.", "Fehler", JOptionPane.ERROR_MESSAGE);
 			JpaUtil.close();
 			System.exit(1);
 		} else {
