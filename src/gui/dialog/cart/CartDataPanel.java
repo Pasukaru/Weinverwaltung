@@ -69,7 +69,7 @@ public class CartDataPanel extends JPanel{
 		calcTotal();
 		
 		if(i < 1){
-			int val = JOptionPane.showConfirmDialog(null, "Eintrag entfernen?", "Option auswählen", JOptionPane.YES_NO_OPTION);
+			int val = JOptionPane.showConfirmDialog(null, "Eintrag entfernen?", "Option auswÃ¤hlen", JOptionPane.YES_NO_OPTION);
 			if(val == JOptionPane.YES_OPTION){
 				CartDialog.cart.remove(e);
 				if(CartDialog.cart.isEmpty()){
