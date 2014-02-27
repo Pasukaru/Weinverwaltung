@@ -160,21 +160,24 @@ public class Repository<T extends Model> {
 	public boolean delete(T model){
 		boolean deleted = false;
 
-		EntityTransaction tx = null;
+		EntityTransaction tx = entityManager.getTransaction();
 		try {
-			tx = entityManager.getTransaction();
 			tx.begin();
 			entityManager.remove(model);
 		    tx.commit();
-			Object result = entityManager.find(model.getClass(), model.getId());
-			if(result == null){
-				eventManager.fireAnyModelChanged(model);
-				deleted = true;
-			}
 		} catch(Exception e){
-			if(tx != null){ try { tx.rollback(); }catch(Exception e1) {}}
 			handleException(e);
 		}
+
+		Object result = entityManager.find(model.getClass(), model.getId());
+		if(result == null){
+			deleted = true;
+		} else {
+			try { tx.rollback(); }catch(Exception e1) {}
+			entityManager.refresh(model);
+		}
+
+		eventManager.fireAnyModelChanged(model);
 
 		return deleted;
 	}
